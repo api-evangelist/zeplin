@@ -52,6 +52,9 @@ apis:
         url: https://docs.zeplin.dev/docs/welcome
       - type: OpenAPI
         url: https://github.com/zeplin/openapi
+      - type: OpenAPI
+        url: >-
+          https://raw.githubusercontent.com/api-evangelist/zeplin/refs/heads/main/openapi/zeplin-zeplin-api-openapi.yml
       - type: Authentication
         url: https://docs.zeplin.dev/reference/authentication
       - type: RateLimits

@@ -1,0 +1,182 @@
+[
+  {
+    "operationId": "OAuthAuthorize",
+    "summary": "Authorization endpoint",
+    "method": "GET",
+    "path": "/v1/oauth/authorize",
+    "tags": [
+      "Authorization"
+    ]
+  },
+  {
+    "operationId": "OAuthPostToken",
+    "summary": "Access token endpoint",
+    "method": "POST",
+    "path": "/v1/oauth/token",
+    "tags": [
+      "Authorization"
+    ]
+  },
+  {
+    "operationId": "GetOrganizations",
+    "summary": "Get organizations",
+    "method": "GET",
+    "path": "/v1/organizations",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganization",
+    "summary": "Get a single organization",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationBilling",
+    "summary": "Get organization billing details",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/billing",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationProjects",
+    "summary": "Get organization projects",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/projects",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationWorkflowStatuses",
+    "summary": "Get organization workflow statuses",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/workflow_statuses",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationStyleguides",
+    "summary": "Get organization styleguides",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/styleguides",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationAliens",
+    "summary": "Get organization aliens",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/aliens",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationWebhooks",
+    "summary": "Get organization webhooks",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/webhooks",
+    "tags": [
+      "Webhooks"
+    ]
+  },
+  {
+    "operationId": "CreateOrganizationWebhooks",
+    "summary": "Create organization webhooks",
+    "method": "POST",
+    "path": "/v1/organizations/{organization_id}/webhooks",
+    "tags": [
+      "Webhooks"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationWebhook",
+    "summary": "Get a webhook of organization",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/webhooks/{webhook_id}",
+    "tags": [
+      "Webhooks"
+    ]
+  },
+  {
+    "operationId": "DeleteOrganizationWebhook",
+    "summary": "Delete a webhook of an organization",
+    "method": "DELETE",
+    "path": "/v1/organizations/{organization_id}/webhooks/{webhook_id}",
+    "tags": [
+      "Webhooks"
+    ]
+  },
+  {
+    "operationId": "UpdateOrganizationWebhooks",
+    "summary": "Update organization webhooks",
+    "method": "PATCH",
+    "path": "/v1/organizations/{organization_id}/webhooks/{webhook_id}",
+    "tags": [
+      "Webhooks"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationMembers",
+    "summary": "Get organization members",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/members",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "InviteOrganizationMember",
+    "summary": "Invite member",
+    "method": "POST",
+    "path": "/v1/organizations/{organization_id}/members",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "UpdateOrganizationMember",
+    "summary": "Update an organization member",
+    "method": "PATCH",
+    "path": "/v1/organizations/{organization_id}/members/{member_id}",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "RemoveOrganizationMember",
+    "summary": "Remove an organization member",
+    "method": "DELETE",
+    "path": "/v1/organizations/{organization_id}/members/{member_id}",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationMemberProjects",
+    "summary": "Get a member's projects",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/members/{member_id}/projects",
+    "tags": [
+      "Organizations"
+    ]
+  },
+  {
+    "operationId": "GetOrganizationMemberStyleguides",
+    "summary": "Get a member's styleguides",
+    "method": "GET",
+    "path": "/v1/organizations/{organization_id}/members/{member_id}/styleguides",
+    "tags": [
+      "Organizations"
+    ]
+  }
+]

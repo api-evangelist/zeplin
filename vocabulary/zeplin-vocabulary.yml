@@ -1,0 +1,789 @@
+vocabulary: zeplin-vocabulary
+description: Vocabulary for the Zeplin API covering design collaboration, handoff,
+  and developer tooling
+version: 1.38.0
+source: https://github.com/zeplin/openapi
+domains:
+- Authorization
+- Colors
+- Components
+- Connected Components
+- Design Tokens
+- Flows
+- Notifications
+- Organizations
+- Projects
+- Screens
+- Spacing
+- Styleguides
+- TextStyles
+- Users
+- Variable Collections
+- Webhooks
+terms:
+- term: TokenResponse
+  description: Zeplin API schema object
+- term: BoundingRectangle
+  description: Zeplin API schema object
+- term: HotspotBoundingRectangle
+  description: Zeplin API schema object
+- term: Color
+  description: Zeplin API schema object
+- term: ColorData
+  description: Zeplin API schema object
+- term: User
+  description: 'Basic info about Zeplin users.
+
+
+    Zeplin API does not expose any personal information to third-party clients. For
+    this reason, the `email` field is a Zeplin-only alias by default.
+
+
+    You can get the original email addresses of members of your workspace by using
+    a personal access token created with admin rights. Third-party (OAuth) applications
+    are not allowed to access this information.
+
+
+    ☝️*Only organization admins (or higher) can retrieve the original email addresses
+    using an admin token.*
+
+    '
+- term: RemPreferences
+  description: rem preferences of project or styleguide. The content of this property
+    varies depending on the value of its status field.
+- term: EnabledRemPreferences
+  description: Zeplin API schema object
+- term: DisabledOrLinkedRemPreferences
+  description: If `status` is `"linked"`, project or styleguide uses its parent styleguide
+    as the source of preferences.
+- term: Project
+  description: Zeplin API schema object
+- term: ProjectMember
+  description: Zeplin API schema object
+- term: Organization
+  description: Zeplin API schema object
+- term: OrganizationBilling
+  description: Zeplin API schema object
+- term: OrganizationMember
+  description: Zeplin API schema object
+- term: OrganizationSummary
+  description: Zeplin API schema object
+- term: Screen
+  description: Zeplin API schema object
+- term: ScreenNote
+  description: 'Screen notes are comments added to a screen and can be either point
+    notes, which have a single point in the position field, or area notes, which have
+    a position field containing both a start and end point to define a rectangular
+    region.
+
+    '
+- term: ScreenNoteColor
+  description: Zeplin API schema object
+- term: ScreenNotePosition
+  description: Position of the note with respect to top left corner. Values are normalized
+    in [0, 1]
+- term: ScreenAnnotation
+  description: Zeplin API schema object
+- term: ScreenAnnotationPosition
+  description: Position of the annotation with respect to top left corner. Values
+    are normalized in [0, 1]
+- term: ScreenAnnotationNoteType
+  description: Zeplin API schema object
+- term: ScreenAnnotationColor
+  description: Zeplin API schema object
+- term: ScreenSection
+  description: Zeplin API schema object
+- term: ScreenVariant
+  description: Zeplin API schema object
+- term: ScreenVariantGroup
+  description: Zeplin API schema object
+- term: ScreenVariantGroupReference
+  description: Variant group that contains the screen
+- term: ScreenVariantGroupValue
+  description: Zeplin API schema object
+- term: ScreenVersion
+  description: Zeplin API schema object
+- term: ScreenVersionSummary
+  description: Zeplin API schema object
+- term: Styleguide
+  description: Zeplin API schema object
+- term: StyleguideMember
+  description: Zeplin API schema object
+- term: VersionCommit
+  description: Zeplin API schema object
+- term: VersionCommitColor
+  description: Zeplin API schema object
+- term: TextStyle
+  description: Zeplin API schema object
+- term: TextStyleData
+  description: Zeplin API schema object
+- term: Component
+  description: Zeplin API schema object
+- term: ComponentSection
+  description: Zeplin API schema object
+- term: ComponentSectionReference
+  description: Zeplin API schema object
+- term: ComponentGroup
+  description: Zeplin API schema object
+- term: ComponentSectionVariant
+  description: Variant information for this component section
+- term: ComponentSectionVariantProperty
+  description: Zeplin API schema object
+- term: ComponentVariantProperty
+  description: Zeplin API schema object
+- term: ComponentVersion
+  description: Zeplin API schema object
+- term: ComponentVersionSummary
+  description: Zeplin API schema object
+- term: SnapshotImage
+  description: Zeplin API schema object
+- term: SpacingToken
+  description: Zeplin API schema object
+- term: SpacingTokenColor
+  description: Zeplin API schema object
+- term: SpacingSection
+  description: Zeplin API schema object
+- term: LayerPosition
+  description: Zeplin API schema object
+- term: Layer
+  description: Zeplin API schema object
+- term: Gradient
+  description: Zeplin API schema object
+- term: ColorStop
+  description: Zeplin API schema object
+- term: LayerBlur
+  description: Blur applied to the layer
+- term: LayerBorder
+  description: Zeplin API schema object
+- term: LayerFill
+  description: Zeplin API schema object
+- term: LayerShadow
+  description: Zeplin API schema object
+- term: LayerTextStyle
+  description: Zeplin API schema object
+- term: LayerTextStyleRange
+  description: Zeplin API schema object
+- term: Asset
+  description: 'Assets are automatically generated while exporting designs based on
+    the platform the design is exported. Asset formats and densities change according
+    to these platforms.
+
+
+    Platform | Formats
+
+    ---|---|---
+
+    Base | PNG (1.0, 1.5, 2.0, 3.0, 4.0), and PDF
+
+    Web | PNG (1.0, 2.0, 3.0), SVG, and JPG (bitmap image)
+
+    iOS | PNG (1.0, 2.0, 3.0), and PDF
+
+    Android | PNG (1.0, 1.5, 2.0, 3.0, 4.0), and SVG
+
+    '
+- term: AssetContent
+  description: Zeplin API schema object
+- term: EntityReference
+  description: Zeplin API schema object
+- term: ErrorResponse
+  description: Zeplin API schema object
+- term: ScreenNoteComment
+  description: Zeplin API schema object
+- term: UserWebhook
+  description: Zeplin API schema object
+- term: OrganizationWebhook
+  description: Zeplin API schema object
+- term: ProjectWebhook
+  description: Zeplin API schema object
+- term: StyleguideWebhook
+  description: Zeplin API schema object
+- term: ZeplinApplication
+  description: Zeplin API schema object
+- term: Thumbnails
+  description: Thumbnail image URLs in various sizes. The aspect ratio of the original
+    image is preserved. If the width of original image is lower than the desired width
+    then the original width is used.
+- term: Notification
+  description: 'Notification objects have a polymorphic structure. They can be of
+    various types and each type has a certain set of actions that describe the notification
+    further.
+
+
+    Notification content (specifically `resource` and `context` fields) varies based
+    on the value of type field. These variations and their details are described in
+    the table below.
+
+
+    Type | Actions | Context | Resource | Description
+
+    --| --| --| --| --
+
+    `workspace.project`  | `activated`<br />`archived`<br />`deleted`<br />`ownership_transferred`
+    | - | `Project (extra: { name, platform })` |  Used for changes related to projects
+    in a workspace.
+
+    `workspace.styleguide`  | `activated`<br />`archived`<br />`deleted`<br />`ownership_transferred`
+    | - | `Styleguide (extra: { name, platform })` |  Used for changes related to
+    styleguides in a workspace.
+
+    `workspace.organization.member`  | `role_updated`<br />`invited` | `Organization
+    (extra: { name })` | `OrganizationMember (extra: { role })` |  Used for changes
+    related to members of a workspace.
+
+    `project.screen`  | `created`<br />`version_created`<br />`deleted` | `Project
+    (extra: { name, platform })`<br />`ScreenVersion (extra: { image_url, thumbnails,
+    width, height })` | `Screen (extra: { name })` |  Used for changes related to
+    screens in a project.
+
+    `project.screen.note`  | `created`<br />`mentioned` | `Project (extra: { name,
+    platform })`<br />`Screen (extra: { name })`<br />`ScreenNoteComment (extra: {
+    content })` | `Screen (extra: { order, color, status })` |  Used for changes related
+    to notes.
+
+    `project.screen.note.comment`  | `created`<br />`mentioned` | `Project (extra:
+    { name, platform })`<br />`Screen (extra: { name })`<br />`Screen (extra: { order,
+    color, status })` | `ScreenNoteComment (extra: { content })` |  Used for changes
+    related to note comments.
+
+    `project.color`  | `created`<br />`updated`<br />`deleted` | `Project (extra:
+    { name, platform })` | `Color (extra: { name, r, g, b, a })` |  Used for changes
+    related to colors in a project.
+
+    `project.text_style`  | `created`<br />`updated`<br />`deleted` | `Project (extra:
+    { name, platform })` | `TextStyle (extra: { name })` |  Used for changes related
+    to text styles in a project.
+
+    `project.component`  | `created`<br />`version_created`<br />`deleted` | `Project
+    (extra: { name, platform })` | `Component (extra: { name })` |  Used for changes
+    related to components in a project.
+
+    `project.spacing_token`  | `created`<br />`updated`<br />`deleted` | `Project
+    (extra: { name, platform })` | `SpacingToken (extra: { name, value })` |  Used
+    for changes related to spacing tokens in a project.
+
+    `project.member`  | `joined` | `Project (extra: { name, platform })` | |  Used
+    for changes related to members of a project.
+
+    `project.extension`  | `added`<br />`removed` | `Project (extra: { name, platform
+    })` | `Extension (extra: { name })` |  Used for changes related to extensions
+    in a project.
+
+    `project.slack_integration`  | `added` | `Project (extra: { name, platform })`
+    | `SlackIntegration (extra: { channel })` |  Used for changes related to slack
+    intgrations in a project.
+
+    `project.jira_attachment`  | `added`<br />`removed` | `Project (extra: { name,
+    platform })` | `JiraIntegration (extra: { issue })` |  Used for changes related
+    to jira attachments in a project.
+
+    `project.screen.jira_attachment`  | `added`<br />`removed` | `Project (extra:
+    { name, platform })`<br />`Screen (extra: { name })` | `JiraIntegration (extra:
+    { issue })` |  Used for changes related to jira attachments in a screen.
+
+    `project.screen_section.jira_attachment`  | `added`<br />`removed` | `Project
+    (extra: { name, platform })`<br />`ScreenSection (extra: { name })` | `JiraIntegration
+    (extra: { issue })` |  Used for changes related to jira attachments in a screen
+    section.
+
+    `project.flow_board`  | `added` | `Project (extra: { name, platform })` | `FlowBoard
+    (extra: {})` |  Used for changes related to flow boards in a project.
+
+    `styleguide.color`  | `created`<br />`updated`<br />`deleted` | `Styleguide (extra:
+    { name, platform })` | `Color (extra: { name, r, g, b, a })` |  Used for changes
+    related to colors in a styleguide.
+
+    `styleguide.text_style`  | `created`<br />`updated`<br />`deleted` | `Styleguide
+    (extra: { name, platform })` | `TextStyle (extra: { name })` |  Used for changes
+    related to text styles in a styleguide.
+
+    `styleguide.component`  | `created`<br />`version_created`<br />`deleted` | `Styleguide
+    (extra: { name, platform })` | `Component (extra: { name })` |  Used for changes
+    related to components in a styleguide.
+
+    `styleguide.spacing_token`  | `created`<br />`updated`<br />`deleted` | `Styleguide
+    (extra: { name, platform })` | `SpacingToken (extra: { name, value })` |  Used
+    for changes related to spacing tokens in a styleguide.
+
+    `styleguide.member`  | `joined` | `Styleguide (extra: { name, platform })` | `User
+    (extra: { username })` |  Used for changes related to members of a styleguide.
+
+    `styleguide.extension`  | `added`<br />`removed` | `Styleguide (extra: { name,
+    platform })` | `Extension (extra: { name })` |  Used for changes related to extensions
+    in a styleguide.
+
+    `styleguide.slack_integration`  | `added` | `Styleguide (extra: { name, platform
+    })` | `SlackIntegration (extra: { channel })` |  Used for changes related to slack
+    intgrations in a styleguide.
+
+    `user.project_membership`  | `invited`<br />`role_updated`<br />`removed` | -
+    | `Project (extra: { name, platform })` |  Used for changes related to notified
+    user''s membership to projects.
+
+    `user.styleguide_membership`  | `invited`<br />`role_updated`<br />`removed` |
+    - | `Styleguide (extra: { name, platform })` |  Used for changes related to notified
+    user''s membership to styleguides.
+
+    '
+- term: NotificationActor
+  description: The actor of the change triggering this notification
+- term: NotificationResource
+  description: The main object that this notification is related. It contains the
+    ID of the object along with its type and partial data. The content of this object
+    varies between notification types.
+- term: WorkflowStatus
+  description: Zeplin API schema object
+- term: WorkflowStatusColor
+  description: Zeplin API schema object
+- term: Link
+  description: Zeplin API schema object
+- term: LinkDestination
+  description: Zeplin API schema object
+- term: Grid
+  description: Zeplin API schema object
+- term: VerticalGrid
+  description: Zeplin API schema object
+- term: HorizontalGrid
+  description: Zeplin API schema object
+- term: ColorDesignToken
+  description: Zeplin API schema object
+- term: ColorDesignTokenMetadata
+  description: Additional information about the color token
+- term: ColorDesignTokens
+  description: Color tokens
+- term: SpacingDesignToken
+  description: Zeplin API schema object
+- term: SpacingDesignTokenMetadata
+  description: Additional information about the spacing token
+- term: SpacingDesignTokens
+  description: Spacing tokens
+- term: TextStyleDesignToken
+  description: Zeplin API schema object
+- term: TextStyleDesignTokenMetadata
+  description: Additional information about the text style token
+- term: TextStyleDesignTokenValue
+  description: Value of the token
+- term: TextStyleDesignTokens
+  description: Text style tokens
+- term: DesignTokenResource
+  description: Details of the resource that the design token is generated from.
+- term: DesignTokenProject
+  description: The source project of the token
+- term: DesignTokenFont
+  description: Font information for the text style
+- term: DesignTokenSource
+  description: Source details for design token. It has to be either `project` or `styleguide`.
+- term: DesignTokenStyleguide
+  description: The source styleguide of the token
+- term: DesignTokens
+  description: Zeplin API schema object
+- term: ResourceSource
+  description: Source details for resource. It has to be either `project` or `styleguide`.
+- term: ResourceProjectSource
+  description: The source project of the resource
+- term: ResourceStyleguideSource
+  description: The source styleguide of the resource
+- term: ConnectedComponent
+  description: Zeplin API schema object
+- term: ConnectedComponentLink
+  description: Zeplin API schema object
+- term: Code
+  description: Zeplin API schema object
+- term: LanguageEnum
+  description: Programming language
+- term: SourceEnum
+  description: Source application of the design
+- term: WebhookStatusEnum
+  description: The status of the webhook
+- term: ProjectStatusEnum
+  description: The status of the project
+- term: StyleguideStatusEnum
+  description: The status of the styleguide
+- term: WebhookHealthEnum
+  description: The health of a webhook URL
+- term: ScreenNoteStatusEnum
+  description: Status of the note
+- term: ScreenNoteColorNameEnum
+  description: Zeplin API schema object
+- term: ScreenAnnotationNoteTypeEnum
+  description: Type of the annotation note
+- term: BlendModeEnum
+  description: Zeplin API schema object
+- term: ProjectWebhookEventEnum
+  description: Zeplin API schema object
+- term: StyleguideWebhookEventEnum
+  description: Zeplin API schema object
+- term: OrganizationWebhookEventEnum
+  description: Zeplin API schema object
+- term: UserWebhookEventEnum
+  description: Zeplin API schema object
+- term: NotificationTypeEnum
+  description: Zeplin API schema object
+- term: VariableValueTypeEnum
+  description: Variable value types
+- term: ColorUpdateBody
+  description: Zeplin API schema object
+- term: ColorCreateBody
+  description: Zeplin API schema object
+- term: CommentCreateBody
+  description: Zeplin API schema object
+- term: CommentUpdateBody
+  description: Zeplin API schema object
+- term: ComponentUpdateBody
+  description: Zeplin API schema object
+- term: TokenCreateBody
+  description: Zeplin API schema object
+- term: TokenCreateAuthorizationCodeBody
+  description: Zeplin API schema object
+- term: TokenCreateRefreshTokenBody
+  description: Zeplin API schema object
+- term: OrganizationMemberInviteBody
+  description: Zeplin API schema object
+- term: OrganizationMemberUpdateBody
+  description: Zeplin API schema object
+- term: ProjectMemberInviteBody
+  description: Zeplin API schema object
+- term: StyleguideMemberInviteBody
+  description: Zeplin API schema object
+- term: ScreenCreateBody
+  description: Zeplin API schema object
+- term: ScreenVersionCreateBody
+  description: Zeplin API schema object
+- term: ScreenNoteCreateBody
+  description: Zeplin API schema object
+- term: ScreenNoteUpdateBody
+  description: Zeplin API schema object
+- term: ScreenAnnotationCreateBody
+  description: Zeplin API schema object
+- term: ScreenAnnotationUpdateBody
+  description: Zeplin API schema object
+- term: SpacingTokenUpdateBody
+  description: Zeplin API schema object
+- term: OrganizationWebhookCreateBody
+  description: Zeplin API schema object
+- term: OrganizationWebhookUpdateBody
+  description: Zeplin API schema object
+- term: ProjectWebhookCreateBody
+  description: Zeplin API schema object
+- term: ProjectWebhookUpdateBody
+  description: Zeplin API schema object
+- term: StyleguideWebhookCreateBody
+  description: Zeplin API schema object
+- term: StyleguideWebhookUpdateBody
+  description: Zeplin API schema object
+- term: UserWebhookCreateBody
+  description: Zeplin API schema object
+- term: UserWebhookUpdateBody
+  description: Zeplin API schema object
+- term: NotificationUpdateBody
+  description: Zeplin API schema object
+- term: ProjectUpdateBody
+  description: Zeplin API schema object
+- term: ScreenUpdateBody
+  description: Zeplin API schema object
+- term: StyleguideUpdateBody
+  description: Zeplin API schema object
+- term: TextStyleUpdateBody
+  description: Zeplin API schema object
+- term: FlowBoard
+  description: Zeplin API schema object
+- term: FlowBoardGroup
+  description: Zeplin API schema object
+- term: FlowBoardConnector
+  description: Zeplin API schema object
+- term: FlowBoardConnectionPosition
+  description: Zeplin API schema object
+- term: FlowBoardConnection
+  description: Zeplin API schema object
+- term: FlowBoardConnectorLabel
+  description: Zeplin API schema object
+- term: FlowBoardNode
+  description: Zeplin API schema object
+- term: FlowBoardScreenNode
+  description: Zeplin API schema object
+- term: FlowBoardTextNode
+  description: Zeplin API schema object
+- term: FlowBoardShapeNode
+  description: Zeplin API schema object
+- term: FlowBoardVariantGroupNode
+  description: Zeplin API schema object
+- term: FlowBoardAnnotationNode
+  description: Zeplin API schema object
+- term: FlowBoardPosition
+  description: Zeplin API schema object
+- term: FlowBoardNodeColor
+  description: Zeplin API schema object
+- term: VariableInfo
+  description: Zeplin API schema object
+- term: VariableCollection
+  description: Zeplin API schema object
+- term: VariableMode
+  description: Zeplin API schema object
+- term: VariableGroup
+  description: Zeplin API schema object
+- term: VariableValue
+  description: Zeplin API schema object
+- term: Variable
+  description: Zeplin API schema object
+- term: Page
+  description: Zeplin API schema object
+- term: Reaction
+  description: Zeplin API schema object
+- term: WebhookEvent
+  description: Zeplin API schema object
+- term: PingEvent
+  description: Zeplin API schema object
+- term: WebhookEventActor
+  description: Zeplin API schema object
+- term: WorkspaceNotificationEvent
+  description: This event is used to notify webhooks about changes related to user's
+    notifications.
+- term: WorkspaceNotificationCreatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceNotificationUpdatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceProjectEvent
+  description: "This event is used to notify webhooks about changes directly related\
+    \ to Zeplin projects:\n - Project is created or deleted\n - Project's linked styleguide\
+    \ changes\n - Any of these properties change:\n   - name\n   - description\n \
+    \  - density scale (1x, 2x, etc.)\n   - thumbnail image\n   - status (archived\
+    \ or activated)\n   - rem preferences (web projects only)\"\n"
+- term: WorkspaceProjectCreatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceProjectUpdatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceProjectDeletedEvent
+  description: Zeplin API schema object
+- term: WorkspaceProjectActivatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceProjectArchivedEvent
+  description: Zeplin API schema object
+- term: WorkspaceProjectStyleguideLinkedEvent
+  description: Zeplin API schema object
+- term: WorkspaceProjectStyleguideUnlinkedEvent
+  description: Zeplin API schema object
+- term: WorkspaceStyleguideEvent
+  description: "This event is used to notify webhooks about changes directly related\
+    \ to Zeplin styleguides:\n - Styleguide is created or deleted\n - Styleguide's\
+    \ parent styleguide changes\n - Any of these properties change:\n   - name\n \
+    \  - description\n   - density scale (1x, 2x, etc.)\n   - thumbnail image\n  \
+    \ - status (archived or activated)\n   - rem preferences (web styleguides only)\"\
+    \n"
+- term: WorkspaceStyleguideCreatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceStyleguideUpdatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceStyleguideDeletedEvent
+  description: Zeplin API schema object
+- term: WorkspaceStyleguideActivatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceStyleguideArchivedEvent
+  description: Zeplin API schema object
+- term: WorkspaceStyleguideStyleguideLinkedEvent
+  description: Zeplin API schema object
+- term: WorkspaceStyleguideStyleguideUnlinkedEvent
+  description: Zeplin API schema object
+- term: WorkspaceOrganizationEvent
+  description: "This event is used to notify webhooks about any of these activies:\n\
+    \   - Name or logo of the organization was changed\n   - User requested to join\
+    \ the organization\n"
+- term: WorkspaceOrganizationUpdatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceOrganizationJoinRequestedEvent
+  description: Zeplin API schema object
+- term: WorkspaceOrganizationMemberEvent
+  description: "This event is used to notify webhooks about any of these activies\
+    \ related to the organization's members:\n   - New member added\n   - Member removed\n\
+    \   - Member's role changed\n   - Member's tag changed\n"
+- term: WorkspaceOrganizationMemberEventContext
+  description: Zeplin API schema object
+- term: WorkspaceOrganizationMemberInvitedEvent
+  description: Zeplin API schema object
+- term: WorkspaceOrganizationMemberRemovedEvent
+  description: Zeplin API schema object
+- term: WorkspaceOrganizationMemberRoleUpdatedEvent
+  description: Zeplin API schema object
+- term: WorkspaceOrganizationMemberTagUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectMemberEvent
+  description: "This event is used to notify webhooks about changes related to the\
+    \ project's members:\n   - New member invited\n   - Member removed\n   - Member's\
+    \ role changed\n"
+- term: ProjectMemberEventContext
+  description: Zeplin API schema object
+- term: ProjectMemberInvitedEvent
+  description: Zeplin API schema object
+- term: ProjectMemberRemovedEvent
+  description: Zeplin API schema object
+- term: ProjectMemberRoleUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectScreenEvent
+  description: This event is used to notify webhooks about changes related to a screen
+    in Zeplin projects.
+- term: ProjectScreenEventContext
+  description: Zeplin API schema object
+- term: ProjectScreenCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectScreenDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectScreenDeletedEventContext
+  description: Zeplin API schema object
+- term: ProjectScreenUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectScreenVersionEvent
+  description: This event is used to notify webhooks about changes related to a screen
+    versions in Zeplin projects.
+- term: ProjectScreenVersionEventContext
+  description: Zeplin API schema object
+- term: ProjectScreenVersionCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectScreenVersionDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectScreenVersionUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectNoteEvent
+  description: This event is used to notify webhooks about changes related to a notes
+    in Zeplin projects.
+- term: ProjectNoteEventContext
+  description: Zeplin API schema object
+- term: ProjectNoteCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectNoteDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectNoteUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectNoteCommentEvent
+  description: This event is used to notify webhooks about changes related to the
+    comments in notes in Zeplin projects.
+- term: ProjectNoteCommentEventContext
+  description: Zeplin API schema object
+- term: ProjectNoteCommentCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectNoteCommentDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectNoteCommentUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectNoteCommentReactionEvent
+  description: This event is used to notify webhooks about reactions to comments in
+    notes in Zeplin projects.
+- term: ProjectNoteCommentReactionEventContext
+  description: Zeplin API schema object
+- term: ProjectNoteCommentReactionCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectNoteCommentReactionDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectColorEvent
+  description: This event is used to notify webhooks about changes related to a colors
+    in the local styleguide of Zeplin projects.
+- term: ProjectColorEventContext
+  description: Zeplin API schema object
+- term: ProjectColorCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectColorDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectColorUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectFlowBoardEvent
+  description: This event is used to notify webhooks about changes related to boards
+    in Zeplin projects.
+- term: ProjectFlowBoardEventContext
+  description: Zeplin API schema object
+- term: ProjectFlowBoardBuiltEvent
+  description: Zeplin API schema object
+- term: ProjectTextStyleEvent
+  description: This event is used to notify webhooks about changes related to a text
+    styles in the local styleguide of Zeplin projects.
+- term: ProjectTextStyleEventContext
+  description: Zeplin API schema object
+- term: ProjectTextStyleCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectTextStyleDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectTextStyleUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectComponentEvent
+  description: This event is used to notify webhooks about changes related to a components
+    in the local styleguide of Zeplin projects.
+- term: ProjectComponentEventContext
+  description: Zeplin API schema object
+- term: ProjectComponentCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectComponentDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectComponentDeletedEventContext
+  description: Zeplin API schema object
+- term: ProjectComponentUpdatedEvent
+  description: Zeplin API schema object
+- term: ProjectComponentVersionCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectSpacingTokenEvent
+  description: This event is used to notify webhooks about changes related to a spacing
+    tokens in the local styleguide of Zeplin projects.
+- term: ProjectSpacingTokenEventContext
+  description: Zeplin API schema object
+- term: ProjectSpacingTokenCreatedEvent
+  description: Zeplin API schema object
+- term: ProjectSpacingTokenDeletedEvent
+  description: Zeplin API schema object
+- term: ProjectSpacingTokenUpdatedEvent
+  description: Zeplin API schema object
+- term: StyleguideMemberEvent
+  description: "This event is used to notify webhooks about changes related to the\
+    \ styleguide's members:\n   - New member invited\n   - Member removed\n   - Member's\
+    \ role changed\n"
+- term: StyleguideMemberEventContext
+  description: Zeplin API schema object
+- term: StyleguideMemberInvitedEvent
+  description: Zeplin API schema object
+- term: StyleguideMemberRemovedEvent
+  description: Zeplin API schema object
+- term: StyleguideMemberRoleUpdatedEvent
+  description: Zeplin API schema object
+- term: StyleguideColorEvent
+  description: This event is used to notify webhooks about changes related to a colors
+    in Zeplin styleguides.
+- term: StyleguideColorEventContext
+  description: Zeplin API schema object
+- term: StyleguideColorCreatedEvent
+  description: Zeplin API schema object
+- term: StyleguideColorDeletedEvent
+  description: Zeplin API schema object
+- term: StyleguideColorUpdatedEvent
+  description: Zeplin API schema object
+- term: StyleguideTextStyleEvent
+  description: This event is used to notify webhooks about changes related to a text
+    styles in Zeplin styleguides.
+- term: StyleguideTextStyleEventContext
+  description: Zeplin API schema object
+- term: StyleguideTextStyleCreatedEvent
+  description: Zeplin API schema object
+- term: StyleguideTextStyleDeletedEvent
+  description: Zeplin API schema object
+- term: StyleguideTextStyleUpdatedEvent
+  description: Zeplin API schema object
+- term: StyleguideComponentEvent
+  description: This event is used to notify webhooks about changes related to a components
+    in Zeplin styleguides.
+- term: StyleguideComponentEventContext
+  description: Zeplin API schema object
+- term: StyleguideComponentCreatedEvent
+  description: Zeplin API schema object
+- term: StyleguideComponentDeletedEvent
+  description: Zeplin API schema object
+- term: StyleguideComponentDeletedEventContext
+  description: Zeplin API schema object
+- term: StyleguideComponentUpdatedEvent
+  description: Zeplin API schema object
+- term: StyleguideComponentVersionCreatedEvent
+  description: Zeplin API schema object
+- term: StyleguideSpacingTokenEvent
+  description: This event is used to notify webhooks about changes related to a spacing
+    tokens in Zeplin styleguides.
+- term: StyleguideSpacingTokenEventContext
+  description: Zeplin API schema object
+- term: StyleguideSpacingTokenCreatedEvent
+  description: Zeplin API schema object
+- term: StyleguideSpacingTokenDeletedEvent
+  description: Zeplin API schema object
+- term: StyleguideSpacingTokenUpdatedEvent
+  description: Zeplin API schema object
