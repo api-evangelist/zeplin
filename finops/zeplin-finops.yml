@@ -1,0 +1,78 @@
+name: Zeplin FinOps
+description: >-
+  FinOps Framework FOCUS-aligned cost management guidance for Zeplin API and
+  platform usage. Zeplin's pricing model is seat-based and project-based,
+  making cost optimization primarily a function of user seat management,
+  project consolidation, and plan tier selection. There are no API call-based
+  usage charges; all costs are subscription-driven.
+specificationVersion: '1.0'
+url: https://zeplin.io/pricing/
+billingModel: subscription
+pricingDimensions:
+  - dimension: seats
+    description: >-
+      Advanced and Enterprise plans are billed per seat per month. Each seat
+      represents an active user with Editor or Admin role. Reviewer and
+      Developer roles may count differently depending on plan terms.
+    unit: seat
+    frequency: monthly
+  - dimension: projects
+    description: >-
+      Free and Basic plans are billed per project or project bundle. Project
+      count directly determines the subscription cost for these tiers.
+    unit: project
+    frequency: monthly
+costOptimization:
+  - strategy: Right-size plan selection
+    description: >-
+      Evaluate whether a per-project (Basic) or per-seat (Advanced/Enterprise)
+      model is more cost-effective based on team size and number of active
+      projects. Teams with many projects but few active contributors may prefer
+      per-seat; small teams with few projects may prefer per-project billing.
+  - strategy: Seat lifecycle management
+    description: >-
+      Regularly audit active seats and remove or downgrade users who no longer
+      require Editor or Admin access. Leverage Reviewer and Developer roles
+      where full Editor access is not needed to reduce seat costs.
+  - strategy: Annual vs monthly billing
+    description: >-
+      Zeplin's published pricing is based on annual billing commitment. Monthly
+      billing (if available) typically costs more. Committing to annual plans
+      when usage is predictable reduces per-unit cost.
+  - strategy: Project consolidation
+    description: >-
+      For Basic plan users, consolidate design work into fewer projects to
+      reduce project bundle costs. Archive or delete inactive projects that are
+      consuming a project slot.
+  - strategy: Free tier for prototyping
+    description: >-
+      Use the Free plan (1 project, 100 screens) for proof-of-concept
+      integrations and API development before committing to a paid plan.
+      The API is accessible on paid plans, so validate integration patterns
+      on Free before scaling.
+costAllocation:
+  - category: Platform Subscription
+    description: >-
+      Monthly or annual subscription fees for the selected Zeplin plan,
+      allocated by seat count or project bundle as applicable.
+  - category: Enterprise Add-ons
+    description: >-
+      Custom enterprise pricing may include additional costs for SSO, SCIM
+      provisioning, dedicated support, and success manager services.
+budgetControls:
+  - control: User Access Reviews
+    description: Quarterly review of all active seats to remove unused accounts
+    frequency: quarterly
+  - control: Project Audit
+    description: Review active projects and archive completed or inactive projects
+    frequency: quarterly
+  - control: Plan Tier Review
+    description: >-
+      Annual review of current plan tier versus actual usage to determine if
+      upgrade or downgrade is appropriate
+    frequency: annually
+notes:
+  - Zeplin does not charge per API call; all API access is included in the platform subscription
+  - Rate limits (200 requests/minute per user) apply uniformly across all paid plans
+  - Enterprise pricing is custom and negotiated directly with Zeplin sales
+  - AI Design Review screens per week vary by plan and may be a future monetization lever

@@ -1,0 +1,87 @@
+name: Zeplin Plans and Pricing
+description: >-
+  Zeplin offers four pricing tiers ranging from a free plan for individuals to
+  an enterprise plan for large organizations. Plans differ in the number of
+  projects, screens, users, and advanced features such as SSO, SCIM, and
+  priority support. API access is available across all paid plans.
+specificationVersion: '0.1'
+url: https://zeplin.io/pricing/
+plans:
+  - name: Free
+    description: >-
+      Free plan for individual designers and developers to explore Zeplin with
+      limited project capacity. Includes 1 project, up to 100 screens, unlimited
+      users, and 3 AI Design Review screens per week.
+    price: 0
+    currency: USD
+    billingCycle: monthly
+    features:
+      - 1 project
+      - 100 screens
+      - Unlimited users
+      - 3 AI Design Review screens per week
+      - Annotations and flows
+      - Approvals
+      - Integrations (Jira, Slack, Teams, VS Code, Storybook)
+      - Styleguides
+  - name: Basic
+    description: >-
+      Pay-per-project plan for small teams needing more capacity. Supports 1 to
+      12 project bundles with up to 1,000 screens per project and unlimited
+      users. Includes 20 AI Design Review screens per week.
+    price: 13.75
+    currency: USD
+    billingCycle: monthly
+    notes: Annual billing; price varies by number of project bundles (up to $118.25/month for 12 projects)
+    features:
+      - 1 to 12 projects (bundle packs)
+      - Up to 1,000 screens per project
+      - Unlimited users per project
+      - 20 AI Design Review screens per week
+      - Annotations and flows
+      - Approvals
+      - Integrations (Jira, Azure DevOps, Slack, Teams, VS Code, Storybook)
+      - Styleguides
+  - name: Advanced
+    description: >-
+      Per-seat plan for growing teams requiring team workspace management,
+      role-based access control, and up to 50 projects. Includes Admin, Editor,
+      Developer, and Reviewer roles.
+    price: 12
+    currency: USD
+    billingCycle: monthly
+    notes: Annual billing; per seat pricing
+    features:
+      - 50 projects
+      - Unlimited screens
+      - Per-seat with roles (Admin, Editor, Developer, Reviewer)
+      - Team workspace for centralized management
+      - 10 AI Design Review screens per seat per week
+      - Annotations and flows
+      - Approvals
+      - Integrations (Jira, Azure DevOps, Slack, Teams, VS Code, Storybook)
+      - Styleguides
+  - name: Enterprise
+    description: >-
+      Custom enterprise plan for large organizations requiring unlimited
+      projects, advanced security features including SSO, MFA, and SCIM
+      provisioning, dedicated success manager, and 24-hour support SLA.
+    price: custom
+    currency: USD
+    billingCycle: annual
+    features:
+      - Unlimited projects
+      - Unlimited screens
+      - Per-seat with roles (Admin, Editor, Developer, Reviewer)
+      - 20 AI Design Review screens per seat per week
+      - SSO (Single Sign-On)
+      - MFA (Multi-Factor Authentication)
+      - SCIM user provisioning
+      - Invoiced billing
+      - Activity logs
+      - Dedicated success manager
+      - 24-hour support SLA
+      - Annotations and flows
+      - Approvals
+      - Integrations (Jira, Azure DevOps, Slack, Teams, VS Code, Storybook)
+      - Styleguides

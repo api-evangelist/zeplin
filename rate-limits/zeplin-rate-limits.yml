@@ -1,0 +1,31 @@
+name: Zeplin API Rate Limits
+description: >-
+  The Zeplin API enforces rate limiting on a per-user basis to ensure fair
+  usage across the platform. Rate limits apply at the user level and do not
+  reset when an access token is refreshed. Responses include headers to help
+  clients track and manage their usage. Requests exceeding the rate limit
+  receive a 429 HTTP status response.
+specificationVersion: '0.1'
+url: https://docs.zeplin.dev/reference/rate-limiting
+limits:
+  - name: Per-User Request Limit
+    description: >-
+      Maximum number of API requests allowed per user per minute. This limit
+      applies regardless of token refresh cycles.
+    requests: 200
+    period: minute
+    scope: per-user
+    errorCode: 429
+    errorMessage: Rate limit exceeded
+headers:
+  - name: Zeplin-RateLimit-Limit
+    description: The total rate limit for the current user (requests per minute)
+  - name: Zeplin-RateLimit-Remaining
+    description: The number of remaining requests in the current rate limit window
+  - name: Zeplin-RateLimit-Reset
+    description: Unix timestamp indicating when the current rate limit window resets
+notes:
+  - Rate limits are applied per user and are not reset when the access token is refreshed
+  - A 429 HTTP status code is returned when the rate limit is exceeded
+  - Clients should implement exponential backoff when receiving 429 responses
+  - Check Zeplin-RateLimit-Reset header to determine when to retry
