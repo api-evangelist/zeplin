@@ -1,16 +1,14 @@
 aid: zeplin
 name: Zeplin
-description: >-
-  Zeplin is a design-to-development handoff platform that bridges the gap
-  between designers and developers by providing a structured workspace for
-  accessing design specs, assets, style guides, components, and annotations.
-  The Zeplin REST API enables programmatic access to all resources within
-  Zeplin including projects, screens, components, layers, assets, and notes
-  exported from Figma, Sketch, and Adobe XD. Developers can build custom
-  integrations using read and write operations on design data, receive real-time
-  updates via webhooks, and automate design-to-code workflows. The API uses
-  OAuth 2.0 with PKCE support and personal access tokens for authentication,
-  with an official JavaScript SDK and OpenAPI specification available.
+description: Zeplin is a design-to-development handoff platform that bridges the gap
+  between designers and developers by providing a structured workspace for accessing
+  design specs, assets, style guides, components, and annotations. The Zeplin REST
+  API enables programmatic access to all resources within Zeplin including projects,
+  screens, components, layers, assets, and notes exported from Figma, Sketch, and
+  Adobe XD. Developers can build custom integrations using read and write operations
+  on design data, receive real-time updates via webhooks, and automate design-to-code
+  workflows. The API uses OAuth 2.0 with PKCE support and personal access tokens for
+  authentication, with an official JavaScript SDK and OpenAPI specification available.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/zeplin/refs/heads/main/apis.yml
@@ -18,78 +16,78 @@ created: '2026-06-12'
 modified: '2026-06-12'
 specificationVersion: '0.19'
 tags:
+- Design
+- Design Handoff
+- Developer Tools
+- Figma
+- Sketch
+- Adobe XD
+- Style Guides
+- Components
+- Assets
+- Webhooks
+apis:
+- aid: zeplin:zeplin-api
+  name: Zeplin API
+  description: The Zeplin REST API provides programmatic access to design collaboration
+    data including projects, screens, components, layers, assets, style guides, annotations,
+    and design tokens. Supports both read and write operations for select resources,
+    real-time webhook notifications, and design token management including variable
+    collections and modes.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
   - Design
   - Design Handoff
-  - Developer Tools
-  - Figma
-  - Sketch
-  - Adobe XD
-  - Style Guides
+  - Projects
+  - Screens
   - Components
-  - Assets
+  - Style Guides
   - Webhooks
-apis:
-  - aid: zeplin:zeplin-api
-    name: Zeplin API
-    description: >-
-      The Zeplin REST API provides programmatic access to design collaboration
-      data including projects, screens, components, layers, assets, style
-      guides, annotations, and design tokens. Supports both read and write
-      operations for select resources, real-time webhook notifications, and
-      design token management including variable collections and modes.
-    humanURL: https://docs.zeplin.dev/reference/introduction
-    baseURL: https://api.zeplin.io
-    tags:
-      - Design
-      - Design Handoff
-      - Projects
-      - Screens
-      - Components
-      - Style Guides
-      - Webhooks
-    properties:
-      - type: Documentation
-        url: https://docs.zeplin.dev/docs/welcome
-      - type: OpenAPI
-        url: https://github.com/zeplin/openapi
-      - type: OpenAPI
-        url: >-
-          https://raw.githubusercontent.com/api-evangelist/zeplin/refs/heads/main/openapi/zeplin-zeplin-api-openapi.yml
-      - type: Authentication
-        url: https://docs.zeplin.dev/reference/authentication
-      - type: RateLimits
-        url: https://docs.zeplin.dev/reference/rate-limiting
-      - type: Webhooks
-        url: https://docs.zeplin.dev/reference/webhook-events-overview
-      - type: JavaScriptSDK
-        url: https://github.com/zeplin/javascript-sdk
-      - type: MCPServer
-        url: https://github.com/zeplin/mcp-server
-      - type: CLI
-        url: https://github.com/zeplin/cli
-common:
-  - type: Website
-    url: https://zeplin.io
+  properties:
   - type: Documentation
-    url: https://docs.zeplin.dev
-  - type: GitHubOrg
-    url: https://github.com/zeplin
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/zeplin-io
-  - type: Blog
-    url: https://blog.zeplin.io
-  - type: Pricing
-    url: https://zeplin.io/pricing/
-  - type: StatusPage
-    url: https://status.zeplin.io
-  - type: X
-    url: https://twitter.com/zeplinproject
-  - type: Plans
-    url: plans/zeplin-plans-pricing.yml
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: OpenAPI
+    url: https://github.com/zeplin/openapi
+  - type: OpenAPI
+    url: https://raw.githubusercontent.com/api-evangelist/zeplin/refs/heads/main/openapi/zeplin-zeplin-api-openapi.yml
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
   - type: RateLimits
-    url: rate-limits/zeplin-rate-limits.yml
-  - type: FinOps
-    url: finops/zeplin-finops.yml
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: MCPServer
+    url: https://github.com/zeplin/mcp-server
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - url: graphql/zeplin-graphql.md
+    type: GraphQL
+common:
+- type: Website
+  url: https://zeplin.io
+- type: Documentation
+  url: https://docs.zeplin.dev
+- type: GitHubOrg
+  url: https://github.com/zeplin
+- type: LinkedIn
+  url: https://www.linkedin.com/company/zeplin-io
+- type: Blog
+  url: https://blog.zeplin.io
+- type: Pricing
+  url: https://zeplin.io/pricing/
+- type: StatusPage
+  url: https://status.zeplin.io
+- type: X
+  url: https://twitter.com/zeplinproject
+- type: Plans
+  url: plans/zeplin-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/zeplin-rate-limits.yml
+- type: FinOps
+  url: finops/zeplin-finops.yml
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

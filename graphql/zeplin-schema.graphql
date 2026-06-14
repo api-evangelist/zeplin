@@ -1,0 +1,1122 @@
+"""
+Zeplin GraphQL Schema
+Conceptual schema derived from the Zeplin REST API (https://docs.zeplin.dev/reference/)
+Covers projects, screens, layers, components, style guides, design tokens, assets,
+members, webhooks, comments, and activity.
+"""
+
+# ─────────────────────────────────────────
+# Scalars
+# ─────────────────────────────────────────
+
+scalar DateTime
+scalar URL
+scalar JSON
+scalar HexColor
+
+# ─────────────────────────────────────────
+# Enums
+# ─────────────────────────────────────────
+
+"""Type of Zeplin project, corresponding to the target platform."""
+enum ProjectType {
+  WEB
+  IOS
+  ANDROID
+  MACOS
+  BASE
+}
+
+"""Lifecycle state of a project."""
+enum ProjectStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+"""Role a member holds within a project or organization."""
+enum MemberRole {
+  OWNER
+  ADMIN
+  EDITOR
+  VIEWER
+  RESTRICTED_VIEWER
+}
+
+"""Status of a pending invitation."""
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  EXPIRED
+}
+
+"""Export file format for an asset."""
+enum AssetFormat {
+  PNG
+  JPG
+  SVG
+  PDF
+  WEBP
+}
+
+"""Pixel density scale for asset exports."""
+enum DensityScale {
+  SCALE_1X
+  SCALE_2X
+  SCALE_3X
+  SCALE_4X
+}
+
+"""Kind of a design layer."""
+enum LayerType {
+  RECTANGLE
+  TEXT
+  IMAGE
+  SHAPE
+  GROUP
+  COMPONENT
+  VECTOR
+  SLICE
+}
+
+"""Text alignment options."""
+enum TextAlignment {
+  LEFT
+  CENTER
+  RIGHT
+  JUSTIFIED
+}
+
+"""Blend mode for a layer."""
+enum BlendMode {
+  NORMAL
+  MULTIPLY
+  SCREEN
+  OVERLAY
+  DARKEN
+  LIGHTEN
+  COLOR_DODGE
+  COLOR_BURN
+  HARD_LIGHT
+  SOFT_LIGHT
+  DIFFERENCE
+  EXCLUSION
+  HUE
+  SATURATION
+  COLOR
+  LUMINOSITY
+}
+
+"""Grid layout type."""
+enum GridType {
+  COLUMNS
+  ROWS
+  GRID
+}
+
+"""Webhook event types that can be subscribed to."""
+enum WebhookEvent {
+  PROJECT_CREATED
+  PROJECT_UPDATED
+  PROJECT_ARCHIVED
+  PROJECT_DELETED
+  SCREEN_CREATED
+  SCREEN_UPDATED
+  SCREEN_DELETED
+  SCREEN_VERSION_CREATED
+  COMPONENT_CREATED
+  COMPONENT_UPDATED
+  COMPONENT_DELETED
+  STYLEGUIDE_CREATED
+  STYLEGUIDE_UPDATED
+  NOTE_CREATED
+  NOTE_UPDATED
+  NOTE_RESOLVED
+  COMMENT_CREATED
+  COMMENT_UPDATED
+  MEMBER_ADDED
+  MEMBER_REMOVED
+  MEMBER_ROLE_UPDATED
+}
+
+"""Status of a webhook subscription."""
+enum WebhookStatus {
+  ACTIVE
+  INACTIVE
+  FAILED
+}
+
+"""Permission flag for fine-grained access control."""
+enum Permission {
+  READ_PROJECTS
+  WRITE_PROJECTS
+  READ_SCREENS
+  WRITE_SCREENS
+  READ_COMPONENTS
+  WRITE_COMPONENTS
+  READ_STYLEGUIDES
+  WRITE_STYLEGUIDES
+  READ_MEMBERS
+  WRITE_MEMBERS
+  READ_WEBHOOKS
+  WRITE_WEBHOOKS
+  READ_ASSETS
+  WRITE_ASSETS
+  READ_NOTES
+  WRITE_NOTES
+  READ_COMMENTS
+  WRITE_COMMENTS
+  MANAGE_ORGANIZATION
+}
+
+# ─────────────────────────────────────────
+# Projects
+# ─────────────────────────────────────────
+
+"""A Zeplin project containing screens, components, and style guides."""
+type Project {
+  id: ID!
+  name: String!
+  description: String
+  type: ProjectType!
+  status: ProjectStatus!
+  thumbnail: URL
+  numberOfScreens: Int!
+  numberOfComponents: Int!
+  numberOfMembers: Int!
+  organizationId: ID
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""Extended details for a single project."""
+type ProjectDetails {
+  id: ID!
+  name: String!
+  description: String
+  type: ProjectType!
+  status: ProjectStatus!
+  thumbnail: URL
+  platform: String
+  density: Float
+  numberOfScreens: Int!
+  numberOfComponents: Int!
+  numberOfMembers: Int!
+  organizationId: ID
+  organization: Organization
+  sections: [ProjectSection!]
+  members: [Member!]
+  linkedStyleguides: [StyleGuide!]
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""An organizational grouping of screens within a project."""
+type ProjectSection {
+  id: ID!
+  projectId: ID!
+  name: String!
+  description: String
+  numberOfScreens: Int!
+  screens: [Screen!]
+  created: DateTime!
+  updated: DateTime!
+}
+
+# ─────────────────────────────────────────
+# Screens
+# ─────────────────────────────────────────
+
+"""A design screen (artboard) within a project."""
+type Screen {
+  id: ID!
+  projectId: ID!
+  name: String!
+  description: String
+  thumbnail: URL
+  imageUrl: URL
+  width: Float
+  height: Float
+  tags: [ScreenTag!]
+  sectionId: ID
+  numberOfVersions: Int!
+  numberOfNotes: Int!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""Extended details for a single screen including layers."""
+type ScreenDetails {
+  id: ID!
+  projectId: ID!
+  name: String!
+  description: String
+  thumbnail: URL
+  imageUrl: URL
+  width: Float!
+  height: Float!
+  tags: [ScreenTag!]
+  section: ScreenSection
+  layers: [Layer!]
+  assets: [Asset!]
+  notes: [ScreenNote!]
+  versions: [ScreenVersion!]
+  latestVersion: ScreenVersion
+  components: [Component!]
+  grid: Grid
+  backgroundColor: Color
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""A historical version snapshot of a screen."""
+type ScreenVersion {
+  id: ID!
+  screenId: ID!
+  projectId: ID!
+  name: String
+  description: String
+  imageUrl: URL!
+  width: Float!
+  height: Float!
+  commit: String
+  snapshot: Boolean!
+  created: DateTime!
+}
+
+"""An annotation note on a specific point or region of a screen."""
+type ScreenNote {
+  id: ID!
+  screenId: ID!
+  projectId: ID!
+  content: String!
+  position: NotePosition
+  author: Member
+  resolved: Boolean!
+  comments: [Comment!]
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""Positional coordinate for a screen note."""
+type NotePosition {
+  x: Float!
+  y: Float!
+  width: Float
+  height: Float
+}
+
+"""A tag label applied to screens for filtering and organization."""
+type ScreenTag {
+  id: ID!
+  name: String!
+  color: HexColor
+}
+
+"""A grouping section for screens within a project."""
+type ScreenSection {
+  id: ID!
+  projectId: ID!
+  name: String!
+  description: String
+  numberOfScreens: Int!
+  created: DateTime!
+  updated: DateTime!
+}
+
+# ─────────────────────────────────────────
+# Layers
+# ─────────────────────────────────────────
+
+"""A design layer within a screen or component."""
+type Layer {
+  id: ID!
+  name: String!
+  type: LayerType!
+  rect: Rect
+  opacity: Float
+  blendMode: BlendMode
+  fills: [Fill!]
+  borders: [Border!]
+  shadows: [Shadow!]
+  exportable: Boolean!
+  assets: [Asset!]
+}
+
+"""A bounding rectangle for a layer or element."""
+type Rect {
+  x: Float!
+  y: Float!
+  width: Float!
+  height: Float!
+}
+
+"""Fill applied to a layer."""
+type Fill {
+  type: String!
+  color: Color
+  gradient: Gradient
+  imageUrl: URL
+  opacity: Float
+  blendMode: BlendMode
+}
+
+"""Gradient definition for fills."""
+type Gradient {
+  type: String!
+  from: GradientPoint!
+  to: GradientPoint!
+  colorStops: [ColorStop!]!
+}
+
+"""A point in a gradient definition."""
+type GradientPoint {
+  x: Float!
+  y: Float!
+}
+
+"""A color stop within a gradient."""
+type ColorStop {
+  position: Float!
+  color: Color!
+}
+
+"""Border applied to a layer."""
+type Border {
+  type: String!
+  color: Color
+  thickness: Float
+  position: String
+}
+
+"""Drop shadow or inner shadow applied to a layer."""
+type Shadow {
+  type: String!
+  color: Color!
+  offsetX: Float!
+  offsetY: Float!
+  blurRadius: Float!
+  spreadRadius: Float
+  blendMode: BlendMode
+}
+
+"""A group layer that contains child layers."""
+type LayerGroup {
+  id: ID!
+  name: String!
+  type: LayerType!
+  rect: Rect
+  opacity: Float
+  blendMode: BlendMode
+  layers: [Layer!]!
+  exportable: Boolean!
+}
+
+"""A text-containing design layer with typographic properties."""
+type TextLayer {
+  id: ID!
+  name: String!
+  type: LayerType!
+  rect: Rect
+  opacity: Float
+  blendMode: BlendMode
+  content: String!
+  textStyle: Typography
+  fills: [Fill!]
+  shadows: [Shadow!]
+  exportable: Boolean!
+}
+
+"""A vector or geometric shape layer."""
+type ShapeLayer {
+  id: ID!
+  name: String!
+  type: LayerType!
+  rect: Rect
+  opacity: Float
+  blendMode: BlendMode
+  fills: [Fill!]
+  borders: [Border!]
+  shadows: [Shadow!]
+  cornerRadius: Float
+  exportable: Boolean!
+}
+
+# ─────────────────────────────────────────
+# Components
+# ─────────────────────────────────────────
+
+"""A reusable design component in a project or style guide."""
+type Component {
+  id: ID!
+  name: String!
+  description: String
+  thumbnail: URL
+  sectionId: ID
+  sourceId: String
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""Extended details for a single component including layers and assets."""
+type ComponentDetails {
+  id: ID!
+  name: String!
+  description: String
+  thumbnail: URL
+  width: Float
+  height: Float
+  section: ComponentSection
+  layers: [Layer!]
+  assets: [Asset!]
+  variants: [Component!]
+  sourceId: String
+  backgroundColor: Color
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""An organizational section grouping components."""
+type ComponentSection {
+  id: ID!
+  name: String!
+  description: String
+  numberOfComponents: Int!
+  created: DateTime!
+  updated: DateTime!
+}
+
+# ─────────────────────────────────────────
+# Style Guides
+# ─────────────────────────────────────────
+
+"""A shared design system style guide."""
+type StyleGuide {
+  id: ID!
+  name: String!
+  description: String
+  thumbnail: URL
+  organizationId: ID
+  numberOfComponents: Int!
+  numberOfColors: Int!
+  numberOfTextStyles: Int!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""Extended details for a single style guide."""
+type StyleGuideDetails {
+  id: ID!
+  name: String!
+  description: String
+  thumbnail: URL
+  organizationId: ID
+  organization: Organization
+  sections: [StyleGuideSection!]
+  colors: [Color!]
+  paletteGroups: [PaletteGroup!]
+  textStyles: [TextStyle!]
+  textStyleGroups: [TextStyleGroup!]
+  spacingSections: [SpacingSection!]
+  components: [Component!]
+  members: [Member!]
+  linkedProjects: [Project!]
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""A named section within a style guide."""
+type StyleGuideSection {
+  id: ID!
+  styleguideId: ID!
+  name: String!
+  description: String
+  created: DateTime!
+  updated: DateTime!
+}
+
+# ─────────────────────────────────────────
+# Colors and Palettes
+# ─────────────────────────────────────────
+
+"""A named color in a style guide or project."""
+type Color {
+  id: ID!
+  name: String!
+  r: Int!
+  g: Int!
+  b: Int!
+  a: Float!
+  hex: HexColor!
+  sectionId: ID
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""A color swatch entry in a palette."""
+type ColorSwatch {
+  id: ID!
+  name: String!
+  color: Color!
+  description: String
+}
+
+"""A named grouping of color swatches."""
+type PaletteGroup {
+  id: ID!
+  name: String!
+  description: String
+  swatches: [ColorSwatch!]!
+  created: DateTime!
+  updated: DateTime!
+}
+
+# ─────────────────────────────────────────
+# Typography
+# ─────────────────────────────────────────
+
+"""A named text style in a style guide or project."""
+type TextStyle {
+  id: ID!
+  name: String!
+  typography: Typography!
+  sectionId: ID
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""A named grouping of text styles."""
+type TextStyleGroup {
+  id: ID!
+  name: String!
+  description: String
+  textStyles: [TextStyle!]!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""Typographic properties applied to text layers or text styles."""
+type Typography {
+  fontFamily: String!
+  fontWeight: String
+  fontStyle: String
+  fontSize: Float!
+  lineHeight: Float
+  letterSpacing: Float
+  textAlignment: TextAlignment
+  color: Color
+  textDecoration: String
+  textTransform: String
+}
+
+# ─────────────────────────────────────────
+# Spacing
+# ─────────────────────────────────────────
+
+"""A spacing token defining a consistent layout gap."""
+type Spacing {
+  id: ID!
+  name: String!
+  value: Float!
+  unit: String!
+  description: String
+  sectionId: ID
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""A named section grouping spacing tokens."""
+type SpacingSection {
+  id: ID!
+  name: String!
+  description: String
+  spacings: [Spacing!]!
+  created: DateTime!
+  updated: DateTime!
+}
+
+# ─────────────────────────────────────────
+# Grids
+# ─────────────────────────────────────────
+
+"""A layout grid applied to a screen."""
+type Grid {
+  id: ID!
+  type: GridType!
+  sectionId: ID
+  details: GridDetails
+}
+
+"""Detailed configuration of a layout grid."""
+type GridDetails {
+  type: GridType!
+  numberOfColumns: Int
+  numberOfRows: Int
+  gutter: Float
+  margin: Float
+  columnWidth: Float
+  rowHeight: Float
+  color: Color
+  offset: Float
+}
+
+# ─────────────────────────────────────────
+# Assets
+# ─────────────────────────────────────────
+
+"""An exportable asset derived from a layer or component."""
+type Asset {
+  id: ID!
+  name: String!
+  layerId: ID
+  componentId: ID
+  screenId: ID
+  projectId: ID
+  exports: [AssetExport!]!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""A specific export configuration for an asset."""
+type AssetExport {
+  id: ID!
+  assetId: ID!
+  format: AssetFormat!
+  densityScale: DensityScale
+  resolution: AssetResolution
+  url: URL
+  size: Int
+  width: Float
+  height: Float
+  contentType: String
+}
+
+"""An explicit resolution override for an asset export."""
+type AssetResolution {
+  width: Float!
+  height: Float!
+  unit: String!
+}
+
+# ─────────────────────────────────────────
+# Members and Permissions
+# ─────────────────────────────────────────
+
+"""A user who is a member of a project or organization."""
+type Member {
+  id: ID!
+  username: String!
+  email: String
+  avatarUrl: URL
+  role: MemberRole!
+  permissions: [Permission!]
+  joined: DateTime!
+}
+
+"""An organization-level grouping of projects and members."""
+type Organization {
+  id: ID!
+  name: String!
+  handle: String!
+  logoUrl: URL
+  numberOfProjects: Int!
+  numberOfMembers: Int!
+  numberOfStyleguides: Int!
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""Extended details for an organization."""
+type OrganizationDetails {
+  id: ID!
+  name: String!
+  handle: String!
+  logoUrl: URL
+  description: String
+  website: URL
+  numberOfProjects: Int!
+  numberOfMembers: Int!
+  numberOfStyleguides: Int!
+  projects: [Project!]
+  styleguides: [StyleGuide!]
+  members: [OrganizationMember!]
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""A member of an organization with their role."""
+type OrganizationMember {
+  id: ID!
+  member: Member!
+  organizationId: ID!
+  role: MemberRole!
+  permissions: [Permission!]
+  joined: DateTime!
+}
+
+"""A pending invitation to join a project or organization."""
+type Invitation {
+  id: ID!
+  email: String!
+  role: MemberRole!
+  status: InvitationStatus!
+  projectId: ID
+  organizationId: ID
+  invitedBy: Member
+  expiresAt: DateTime
+  created: DateTime!
+  updated: DateTime!
+}
+
+# ─────────────────────────────────────────
+# Webhooks
+# ─────────────────────────────────────────
+
+"""A webhook subscription that delivers event payloads to a target URL."""
+type Webhook {
+  id: ID!
+  url: URL!
+  secret: String
+  events: [WebhookEvent!]!
+  status: WebhookStatus!
+  projectId: ID
+  organizationId: ID
+  description: String
+  lastDeliveredAt: DateTime
+  failureCount: Int!
+  created: DateTime!
+  updated: DateTime!
+}
+
+# ─────────────────────────────────────────
+# Collaboration
+# ─────────────────────────────────────────
+
+"""A comment within a threaded discussion on a screen note."""
+type Comment {
+  id: ID!
+  noteId: ID!
+  screenId: ID!
+  projectId: ID!
+  content: String!
+  author: Member!
+  replies: [Comment!]
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""A standalone annotation note on a design artifact."""
+type Note {
+  id: ID!
+  content: String!
+  screenId: ID
+  componentId: ID
+  projectId: ID!
+  position: NotePosition
+  author: Member!
+  resolved: Boolean!
+  comments: [Comment!]
+  created: DateTime!
+  updated: DateTime!
+}
+
+"""An activity event in the project or organization feed."""
+type ActivityEvent {
+  id: ID!
+  type: String!
+  actor: Member
+  projectId: ID
+  organizationId: ID
+  metadata: JSON
+  created: DateTime!
+}
+
+"""A paginated stream of activity events."""
+type ActivityFeed {
+  events: [ActivityEvent!]!
+  totalCount: Int!
+  hasNextPage: Boolean!
+  cursor: String
+}
+
+# ─────────────────────────────────────────
+# Authentication
+# ─────────────────────────────────────────
+
+"""A personal access token (API key) for authenticating API requests."""
+type APIKey {
+  id: ID!
+  name: String!
+  prefix: String!
+  scopes: [Permission!]!
+  expiresAt: DateTime
+  lastUsedAt: DateTime
+  created: DateTime!
+}
+
+"""An OAuth token response returned after successful authorization."""
+type Token {
+  accessToken: String!
+  refreshToken: String
+  tokenType: String!
+  expiresIn: Int
+  scope: String
+}
+
+# ─────────────────────────────────────────
+# Pagination
+# ─────────────────────────────────────────
+
+"""A paginated connection wrapper."""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  totalCount: Int!
+}
+
+# ─────────────────────────────────────────
+# Queries
+# ─────────────────────────────────────────
+
+type Query {
+  """Retrieve a list of projects accessible to the authenticated user."""
+  projects(
+    status: ProjectStatus
+    organizationId: ID
+    limit: Int
+    offset: Int
+  ): [Project!]!
+
+  """Retrieve detailed information about a specific project."""
+  project(id: ID!): ProjectDetails
+
+  """List sections within a project."""
+  projectSections(projectId: ID!): [ProjectSection!]!
+
+  """List screens in a project, optionally filtered by section."""
+  screens(
+    projectId: ID!
+    sectionId: ID
+    tag: String
+    limit: Int
+    offset: Int
+  ): [Screen!]!
+
+  """Retrieve detailed information about a specific screen."""
+  screen(projectId: ID!, screenId: ID!): ScreenDetails
+
+  """List versions of a screen."""
+  screenVersions(projectId: ID!, screenId: ID!): [ScreenVersion!]!
+
+  """Retrieve a specific screen version."""
+  screenVersion(projectId: ID!, screenId: ID!, versionId: ID!): ScreenVersion
+
+  """List notes on a screen."""
+  screenNotes(projectId: ID!, screenId: ID!): [ScreenNote!]!
+
+  """List components in a project or style guide."""
+  components(
+    projectId: ID
+    styleguideId: ID
+    sectionId: ID
+    limit: Int
+    offset: Int
+  ): [Component!]!
+
+  """Retrieve detailed information about a specific component."""
+  component(componentId: ID!, projectId: ID, styleguideId: ID): ComponentDetails
+
+  """List style guides accessible to the authenticated user."""
+  styleguides(organizationId: ID, limit: Int, offset: Int): [StyleGuide!]!
+
+  """Retrieve detailed information about a specific style guide."""
+  styleguide(id: ID!): StyleGuideDetails
+
+  """List colors in a project or style guide."""
+  colors(projectId: ID, styleguideId: ID, sectionId: ID): [Color!]!
+
+  """List text styles in a project or style guide."""
+  textStyles(projectId: ID, styleguideId: ID, sectionId: ID): [TextStyle!]!
+
+  """List spacing tokens in a project or style guide."""
+  spacings(projectId: ID, styleguideId: ID, sectionId: ID): [Spacing!]!
+
+  """List assets for a screen or component."""
+  assets(
+    screenId: ID
+    componentId: ID
+    projectId: ID!
+  ): [Asset!]!
+
+  """Retrieve the authenticated organization."""
+  organization(id: ID!): OrganizationDetails
+
+  """List members of a project."""
+  projectMembers(projectId: ID!): [Member!]!
+
+  """List members of an organization."""
+  organizationMembers(organizationId: ID!): [OrganizationMember!]!
+
+  """List pending invitations for a project or organization."""
+  invitations(projectId: ID, organizationId: ID): [Invitation!]!
+
+  """List webhooks for a project or organization."""
+  webhooks(projectId: ID, organizationId: ID): [Webhook!]!
+
+  """Retrieve a specific webhook."""
+  webhook(id: ID!): Webhook
+
+  """List API keys for the authenticated user."""
+  apiKeys: [APIKey!]!
+
+  """Retrieve an activity feed for a project or organization."""
+  activityFeed(
+    projectId: ID
+    organizationId: ID
+    limit: Int
+    cursor: String
+  ): ActivityFeed!
+}
+
+# ─────────────────────────────────────────
+# Mutations
+# ─────────────────────────────────────────
+
+type Mutation {
+  """Create a new project."""
+  createProject(input: CreateProjectInput!): Project!
+
+  """Update an existing project."""
+  updateProject(id: ID!, input: UpdateProjectInput!): Project!
+
+  """Archive a project."""
+  archiveProject(id: ID!): Project!
+
+  """Delete a project."""
+  deleteProject(id: ID!): Boolean!
+
+  """Create a new section within a project."""
+  createProjectSection(projectId: ID!, input: CreateSectionInput!): ProjectSection!
+
+  """Update a screen's metadata."""
+  updateScreen(projectId: ID!, screenId: ID!, input: UpdateScreenInput!): Screen!
+
+  """Add a tag to a screen."""
+  addScreenTag(projectId: ID!, screenId: ID!, tag: String!): Screen!
+
+  """Remove a tag from a screen."""
+  removeScreenTag(projectId: ID!, screenId: ID!, tag: String!): Screen!
+
+  """Create a note on a screen."""
+  createScreenNote(projectId: ID!, screenId: ID!, input: CreateNoteInput!): ScreenNote!
+
+  """Resolve a note on a screen."""
+  resolveScreenNote(projectId: ID!, screenId: ID!, noteId: ID!): ScreenNote!
+
+  """Create a comment on a note."""
+  createComment(projectId: ID!, screenId: ID!, noteId: ID!, input: CreateCommentInput!): Comment!
+
+  """Create a webhook subscription."""
+  createWebhook(input: CreateWebhookInput!): Webhook!
+
+  """Update an existing webhook."""
+  updateWebhook(id: ID!, input: UpdateWebhookInput!): Webhook!
+
+  """Delete a webhook subscription."""
+  deleteWebhook(id: ID!): Boolean!
+
+  """Invite a member to a project."""
+  inviteMember(projectId: ID!, input: InviteMemberInput!): Invitation!
+
+  """Update a member's role in a project."""
+  updateMemberRole(projectId: ID!, memberId: ID!, role: MemberRole!): Member!
+
+  """Remove a member from a project."""
+  removeMember(projectId: ID!, memberId: ID!): Boolean!
+
+  """Create an API key."""
+  createAPIKey(input: CreateAPIKeyInput!): APIKeyWithSecret!
+
+  """Delete an API key."""
+  deleteAPIKey(id: ID!): Boolean!
+}
+
+# ─────────────────────────────────────────
+# Input Types
+# ─────────────────────────────────────────
+
+input CreateProjectInput {
+  name: String!
+  description: String
+  type: ProjectType!
+  organizationId: ID
+}
+
+input UpdateProjectInput {
+  name: String
+  description: String
+  status: ProjectStatus
+}
+
+input CreateSectionInput {
+  name: String!
+  description: String
+}
+
+input UpdateScreenInput {
+  name: String
+  description: String
+  sectionId: ID
+}
+
+input CreateNoteInput {
+  content: String!
+  x: Float
+  y: Float
+  width: Float
+  height: Float
+}
+
+input CreateCommentInput {
+  content: String!
+}
+
+input CreateWebhookInput {
+  url: String!
+  secret: String
+  events: [WebhookEvent!]!
+  projectId: ID
+  organizationId: ID
+  description: String
+}
+
+input UpdateWebhookInput {
+  url: String
+  secret: String
+  events: [WebhookEvent!]
+  status: WebhookStatus
+  description: String
+}
+
+input InviteMemberInput {
+  email: String!
+  role: MemberRole!
+}
+
+input CreateAPIKeyInput {
+  name: String!
+  scopes: [Permission!]!
+  expiresAt: DateTime
+}
+
+# ─────────────────────────────────────────
+# Special output types
+# ─────────────────────────────────────────
+
+"""Returned once when an API key is created; the secret is shown only once."""
+type APIKeyWithSecret {
+  apiKey: APIKey!
+  secret: String!
+}
