@@ -10,7 +10,7 @@ description: Zeplin is a design-to-development handoff platform that bridges the
   workflows. The API uses OAuth 2.0 with PKCE support and personal access tokens for
   authentication, with an official JavaScript SDK and OpenAPI specification available.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/zeplin/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
