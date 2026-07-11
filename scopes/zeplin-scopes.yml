@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/zeplin-zeplin-api-openapi.yml
+docs: https://docs.zeplin.dev/reference/authentication
+note: Zeplin's OAuth 2.0 (authorization code with PKCE) does not use or document
+  granular scopes; the authorize endpoint accepts no scope parameter and authorized
+  apps get broad read/write access on behalf of the user
+  (https://docs.zeplin.dev/reference/authentication).
+schemes:
+- name: OAuth2
+  source: openapi/zeplin-zeplin-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: /v1/oauth/authorize
+    tokenUrl: /v1/oauth/token
+scopes: []
