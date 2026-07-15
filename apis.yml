@@ -66,6 +66,8 @@ apis:
   - url: graphql/zeplin-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/zeplin-agentic-access.yml
 - type: DomainSecurity
   url: security/zeplin-domain-security.yml
 - type: Authentication
