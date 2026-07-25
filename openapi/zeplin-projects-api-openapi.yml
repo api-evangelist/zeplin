@@ -1,0 +1,1479 @@
+openapi: 3.0.2
+info:
+  title: Zeplin Authorization Projects API
+  description: Access your resources in Zeplin
+  version: 1.38.0
+  contact:
+    name: Zeplin
+    url: https://zeplin.io
+    email: support@zeplin.io
+servers:
+- url: https://api.zeplin.dev
+security:
+- PersonalAccessToken: []
+- OAuth2: []
+tags:
+- name: Projects
+paths:
+  /v1/projects:
+    get:
+      tags:
+      - Projects
+      summary: Get all projects
+      description: List all projects that user is a member of
+      operationId: GetProjects
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/project_workspace'
+      - $ref: '#/components/parameters/project_status'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+              examples:
+                Projects:
+                  value:
+                  - $ref: '#/components/examples/project/value'
+                  - $ref: '#/components/examples/organizationProject/value'
+  /v1/projects/{project_id}:
+    get:
+      tags:
+      - Projects
+      summary: Get a single project
+      description: Get a project by id
+      operationId: GetProject
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+              examples:
+                Personal Project:
+                  $ref: '#/components/examples/project'
+                Organization Project:
+                  $ref: '#/components/examples/organizationProject'
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+    patch:
+      tags:
+      - Projects
+      summary: Update a project
+      description: Update a project's name and description
+      operationId: UpdateProject
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdateBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '403':
+          $ref: '#/components/responses/cannotUpdateProject'
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+        '409':
+          description: Conflict response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Project already has styleguide:
+                  value:
+                    message: Project already has a linked styleguide. Only projects without a linked styleguide can be linked to a styleguide
+                User not have styleguide:
+                  value:
+                    message: You’re not invited to this styleguide
+                    detail: Either project's and styleguide's subscription types are different or they belong to different owners
+        '422':
+          description: Unprocessable entity response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Not a member:
+                  value:
+                    message: User is not a member of the project
+                Project is archived:
+                  value:
+                    message: Project is archived
+                Workflow status not found:
+                  value:
+                    message: Workflow status not found
+                Styleguide not found:
+                  value:
+                    message: Styleguide not found
+                Styleguide is archived:
+                  value:
+                    message: Styleguide is archived
+                Project is onboarding:
+                  value:
+                    message: Can not do this action from an onboarding project
+  /v1/projects/{project_id}/members:
+    get:
+      tags:
+      - Projects
+      summary: Get project members
+      description: List all members of the project
+      operationId: GetProjectMembers
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectMember'
+              examples:
+                Project Members:
+                  value:
+                  - $ref: '#/components/examples/projectMember/value'
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+        '422':
+          $ref: '#/components/responses/projectArchived'
+    post:
+      tags:
+      - Projects
+      summary: Invite a member
+      description: Invite a member to the project.
+      operationId: InviteProjectMember
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectMemberInviteBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '402':
+          description: User limit is reached
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                User limit is reached:
+                  value: 'Looks like you reached the member limit for your project, contact us to learn more: support@zeplin.io'
+        '403':
+          description: Organization member not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Organization member not allowed:
+                  value: Only organization admins (or higher) can add new members
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+        '422':
+          description: Project is archived, invitee already member, or external members disallowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Project is archived:
+                  value:
+                    message: Project is archived
+                Invitee already member:
+                  value:
+                    message: Invited user is already a member of the project
+                External members disallowed:
+                  value:
+                    message: The organization does not allow users from external domains
+        '423':
+          description: Project resource is locked response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Project resource is locked response:
+                  value:
+                    message: Project resource is locked. Please try again later.
+  /v1/projects/{project_id}/members/{member_id}:
+    delete:
+      tags:
+      - Projects
+      summary: Remove a member
+      description: Remove a member from the project.
+      operationId: RemoveProjectMember
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/member_id'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '403':
+          description: Organization member not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Organization member not allowed:
+                  value: Only organization admins (or higher) can add remove members
+        '404':
+          description: Project or member not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Project not found:
+                  value:
+                    message: Project not found
+                User is not a member of the project:
+                  value:
+                    message: User is not a member of the project
+        '422':
+          description: Project is archived or cannot remove owner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Project is archived:
+                  value:
+                    message: Project is archived
+                Cannot remove owner:
+                  value:
+                    message: Owner cannot leave the project
+        '423':
+          description: Project resource is locked response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Project resource is locked response:
+                  value:
+                    message: Project resource is locked. Please try again later.
+  /v1/projects/{project_id}/design_tokens:
+    get:
+      tags:
+      - Projects
+      summary: Get project design tokens
+      description: Fetch all design tokens of the project
+      operationId: GetProjectDesignTokens
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      - $ref: '#/components/parameters/token_name_case'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DesignTokens'
+              examples:
+                response:
+                  $ref: '#/components/examples/projectDesignTokens'
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+        '422':
+          $ref: '#/components/responses/projectArchived'
+components:
+  schemas:
+    SpacingDesignToken:
+      type: object
+      title: Spacing Design Token
+      required:
+      - value
+      - metadata
+      properties:
+        value:
+          type: number
+          description: The value of the token
+        metadata:
+          $ref: '#/components/schemas/SpacingDesignTokenMetadata'
+      example:
+        $ref: '#/components/examples/spacingDesignToken'
+    DesignTokenProject:
+      title: Design Token Project
+      type: object
+      description: The source project of the token
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/designTokenProject'
+    DesignTokens:
+      title: Design Tokens
+      type: object
+      required:
+      - colors
+      - text_styles
+      - spacing
+      properties:
+        colors:
+          $ref: '#/components/schemas/ColorDesignTokens'
+        spacing:
+          $ref: '#/components/schemas/SpacingDesignTokens'
+        text_styles:
+          $ref: '#/components/schemas/TextStyleDesignTokens'
+      example:
+        $ref: '#/components/examples/projectDesignTokens'
+      x-examples:
+        Project Design Tokens:
+          $ref: '#/components/examples/projectDesignTokens'
+        Styleguide Design Tokens:
+          $ref: '#/components/examples/styleguideDesignTokens'
+    ProjectMember:
+      title: Project Member
+      type: object
+      required:
+      - user
+      - role
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        role:
+          type: string
+          enum:
+          - owner
+          - admin
+          - user
+          - editor
+          - member
+          - alien
+          description: The role of the user in the project
+      example:
+        $ref: '#/components/examples/projectMember'
+    DesignTokenFont:
+      title: Design Token Font
+      type: object
+      description: Font information for the text style
+      required:
+      - family
+      - size
+      - weight
+      - stretch
+      properties:
+        family:
+          type: string
+          description: Font family of the text style, e.g. `Roboto`, `Arial`
+        size:
+          type: number
+          description: Font size of the text style
+        weight:
+          type: number
+          description: Font weight of the text style, e.g. `500`, `700`
+        stretch:
+          type: number
+          description: Font stretch form of the text style, e.g. `0.75`, `1.00`
+      example:
+        $ref: '#/components/examples/designTokenFont'
+    ProjectStatusEnum:
+      title: Project Status
+      type: string
+      enum:
+      - active
+      - archived
+      description: The status of the project
+    ColorDesignTokens:
+      title: Color Design Tokens
+      type: object
+      description: Color tokens
+      additionalProperties:
+        description: Color tokens
+        $ref: '#/components/schemas/ColorDesignToken'
+      example:
+        $ref: '#/components/examples/colorDesignTokens'
+    TextStyleDesignToken:
+      type: object
+      title: Text Style Design Token
+      required:
+      - value
+      - metadata
+      properties:
+        value:
+          $ref: '#/components/schemas/TextStyleDesignTokenValue'
+        metadata:
+          $ref: '#/components/schemas/TextStyleDesignTokenMetadata'
+      example:
+        $ref: '#/components/examples/textStyleDesignToken'
+    WorkflowStatusColor:
+      title: Workflow Status Color
+      type: object
+      required:
+      - name
+      - r
+      - g
+      - b
+      - a
+      properties:
+        name:
+          type: string
+          description: The name of the color
+        r:
+          type: integer
+          description: red component of the color
+        g:
+          type: integer
+          description: green component of the color
+        b:
+          type: integer
+          description: blue component of the color
+        a:
+          type: number
+          description: alpha component of the color
+      example:
+        $ref: '#/components/examples/workflowStatusColor'
+    DesignTokenStyleguide:
+      title: Design Token Styleguide
+      type: object
+      description: The source styleguide of the token
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source styleguide
+        name:
+          type: string
+          description: The name of the source styleguide
+        platform:
+          type: string
+          enum:
+          - base
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source styleguide
+        parent:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the parent styleguide of the source styleguide
+      example:
+        $ref: '#/components/examples/designTokenStyleguide'
+    SpacingDesignTokens:
+      title: Spacing Design Tokens
+      type: object
+      description: Spacing tokens
+      additionalProperties:
+        description: Spacing tokens
+        $ref: '#/components/schemas/SpacingDesignToken'
+      example:
+        $ref: '#/components/examples/spacingDesignTokens'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    OrganizationSummary:
+      title: Organization Summary
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Organization's unique id
+        name:
+          type: string
+          description: Name of the user
+        logo:
+          type: string
+          description: URL of the organization's logo
+          format: url
+      example:
+        $ref: '#/components/examples/organizationSummary'
+    User:
+      title: User
+      description: 'Basic info about Zeplin users.
+
+
+        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
+
+
+        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
+
+
+        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
+
+        '
+      type: object
+      required:
+      - id
+      - email
+      - username
+      properties:
+        id:
+          type: string
+          description: User's unique id
+        email:
+          type: string
+          description: Zeplin-only alias for the user's email (original)
+        username:
+          type: string
+          description: Username of the user
+        emotar:
+          type: string
+          format: emoji
+          description: Emotar of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        last_seen:
+          type: number
+          description: The unix timestamp when the user was last seen
+      example:
+        $ref: '#/components/examples/user'
+      x-examples:
+        User:
+          $ref: '#/components/examples/user'
+        My User:
+          $ref: '#/components/examples/me'
+    ColorDesignTokenMetadata:
+      type: object
+      title: Color Design Token Metadata
+      required:
+      - source
+      - resource
+      properties:
+        source:
+          $ref: '#/components/schemas/DesignTokenSource'
+          description: Source of the design token–either `project` or `styleguide`.
+        resource:
+          $ref: '#/components/schemas/DesignTokenResource'
+          description: Details of the `Color` object that the design token is generated from.
+      description: Additional information about the color token
+      example:
+        $ref: '#/components/examples/colorDesignTokenMetadata'
+    ColorDesignToken:
+      type: object
+      title: Color Design Token
+      required:
+      - value
+      - metadata
+      properties:
+        value:
+          type: string
+          description: The value of color token in `rgb(r, g, b)` or `rgba(r, g, b, a)` format.
+        metadata:
+          $ref: '#/components/schemas/ColorDesignTokenMetadata'
+      example:
+        $ref: '#/components/examples/colorDesignToken'
+    ProjectUpdateBody:
+      title: Project Update Body
+      type: object
+      properties:
+        name:
+          type: string
+          description: New name for the project
+        description:
+          type: string
+          description: New description for the project
+        workflow_status_id:
+          type: string
+          description: Id of the new workflow status for the project
+        linked_styleguide_id:
+          type: string
+          nullable: true
+          description: The unique id of the styleguide to be linked. Set null to unlink the linked styleguide.
+    DesignTokenSource:
+      title: Design Token Source
+      type: object
+      description: Source details for design token. It has to be either `project` or `styleguide`.
+      properties:
+        project:
+          $ref: '#/components/schemas/DesignTokenProject'
+        styleguide:
+          $ref: '#/components/schemas/DesignTokenStyleguide'
+      example:
+        $ref: '#/components/examples/designTokenSourceForProject'
+      x-examples:
+        Project:
+          $ref: '#/components/examples/designTokenSourceForProject'
+        Styleguide:
+          $ref: '#/components/examples/designTokenSourceForStyleguide'
+    ProjectMemberInviteBody:
+      title: Project Member Invite Body
+      type: object
+      properties:
+        handle:
+          type: string
+          description: 'Email, username or unique identifier of the user
+
+
+            Can also be `"me"` for joining the project as the current user
+
+            '
+      required:
+      - handle
+    EnabledRemPreferences:
+      title: Enabled rem Preferences
+      type: object
+      required:
+      - status
+      - root_font_size
+      - use_for_font_sizes
+      - use_for_measurements
+      properties:
+        status:
+          type: string
+          description: The status of the preferences
+          enum:
+          - enabled
+        root_font_size:
+          description: Font size of the root element
+          type: number
+        use_for_font_sizes:
+          description: Whether rem unit is used for font sizes
+          type: boolean
+        use_for_measurements:
+          description: Whether rem unit is used for measurements
+          type: boolean
+      example:
+        $ref: '#/components/examples/remPreferences'
+    DesignTokenResource:
+      title: Design Token Resouce
+      type: object
+      description: Details of the resource that the design token is generated from.
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: The unique id of the resource
+        type:
+          type: string
+          enum:
+          - Color
+          - TextStyle
+          - SpacingToken
+          description: The type of the resource
+      example:
+        $ref: '#/components/examples/designTokenResource'
+    TextStyleDesignTokens:
+      title: Text Style Design Tokens
+      type: object
+      description: Text style tokens
+      additionalProperties:
+        description: Text style tokens
+        $ref: '#/components/schemas/TextStyleDesignToken'
+      example:
+        $ref: '#/components/examples/textStyleDesignToken'
+    WorkflowStatus:
+      title: Workflow Status
+      type: object
+      required:
+      - id
+      - name
+      - color
+      properties:
+        id:
+          type: string
+          description: The unique id of the workflow status
+        name:
+          type: string
+          description: The name of the workflow status
+        color:
+          $ref: '#/components/schemas/WorkflowStatusColor'
+      example:
+        $ref: '#/components/examples/workflowStatus'
+    TextStyleDesignTokenValue:
+      title: Text Style Design Token Value
+      type: object
+      description: Value of the token
+      required:
+      - font
+      properties:
+        letter_spacing:
+          type: number
+          description: Spacing between letters
+        line_height:
+          type: number
+          description: Minimum height of a line for the text style
+        alignment:
+          type: string
+          description: Horizontal alignment of the text style, `left`, `right`, `center`, or `justify`
+        font:
+          $ref: '#/components/schemas/DesignTokenFont'
+        color:
+          type: string
+          description: 'The value of color in `rgb(r, g, b)` or `rgba(r, g, b, a)` format for the text style.
+
+
+            ☝️*If there''s a matching color token for the text style''s color, the color token''s value is returned as a reference, e.g. `{$colors.light-yellow.value}`.*
+
+            '
+      example:
+        $ref: '#/components/examples/textStyleDesignTokenValue'
+    SpacingDesignTokenMetadata:
+      title: Spacing Design Token Metadata
+      description: Additional information about the spacing token
+      type: object
+      required:
+      - source
+      - resource
+      - spacing_section
+      properties:
+        source:
+          $ref: '#/components/schemas/DesignTokenSource'
+          description: Source of the design token–either `project` or `styleguide`.
+        resource:
+          $ref: '#/components/schemas/DesignTokenResource'
+          description: Details of the `SpacingToken` object that the design token is generated from.
+        spacing_section:
+          $ref: '#/components/schemas/EntityReference'
+          description: The reference of the spacing section the spacing token belongs to.
+      example:
+        $ref: '#/components/examples/spacingDesignTokenMetadata'
+    Project:
+      title: Project
+      type: object
+      required:
+      - id
+      - name
+      - platform
+      - status
+      - created
+      - number_of_members
+      - number_of_screens
+      - number_of_components
+      - number_of_connected_components
+      - number_of_colors
+      - number_of_text_styles
+      - number_of_spacing_tokens
+      properties:
+        id:
+          type: string
+          description: The unique id of the project
+        name:
+          type: string
+          description: The name of the project
+        description:
+          type: string
+          description: The description of the project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the project
+        thumbnail:
+          type: string
+          description: URL of the project's thumbnail image
+        status:
+          $ref: '#/components/schemas/ProjectStatusEnum'
+        organization:
+          $ref: '#/components/schemas/OrganizationSummary'
+        rem_preferences:
+          $ref: '#/components/schemas/RemPreferences'
+        workflow_status:
+          $ref: '#/components/schemas/WorkflowStatus'
+        scene_url:
+          type: string
+          description: URL of the project's scene (public projects only)
+          format: url
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the project was created
+        updated:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the project was updated
+        number_of_members:
+          type: integer
+          description: The number of members of the project
+        number_of_screens:
+          type: integer
+          description: The number of screens in the project
+        number_of_components:
+          type: integer
+          description: The number of components exported to the project
+        number_of_connected_components:
+          type: integer
+          description: The number of connected components in the project
+        number_of_text_styles:
+          type: integer
+          description: The number of text styles added to the project
+        number_of_colors:
+          type: integer
+          description: The number of colors added to the project
+        number_of_spacing_tokens:
+          type: integer
+          description: The number of spacing tokens added to the project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference the styleguide which the project is linked to
+      example:
+        $ref: '#/components/examples/project'
+      x-examples:
+        Personal Project:
+          $ref: '#/components/examples/project'
+        Organization Project:
+          $ref: '#/components/examples/organizationProject'
+    TextStyleDesignTokenMetadata:
+      title: Text Style Design Token Metadata
+      type: object
+      description: Additional information about the text style token
+      required:
+      - source
+      - resource
+      properties:
+        source:
+          $ref: '#/components/schemas/DesignTokenSource'
+          description: Source of the design token–either `project` or `styleguide`.
+        resource:
+          $ref: '#/components/schemas/DesignTokenResource'
+          description: Details of the `TextStyle` object that the design token is generated from.
+      example:
+        $ref: '#/components/examples/textStyleDesignTokenMetadata'
+    RemPreferences:
+      title: rem Preferences
+      description: rem preferences of project or styleguide. The content of this property varies depending on the value of its status field.
+      discriminator:
+        propertyName: status
+        mapping:
+          enabled: '#/components/schemas/EnabledRemPreferences'
+          disabled: '#/components/schemas/DisabledOrLinkedRemPreferences'
+          linked: '#/components/schemas/DisabledOrLinkedRemPreferences'
+      oneOf:
+      - $ref: '#/components/schemas/EnabledRemPreferences'
+      - $ref: '#/components/schemas/DisabledOrLinkedRemPreferences'
+    DisabledOrLinkedRemPreferences:
+      title: Disabled or Linked rem Preferences
+      type: object
+      description: If `status` is `"linked"`, project or styleguide uses its parent styleguide as the source of preferences.
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The status of the preferences.
+          enum:
+          - disabled
+          - linked
+  examples:
+    designTokenResource:
+      summary: Design Token Resource
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        type: Color
+    organizationProject:
+      summary: Organization Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        description: UI designs for the onboard computer on the spaceship Discovery 1
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        created: 1517184000
+        updated: 1572347818
+        organization:
+          $ref: '#/components/examples/organizationSummary/value'
+        workflow_status:
+          $ref: '#/components/examples/workflowStatus/value'
+        number_of_members: 47
+        number_of_screens: 112
+        number_of_components: 46
+        number_of_connected_components: 32
+        number_of_text_styles: 28
+        number_of_colors: 17
+        number_of_spacing_tokens: 63
+        linked_styleguide:
+          id: 5db81e6e6a4462065f04d932
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    colorDesignToken:
+      summary: Color Design Token
+      value:
+        value: rgb(255, 255, 0)
+        metadata:
+          source:
+            styleguide:
+              id: 5db981be9df2b3e1bfa19ef2
+              name: Discovery 1
+              platform: web
+          resource:
+            id: 605df86a46d1fe50fceb9b49
+            type: Color
+    projectDesignTokens:
+      summary: Project Design Tokens
+      value:
+        colors:
+          yellow:
+            value: rgb(255, 255, 0)
+            metadata:
+              source:
+                styleguide:
+                  id: 5db981be9df2b3e1bfa19ef2
+                  name: Discovery 1
+                  platform: web
+              resource:
+                id: 605df86a46d1fe50fceb9b49
+                type: Color
+          light-yellow:
+            value: rgb(255, 255, 224)
+            metadata:
+              source:
+                project:
+                  id: 5db81e73e1e36ee19f138c1a
+                  name: HAL 9000
+                  platform: web
+                  linked_styleguide:
+                    id: 5db981be9df2b3e1bfa19ef2
+              resource:
+                id: 5dbad85a76ea51c1f35b6f69
+                type: Color
+        spacing:
+          xs-spacing:
+            value: 16
+            metadata:
+              source:
+                project:
+                  id: 5db81e73e1e36ee19f138c1a
+                  name: HAL 9000
+                  platform: web
+                  linked_styleguide:
+                    id: 5db981be9df2b3e1bfa19ef2
+              resource:
+                id: 605df8fb1e558896ebd801c1
+                type: SpacingToken
+              spacing_section:
+                id: 5db81e6e6a4462065f04d932
+        text_styles:
+          header-h1:
+            value:
+              line_height: 36
+              alignment: left
+              font:
+                family: HelveticaNeue
+                size: 36
+                weight: 900
+                stretch: 1
+              color: rgb(204, 204, 0)
+            metadata:
+              source:
+                styleguide:
+                  id: 5db981be9df2b3e1bfa19ef2
+                  name: Discovery 1
+                  platform: web
+              resource:
+                id: 5dbad85a76ea51c1f35b6f69
+                type: TextStyle
+          header-h2:
+            value:
+              line_height: 24
+              alignment: left
+              font:
+                family: HelveticaNeue
+                size: 24
+                weight: 700
+                stretch: 1
+              color: '{$colors.light-yellow.value}'
+            metadata:
+              source:
+                project:
+                  id: 5db81e73e1e36ee19f138c1a
+                  name: HAL 9000
+                  platform: web
+                  linked_styleguide:
+                    id: 5db981be9df2b3e1bfa19ef2
+              resource:
+                id: 5dbad85a76ea51c1f35b6f69
+                type: TextStyle
+    designTokenSourceForProject:
+      summary: Design Token Source for Project
+      value:
+        project:
+          $ref: '#/components/examples/designTokenProject/value'
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    textStyleDesignToken:
+      summary: Text Style Design Token
+      value:
+        value:
+          $ref: '#/components/examples/textStyleDesignTokenValue/value'
+        metadata:
+          source:
+            styleguide:
+              id: 5db981be9df2b3e1bfa19ef2
+              name: Discovery 1
+              platform: web
+          resource:
+            id: 5dbad85a76ea51c1f35b6f69
+            type: TextStyle
+    textStyleDesignTokenValue:
+      summary: Text Style Design Token Value
+      value:
+        line_height: 36
+        alignment: left
+        font:
+          $ref: '#/components/examples/designTokenFont/value'
+        color: rgb(204, 204, 0)
+    projectMember:
+      summary: Project Member
+      value:
+        user:
+          $ref: '#/components/examples/user/value'
+        role: admin
+    spacingDesignTokenMetadata:
+      summary: Spacing Design Token Metadata
+      value:
+        source:
+          project:
+            id: 5db81e73e1e36ee19f138c1a
+            name: HAL 9000
+            platform: web
+            linked_styleguide:
+              id: 5db981be9df2b3e1bfa19ef2
+        resource:
+          id: 605df8fb1e558896ebd801c1
+          type: SpacingToken
+        spacing_section:
+          id: 5db81e6e6a4462065f04d932
+    textStyleDesignTokenMetadata:
+      summary: Text Style Design Token Metadata
+      value:
+        source:
+          styleguide:
+            id: 5db981be9df2b3e1bfa19ef2
+            name: Discovery 1
+            platform: web
+        resource:
+          id: 5dbad85a76ea51c1f35b6f69
+          type: TextStyle
+    designTokenProject:
+      summary: Design Token Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    workflowStatusColor:
+      summary: Workflow Status Color
+      value:
+        name: yellow
+        r: 254
+        g: 207
+        b: 51
+        a: 1
+    project:
+      summary: Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        description: UI designs for the onboard computer on the spaceship Discovery 1
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        scene_url: https://scene.zeplin.io/project/5db81e73e1e36ee19f138c1a
+        created: 1517184000
+        updated: 1572347818
+        number_of_members: 47
+        number_of_screens: 112
+        number_of_components: 46
+        number_of_connected_components: 32
+        number_of_text_styles: 28
+        number_of_colors: 17
+        linked_styleguide:
+          id: 5db81e6e6a4462065f04d932
+    designTokenStyleguide:
+      summary: Design Token Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    designTokenFont:
+      summary: Design Token Font
+      value:
+        family: HelveticaNeue
+        size: 36
+        weight: 900
+        stretch: 1
+    organizationSummary:
+      summary: Organization Project
+      value:
+        id: 5d9caaecb4a3fa9b972f86ce
+        name: Acme, Inc.
+        logo: http://placekitten.com/200/300
+    colorDesignTokens:
+      summary: Color Design Tokens
+      value:
+        yellow:
+          value: rgb(255, 255, 0)
+          metadata:
+            source:
+              styleguide:
+                id: 5db981be9df2b3e1bfa19ef2
+                name: Discovery 1
+                platform: web
+            resource:
+              id: 605df86a46d1fe50fceb9b49
+              type: Color
+        light-yellow:
+          value: rgb(255, 255, 224)
+          metadata:
+            source:
+              project:
+                id: 5db81e73e1e36ee19f138c1a
+                name: HAL 9000
+                platform: web
+                linked_styleguide:
+                  id: 5db981be9df2b3e1bfa19ef2
+            resource:
+              id: 5dbad85a76ea51c1f35b6f69
+              type: Color
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    spacingDesignTokens:
+      summary: Spacing Design Tokens
+      value:
+        xs-spacing:
+          value: 16
+          metadata:
+            source:
+              project:
+                id: 5db81e73e1e36ee19f138c1a
+                name: HAL 9000
+                platform: web
+                linked_styleguide:
+                  id: 5db981be9df2b3e1bfa19ef2
+            resource:
+              id: 605df8fb1e558896ebd801c1
+              type: SpacingToken
+            spacing_section:
+              id: 5db81e6e6a4462065f04d932
+    colorDesignTokenMetadata:
+      summary: Color Design Token Metadata
+      value:
+        source:
+          styleguide:
+            id: 5db981be9df2b3e1bfa19ef2
+            name: Discovery 1
+            platform: web
+        resource:
+          id: 605df86a46d1fe50fceb9b49
+          type: Color
+    styleguideDesignTokens:
+      summary: Styleguide Design Tokens
+      value:
+        colors:
+          yellow:
+            value: rgb(255, 255, 0)
+            metadata:
+              source:
+                styleguide:
+                  id: 5db981be9df2b3e1bfa19ef2
+                  name: Discovery 1
+                  platform: web
+              resource:
+                id: 605df86a46d1fe50fceb9b49
+                type: Color
+          light-yellow:
+            value: rgb(255, 255, 224)
+            metadata:
+              source:
+                styleguide:
+                  id: 5db81e73e1e36ee19f138c1a
+                  name: HAL 9000
+                  platform: web
+                  parent:
+                    id: 5db981be9df2b3e1bfa19ef2
+              resource:
+                id: 5dbad85a76ea51c1f35b6f69
+                type: Color
+        spacing:
+          xs-spacing:
+            value: 16
+            metadata:
+              source:
+                styleguide:
+                  id: 5db81e73e1e36ee19f138c1a
+                  name: HAL 9000
+                  platform: web
+                  parent:
+                    id: 5db981be9df2b3e1bfa19ef2
+              resource:
+                id: 605df8fb1e558896ebd801c1
+                type: SpacingToken
+              spacing_section:
+                id: 5db81e6e6a4462065f04d932
+        text_styles:
+          header-h1:
+            value:
+              line_height: 36
+              alignment: left
+              font:
+                family: HelveticaNeue
+                size: 36
+                weight: 900
+                stretch: 1
+              color: rgb(204, 204, 0)
+            metadata:
+              source:
+                styleguide:
+                  id: 5db981be9df2b3e1bfa19ef2
+                  name: Discovery 1
+                  platform: web
+              resource:
+                id: 5dbad85a76ea51c1f35b6f69
+                type: TextStyle
+          header-h2:
+            value:
+              line_height: 24
+              alignment: left
+              font:
+                family: HelveticaNeue
+                size: 24
+                weight: 700
+                stretch: 1
+              color: '{$colors.light-yellow.value}'
+            metadata:
+              source:
+                styleguide:
+                  id: 5db81e73e1e36ee19f138c1a
+                  name: HAL 9000
+                  platform: web
+                  parent:
+                    id: 5db981be9df2b3e1bfa19ef2
+              resource:
+                id: 5dbad85a76ea51c1f35b6f69
+                type: TextStyle
+    remPreferences:
+      summary: rem Preferences
+      value:
+        status: enabled
+        root_font_size: 16
+        use_for_font_sizes: false
+        use_for_measurements: true
+    designTokenSourceForStyleguide:
+      summary: Design Token Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/designTokenStyleguide/value'
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    workflowStatus:
+      summary: Workflow Status
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Done
+        color:
+          $ref: '#/components/examples/workflowStatusColor/value'
+    spacingDesignToken:
+      summary: Spacing Design Token
+      value:
+        value: 16
+        metadata:
+          $ref: '#/components/examples/spacingDesignTokenMetadata/value'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    member_id:
+      name: member_id
+      in: path
+      description: Member id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    project_workspace:
+      name: workspace
+      in: query
+      description: Workspace of the project, it can be `personal` or the id of organization
+      required: false
+      schema:
+        type: string
+        pattern: /^([0-9a-f]{24}|personal)$/i
+    token_name_case:
+      name: token_name_case
+      in: query
+      description: Case for token names
+      required: false
+      schema:
+        type: string
+        enum:
+        - kebab
+        - snake
+        - camel
+        - pascal
+        - constant
+        - original
+        default: kebab
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+    project_status:
+      name: status
+      in: query
+      description: Filter by status
+      required: false
+      schema:
+        $ref: '#/components/schemas/ProjectStatusEnum'
+  responses:
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
+    noContent:
+      description: Successful response
+    projectArchived:
+      description: Project archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project archived response:
+              value:
+                message: Project is archived
+    cannotUpdateProject:
+      description: User cannot update the project
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot update the project:
+              value:
+                message: User with role alien in a project cannot update the project
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /v1/oauth/authorize
+          tokenUrl: /v1/oauth/token
+          refreshUrl: /v1/oauth/token
+          scopes: {}
+    PersonalAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

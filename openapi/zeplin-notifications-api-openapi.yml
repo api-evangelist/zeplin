@@ -1,0 +1,500 @@
+openapi: 3.0.2
+info:
+  title: Zeplin Authorization Notifications API
+  description: Access your resources in Zeplin
+  version: 1.38.0
+  contact:
+    name: Zeplin
+    url: https://zeplin.io
+    email: support@zeplin.io
+servers:
+- url: https://api.zeplin.dev
+security:
+- PersonalAccessToken: []
+- OAuth2: []
+tags:
+- name: Notifications
+paths:
+  /v1/users/me/notifications:
+    get:
+      tags:
+      - Notifications
+      summary: Get user notifications
+      description: List all notifications of the user
+      operationId: GetUserNotifications
+      parameters:
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/is_read'
+      - $ref: '#/components/parameters/notification_type'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+              examples:
+                Notifications:
+                  value:
+                  - $ref: '#/components/examples/notification/value'
+    patch:
+      tags:
+      - Notifications
+      summary: Bulk update user notifications
+      description: 'Updates all user notifications unless `type` or `id` parameter is given.
+
+
+        If `type` parameter is provided, updates notifications with matching type.
+
+
+        Similarly, updates notifications with matching identifiers if `id` parameter is provided.
+
+
+        ☝️ `type` and `id` should not be used in conjunction.
+
+        '
+      operationId: UpdateUserNotifications
+      parameters:
+      - $ref: '#/components/parameters/notification_type'
+      - name: id
+        in: query
+        description: 'Filter by id
+
+
+          Example: `?id=5fbe387f8c72ef23659fb500&id=602281f4783f72fccc045484`
+
+          '
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            pattern: /^[0-9a-f]{24}$/i
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationUpdateBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+  /v1/users/me/notifications/{notification_id}:
+    get:
+      tags:
+      - Notifications
+      summary: Get a notification of user
+      description: Get a notification by id
+      operationId: GetUserNotification
+      parameters:
+      - $ref: '#/components/parameters/notification_id'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+              examples:
+                response:
+                  $ref: '#/components/examples/notification'
+        '404':
+          $ref: '#/components/responses/notificationNotFound'
+    patch:
+      tags:
+      - Notifications
+      summary: Update user notification
+      description: Update a notification for the user
+      operationId: UpdateUserNotification
+      parameters:
+      - $ref: '#/components/parameters/notification_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationUpdateBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '404':
+          $ref: '#/components/responses/notificationNotFound'
+components:
+  schemas:
+    NotificationTypeEnum:
+      title: Notification Type
+      type: string
+      enum:
+      - workspace.project
+      - workspace.styleguide
+      - project.extension
+      - styleguide.extension
+      - user.project_membership
+      - user.styleguide_membership
+      - project.component
+      - styleguide.component
+      - project.color
+      - styleguide.color
+      - project.screen.note
+      - project.screen.note.comment
+      - project.screen
+      - project.text_style
+      - styleguide.text_style
+      - project.spacing_token
+      - styleguide.spacing_token
+      - project.jira_attachment
+      - project.screen_section.jira_attachment
+      - project.screen.jira_attachment
+      - workspace.organization.member
+      - project.slack_integration
+      - styleguide.slack_integration
+      - project.member
+      - styleguide.member
+      - project.flow_board
+    NotificationUpdateBody:
+      title: Notifications Update Body
+      type: object
+      required:
+      - is_read
+      properties:
+        is_read:
+          type: boolean
+          description: New is_read status for notifications
+    Notification:
+      title: Notification
+      description: 'Notification objects have a polymorphic structure. They can be of various types and each type has a certain set of actions that describe the notification further.
+
+
+        Notification content (specifically `resource` and `context` fields) varies based on the value of type field. These variations and their details are described in the table below.
+
+
+        Type | Actions | Context | Resource | Description
+
+        --| --| --| --| --
+
+        `workspace.project`  | `activated`<br />`archived`<br />`deleted`<br />`ownership_transferred` | - | `Project (extra: { name, platform })` |  Used for changes related to projects in a workspace.
+
+        `workspace.styleguide`  | `activated`<br />`archived`<br />`deleted`<br />`ownership_transferred` | - | `Styleguide (extra: { name, platform })` |  Used for changes related to styleguides in a workspace.
+
+        `workspace.organization.member`  | `role_updated`<br />`invited` | `Organization (extra: { name })` | `OrganizationMember (extra: { role })` |  Used for changes related to members of a workspace.
+
+        `project.screen`  | `created`<br />`version_created`<br />`deleted` | `Project (extra: { name, platform })`<br />`ScreenVersion (extra: { image_url, thumbnails, width, height })` | `Screen (extra: { name })` |  Used for changes related to screens in a project.
+
+        `project.screen.note`  | `created`<br />`mentioned` | `Project (extra: { name, platform })`<br />`Screen (extra: { name })`<br />`ScreenNoteComment (extra: { content })` | `Screen (extra: { order, color, status })` |  Used for changes related to notes.
+
+        `project.screen.note.comment`  | `created`<br />`mentioned` | `Project (extra: { name, platform })`<br />`Screen (extra: { name })`<br />`Screen (extra: { order, color, status })` | `ScreenNoteComment (extra: { content })` |  Used for changes related to note comments.
+
+        `project.color`  | `created`<br />`updated`<br />`deleted` | `Project (extra: { name, platform })` | `Color (extra: { name, r, g, b, a })` |  Used for changes related to colors in a project.
+
+        `project.text_style`  | `created`<br />`updated`<br />`deleted` | `Project (extra: { name, platform })` | `TextStyle (extra: { name })` |  Used for changes related to text styles in a project.
+
+        `project.component`  | `created`<br />`version_created`<br />`deleted` | `Project (extra: { name, platform })` | `Component (extra: { name })` |  Used for changes related to components in a project.
+
+        `project.spacing_token`  | `created`<br />`updated`<br />`deleted` | `Project (extra: { name, platform })` | `SpacingToken (extra: { name, value })` |  Used for changes related to spacing tokens in a project.
+
+        `project.member`  | `joined` | `Project (extra: { name, platform })` | |  Used for changes related to members of a project.
+
+        `project.extension`  | `added`<br />`removed` | `Project (extra: { name, platform })` | `Extension (extra: { name })` |  Used for changes related to extensions in a project.
+
+        `project.slack_integration`  | `added` | `Project (extra: { name, platform })` | `SlackIntegration (extra: { channel })` |  Used for changes related to slack intgrations in a project.
+
+        `project.jira_attachment`  | `added`<br />`removed` | `Project (extra: { name, platform })` | `JiraIntegration (extra: { issue })` |  Used for changes related to jira attachments in a project.
+
+        `project.screen.jira_attachment`  | `added`<br />`removed` | `Project (extra: { name, platform })`<br />`Screen (extra: { name })` | `JiraIntegration (extra: { issue })` |  Used for changes related to jira attachments in a screen.
+
+        `project.screen_section.jira_attachment`  | `added`<br />`removed` | `Project (extra: { name, platform })`<br />`ScreenSection (extra: { name })` | `JiraIntegration (extra: { issue })` |  Used for changes related to jira attachments in a screen section.
+
+        `project.flow_board`  | `added` | `Project (extra: { name, platform })` | `FlowBoard (extra: {})` |  Used for changes related to flow boards in a project.
+
+        `styleguide.color`  | `created`<br />`updated`<br />`deleted` | `Styleguide (extra: { name, platform })` | `Color (extra: { name, r, g, b, a })` |  Used for changes related to colors in a styleguide.
+
+        `styleguide.text_style`  | `created`<br />`updated`<br />`deleted` | `Styleguide (extra: { name, platform })` | `TextStyle (extra: { name })` |  Used for changes related to text styles in a styleguide.
+
+        `styleguide.component`  | `created`<br />`version_created`<br />`deleted` | `Styleguide (extra: { name, platform })` | `Component (extra: { name })` |  Used for changes related to components in a styleguide.
+
+        `styleguide.spacing_token`  | `created`<br />`updated`<br />`deleted` | `Styleguide (extra: { name, platform })` | `SpacingToken (extra: { name, value })` |  Used for changes related to spacing tokens in a styleguide.
+
+        `styleguide.member`  | `joined` | `Styleguide (extra: { name, platform })` | `User (extra: { username })` |  Used for changes related to members of a styleguide.
+
+        `styleguide.extension`  | `added`<br />`removed` | `Styleguide (extra: { name, platform })` | `Extension (extra: { name })` |  Used for changes related to extensions in a styleguide.
+
+        `styleguide.slack_integration`  | `added` | `Styleguide (extra: { name, platform })` | `SlackIntegration (extra: { channel })` |  Used for changes related to slack intgrations in a styleguide.
+
+        `user.project_membership`  | `invited`<br />`role_updated`<br />`removed` | - | `Project (extra: { name, platform })` |  Used for changes related to notified user''s membership to projects.
+
+        `user.styleguide_membership`  | `invited`<br />`role_updated`<br />`removed` | - | `Styleguide (extra: { name, platform })` |  Used for changes related to notified user''s membership to styleguides.
+
+        '
+      type: object
+      required:
+      - id
+      - type
+      - is_read
+      - action
+      - created
+      - updated
+      - context
+      - actor
+      properties:
+        id:
+          type: string
+          description: The unique id of the notification
+        type:
+          allOf:
+          - $ref: '#/components/schemas/NotificationTypeEnum'
+          - description: Type of the notification
+        is_read:
+          type: boolean
+          description: Whether the notification is read or not
+        action:
+          type: string
+          description: Action that causes the notification
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the screen was created
+        updated:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the screen was updated
+        resource:
+          $ref: '#/components/schemas/NotificationResource'
+        context:
+          type: object
+          description: 'Additional objects which are related to the main resource object. The content of this object changes depending on the `type` field (e.g. `{ project: { ... }, screen: { ... } }` for a screen related notification).'
+        actor:
+          $ref: '#/components/schemas/NotificationActor'
+      example:
+        $ref: '#/components/examples/notification'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    User:
+      title: User
+      description: 'Basic info about Zeplin users.
+
+
+        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
+
+
+        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
+
+
+        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
+
+        '
+      type: object
+      required:
+      - id
+      - email
+      - username
+      properties:
+        id:
+          type: string
+          description: User's unique id
+        email:
+          type: string
+          description: Zeplin-only alias for the user's email (original)
+        username:
+          type: string
+          description: Username of the user
+        emotar:
+          type: string
+          format: emoji
+          description: Emotar of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        last_seen:
+          type: number
+          description: The unix timestamp when the user was last seen
+      example:
+        $ref: '#/components/examples/user'
+      x-examples:
+        User:
+          $ref: '#/components/examples/user'
+        My User:
+          $ref: '#/components/examples/me'
+    NotificationResource:
+      title: Notification Resource
+      type: object
+      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
+      required:
+      - id
+      - type
+      - extra
+      properties:
+        id:
+          type: string
+          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
+        type:
+          type: string
+          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
+        extra:
+          type: object
+          description: Partial data of the resource, whose content changes depending on the `type` field
+      example:
+        $ref: '#/components/examples/notificationResource'
+    NotificationActor:
+      title: Notification Actor
+      type: object
+      description: The actor of the change triggering this notification
+      required:
+      - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+          description: User object
+      example:
+        $ref: '#/components/examples/notificationActor'
+  parameters:
+    notification_id:
+      name: notification_id
+      in: path
+      description: Notification id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    notification_type:
+      name: type
+      in: query
+      description: 'Filter by type
+
+
+        Example: `?type=project.extension&type=styleguide.extension`
+
+        '
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: '#/components/schemas/NotificationTypeEnum'
+    is_read:
+      name: is_read
+      in: query
+      description: Whether the notification is read or not
+      required: false
+      schema:
+        type: boolean
+  examples:
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    notificationResource:
+      summary: Notification Resource
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        type: Color
+        extra:
+          name: baby poop green
+          r: 143
+          g: 152
+          b: 5
+          a: 1
+    notification:
+      summary: Notification
+      value:
+        id: 5fbe387f8c72ef23659fb500
+        timestamp: 1586852836
+        type: project.color
+        action: created
+        is_read: false
+        resource:
+          $ref: '#/components/examples/notificationResource/value'
+        context:
+          project:
+            id: 5db81e73e1e36ee19f138c1a
+            type: Project
+            extra:
+              name: HAL 9000
+              platform: web
+        actor:
+          $ref: '#/components/examples/notificationActor/value'
+    notificationActor:
+      summary: Notification Actor
+      value:
+        user:
+          $ref: '#/components/examples/user/value'
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+  responses:
+    noContent:
+      description: Successful response
+    notificationNotFound:
+      description: Notification not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Notification not found response:
+              value:
+                message: Notification not found
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /v1/oauth/authorize
+          tokenUrl: /v1/oauth/token
+          refreshUrl: /v1/oauth/token
+          scopes: {}
+    PersonalAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

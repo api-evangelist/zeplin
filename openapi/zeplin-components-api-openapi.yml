@@ -1,0 +1,2001 @@
+openapi: 3.0.2
+info:
+  title: Zeplin Authorization Components API
+  description: Access your resources in Zeplin
+  version: 1.38.0
+  contact:
+    name: Zeplin
+    url: https://zeplin.io
+    email: support@zeplin.io
+servers:
+- url: https://api.zeplin.dev
+security:
+- PersonalAccessToken: []
+- OAuth2: []
+tags:
+- name: Components
+paths:
+  /v1/projects/{project_id}/components:
+    get:
+      tags:
+      - Components
+      summary: Get project components
+      description: List all components of a project
+      operationId: GetProjectComponents
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/filter_by_section_id'
+      - $ref: '#/components/parameters/sort_components'
+      - $ref: '#/components/parameters/include_latest_version'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Component'
+              examples:
+                Project Components:
+                  value:
+                  - $ref: '#/components/examples/component/value'
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+        '422':
+          $ref: '#/components/responses/projectArchived'
+  /v1/projects/{project_id}/components/{component_id}:
+    get:
+      tags:
+      - Components
+      summary: Get a single project component
+      description: Get a project component by id
+      operationId: GetProjectComponent
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/component_id'
+      - $ref: '#/components/parameters/include_latest_version'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+              examples:
+                response:
+                  $ref: '#/components/examples/component'
+        '404':
+          $ref: '#/components/responses/projectOrComponentNotFound'
+        '422':
+          $ref: '#/components/responses/projectArchived'
+    patch:
+      tags:
+      - Components
+      summary: Update a project component
+      description: Update a component's description in a project
+      operationId: UpdateProjectComponent
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/component_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComponentUpdateBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '403':
+          $ref: '#/components/responses/cannotUpdateProjectComponent'
+        '404':
+          $ref: '#/components/responses/projectOrComponentNotFound'
+        '422':
+          $ref: '#/components/responses/notAProjectMemberOrArchived'
+  /v1/projects/{project_id}/components/{component_id}/versions/latest:
+    get:
+      tags:
+      - Components
+      summary: Get latest project component version
+      description: Get latest version of the component in a project
+      operationId: GetProjectComponentLatestVersion
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/component_id'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentVersion'
+              examples:
+                response:
+                  $ref: '#/components/examples/componentVersion'
+        '403':
+          $ref: '#/components/responses/cannotGetVersionInProject'
+        '404':
+          $ref: '#/components/responses/projectComponentOrComponentVersionNotFound'
+        '422':
+          $ref: '#/components/responses/projectArchived'
+  /v1/projects/{project_id}/component_sections:
+    get:
+      tags:
+      - Components
+      summary: Get project component sections
+      description: List all component sections of the project
+      operationId: GetProjectComponentSections
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/filter_by_page_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComponentSection'
+              examples:
+                Project Component Sections:
+                  value:
+                  - $ref: '#/components/examples/componentSection/value'
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+        '422':
+          $ref: '#/components/responses/projectArchived'
+  /v1/projects/{project_id}/pages:
+    get:
+      tags:
+      - Components
+      summary: Get project pages
+      description: List all pages of the project
+      operationId: GetProjectPages
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Page'
+              examples:
+                Project Pages:
+                  value:
+                  - $ref: '#/components/examples/page/value'
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+        '422':
+          $ref: '#/components/responses/projectArchived'
+  /v1/styleguides/{styleguide_id}/components:
+    get:
+      tags:
+      - Components
+      summary: Get styleguide components
+      description: 'Returns components in a styleguide that user has access.
+
+
+        See [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.
+
+        '
+      operationId: GetStyleguideComponents
+      parameters:
+      - $ref: '#/components/parameters/styleguide_id'
+      - $ref: '#/components/parameters/filter_by_section_id'
+      - $ref: '#/components/parameters/sort_components'
+      - $ref: '#/components/parameters/linked_project'
+      - $ref: '#/components/parameters/linked_styleguide'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      - $ref: '#/components/parameters/include_latest_version'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Component'
+              examples:
+                Styleguide Components:
+                  value:
+                  - $ref: '#/components/examples/component/value'
+        '404':
+          $ref: '#/components/responses/styleguideNotFound'
+        '422':
+          $ref: '#/components/responses/styleguideArchived'
+  /v1/styleguides/{styleguide_id}/components/{component_id}:
+    get:
+      tags:
+      - Components
+      summary: Get a single styleguide component
+      description: 'Returns the component in a styleguide that user has access.
+
+
+        See [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.
+
+        '
+      operationId: GetStyleguideComponent
+      parameters:
+      - $ref: '#/components/parameters/styleguide_id'
+      - $ref: '#/components/parameters/component_id'
+      - $ref: '#/components/parameters/linked_project'
+      - $ref: '#/components/parameters/linked_styleguide'
+      - $ref: '#/components/parameters/include_latest_version'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+              examples:
+                response:
+                  $ref: '#/components/examples/component'
+        '404':
+          $ref: '#/components/responses/styleguideOrComponentNotFound'
+        '422':
+          $ref: '#/components/responses/styleguideArchived'
+    patch:
+      tags:
+      - Components
+      summary: Update a styleguide component
+      description: Update a component's description in a styleguide
+      operationId: UpdateStyleguideComponent
+      parameters:
+      - $ref: '#/components/parameters/styleguide_id'
+      - $ref: '#/components/parameters/component_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComponentUpdateBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '403':
+          $ref: '#/components/responses/cannotUpdateStyleguideComponent'
+        '404':
+          $ref: '#/components/responses/styleguideOrComponentNotFound'
+        '422':
+          $ref: '#/components/responses/notAStyleguideMemberOrArchived'
+  /v1/styleguides/{styleguide_id}/components/{component_id}/versions/latest:
+    get:
+      tags:
+      - Components
+      summary: Get latest styleguide component version
+      description: 'Returns the latest version of the component in a styleguide that user has access.
+
+
+        See [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.
+
+        '
+      operationId: GetStyleguideComponentLatestVersion
+      parameters:
+      - $ref: '#/components/parameters/styleguide_id'
+      - $ref: '#/components/parameters/component_id'
+      - $ref: '#/components/parameters/linked_project'
+      - $ref: '#/components/parameters/linked_styleguide'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentVersion'
+              examples:
+                response:
+                  $ref: '#/components/examples/componentVersion'
+        '403':
+          $ref: '#/components/responses/forbiddenStyleguideComponentVersion'
+        '404':
+          $ref: '#/components/responses/styleguideComponentOrComponentVersionNotFound'
+        '422':
+          $ref: '#/components/responses/styleguideArchived'
+  /v1/styleguides/{styleguide_id}/component_sections:
+    get:
+      tags:
+      - Components
+      summary: Get styleguide component sections
+      description: 'Returns the component sections of a styleguide that user has access.
+
+
+        See [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.
+
+        '
+      operationId: GetStyleguideComponentSections
+      parameters:
+      - $ref: '#/components/parameters/styleguide_id'
+      - $ref: '#/components/parameters/filter_by_page_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/linked_project'
+      - $ref: '#/components/parameters/linked_styleguide'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ComponentSection'
+              examples:
+                response:
+                  $ref: '#/components/examples/componentSection'
+        '404':
+          $ref: '#/components/responses/styleguideNotFound'
+        '422':
+          $ref: '#/components/responses/styleguideArchived'
+  /v1/styleguides/{styleguide_id}/pages:
+    get:
+      tags:
+      - Components
+      summary: Get styleguide pages
+      description: List all pages of the styleguide
+      operationId: GetStyleguidePages
+      parameters:
+      - $ref: '#/components/parameters/styleguide_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Page'
+              examples:
+                Styleguide Pages:
+                  value:
+                  - $ref: '#/components/examples/page/value'
+        '404':
+          $ref: '#/components/responses/styleguideNotFound'
+        '422':
+          $ref: '#/components/responses/styleguideArchived'
+components:
+  schemas:
+    Thumbnails:
+      title: Thumbnails
+      description: Thumbnail image URLs in various sizes. The aspect ratio of the original image is preserved. If the width of original image is lower than the desired width then the original width is used.
+      type: object
+      required:
+      - small
+      - medium
+      - large
+      properties:
+        small:
+          type: string
+          description: URL of the thumbnail image with a width of at most 256 pixels
+        medium:
+          type: string
+          description: URL of the thumbnail image with a width of at most 512 pixels
+        large:
+          type: string
+          description: URL of the thumbnail image with a width of at most 1024 pixels
+      example:
+        $ref: '#/components/examples/thumbnails'
+    ComponentUpdateBody:
+      title: Component Update Body
+      required:
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+          description: New description for component
+    BoundingRectangle:
+      title: Bounding Rectangle
+      type: object
+      required:
+      - width
+      - height
+      - x
+      - y
+      - absolute
+      properties:
+        width:
+          type: integer
+        height:
+          type: integer
+        x:
+          type: number
+        y:
+          type: number
+        absolute:
+          $ref: '#/components/schemas/LayerPosition'
+          description: Absolute position of the bounding rectangle
+      example:
+        $ref: '#/components/examples/boundingRectangle'
+    SourceEnum:
+      title: Source
+      type: string
+      description: Source application of the design
+      enum:
+      - sketch
+      - xd
+      - figma
+      - psd
+      - bitmap
+    HotspotBoundingRectangle:
+      title: Hotspot Bounding Rectangle
+      type: object
+      required:
+      - width
+      - height
+      - x
+      - y
+      properties:
+        width:
+          type: integer
+        height:
+          type: integer
+        x:
+          type: number
+        y:
+          type: number
+      example:
+        $ref: '#/components/examples/hotspotBoundingRectangle'
+    LayerFill:
+      title: Layer Fill
+      type: object
+      required:
+      - type
+      properties:
+        type:
+          type: string
+          enum:
+          - color
+          - gradient
+          description: Type of the fill
+        color:
+          $ref: '#/components/schemas/ColorData'
+        gradient:
+          $ref: '#/components/schemas/Gradient'
+        blend_mode:
+          $ref: '#/components/schemas/BlendModeEnum'
+      example:
+        $ref: '#/components/examples/layerFill'
+    ComponentSection:
+      title: Component Section
+      type: object
+      required:
+      - id
+      - created
+      - name
+      - groups
+      properties:
+        id:
+          type: string
+          description: The unique id of the component section
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the component section was created
+        name:
+          type: string
+          description: The name of the component section
+        description:
+          type: string
+          description: The description of the component section
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentGroup'
+        variant:
+          $ref: '#/components/schemas/ComponentSectionVariant'
+      example:
+        $ref: '#/components/examples/componentSection'
+    LayerPosition:
+      title: Layer Position
+      type: object
+      required:
+      - x
+      - y
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+      example:
+        $ref: '#/components/examples/layerPosition'
+    ResourceStyleguideSource:
+      title: Source Styleguide
+      type: object
+      description: The source styleguide of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source styleguide
+        name:
+          type: string
+          description: The name of the source styleguide
+        platform:
+          type: string
+          enum:
+          - base
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source styleguide
+        parent:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the parent styleguide of the source styleguide
+      example:
+        $ref: '#/components/examples/resourceStyleguideSource'
+    Page:
+      title: Page
+      type: object
+      required:
+      - id
+      - name
+      - type
+      - componentSections
+      properties:
+        id:
+          type: string
+          description: The unique id of the page
+        name:
+          type: string
+          description: The name of the page
+        type:
+          type: string
+          description: The type of the page
+        description:
+          type: string
+          description: The description of the page
+        componentSections:
+          type: array
+          description: Array of component section IDs
+          items:
+            type: string
+      example:
+        $ref: '#/components/examples/page'
+    Component:
+      title: Component
+      type: object
+      required:
+      - id
+      - name
+      - image
+      - created
+      properties:
+        id:
+          type: string
+          description: The unique id of the component
+        name:
+          type: string
+          description: The name of the component
+        description:
+          type: string
+          description: The description of the component
+        image:
+          $ref: '#/components/schemas/SnapshotImage'
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the component was created
+        updated:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the component was updated
+        section:
+          $ref: '#/components/schemas/ComponentSectionReference'
+        variant_properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentVariantProperty'
+          description: Variant properties of the component
+        source:
+          $ref: '#/components/schemas/ResourceSource'
+          description: Source of the text style. Either `project` or `styleguide`.
+        latest_version:
+          $ref: '#/components/schemas/ComponentVersion'
+          description: Design data in the latest version of the component. This exists if the related endpoint parameter (`include_latest_version=true`) is provided in component endpoints.
+      example:
+        $ref: '#/components/examples/component'
+    VerticalGrid:
+      title: Vertical Grid
+      type: object
+      required:
+      - gutter_width
+      - column_width
+      - number_of_cols
+      - gutters_on_outside
+      properties:
+        gutter_width:
+          type: number
+        column_width:
+          type: number
+        number_of_cols:
+          type: number
+        gutters_on_outside:
+          type: boolean
+      example:
+        $ref: '#/components/examples/verticalGrid'
+    LayerTextStyleRange:
+      title: Layer Text Style Range
+      type: object
+      properties:
+        location:
+          type: number
+          description: Start of the range
+        length:
+          type: number
+          description: Length of the range
+      example:
+        $ref: '#/components/examples/layerTextStyle'
+    Asset:
+      title: Asset
+      type: object
+      description: 'Assets are automatically generated while exporting designs based on the platform the design is exported. Asset formats and densities change according to these platforms.
+
+
+        Platform | Formats
+
+        ---|---|---
+
+        Base | PNG (1.0, 1.5, 2.0, 3.0, 4.0), and PDF
+
+        Web | PNG (1.0, 2.0, 3.0), SVG, and JPG (bitmap image)
+
+        iOS | PNG (1.0, 2.0, 3.0), and PDF
+
+        Android | PNG (1.0, 1.5, 2.0, 3.0, 4.0), and SVG
+
+        '
+      required:
+      - display_name
+      - contents
+      properties:
+        layer_source_id:
+          type: string
+          description: Layer's identifier in the design tool
+        display_name:
+          type: string
+          description: Display name of the asset
+        layer_name:
+          type: string
+          description: Name of the layer containing the asset
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetContent'
+      example:
+        $ref: '#/components/examples/asset'
+    ComponentGroup:
+      title: Component Group
+      type: object
+      required:
+      - id
+      - created
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique id of the component section
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the component group was created
+        name:
+          type: string
+          description: The name of the component section
+        description:
+          type: string
+          description: The description of the component section
+      example:
+        $ref: '#/components/examples/componentGroup'
+    Gradient:
+      title: Gradient
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - linear
+          - radial
+          - angular
+          description: Type of the gradient
+        angle:
+          type: number
+          description: Angle of the gradient
+        scale:
+          type: number
+          description: Scale of the gradient
+        color_stops:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColorStop'
+        opacity:
+          type: number
+          description: Opacity of the gradient
+      example:
+        $ref: '#/components/examples/gradient'
+    HorizontalGrid:
+      title: Horizontal Grid
+      type: object
+      required:
+      - gutter_height
+      - row_height
+      properties:
+        gutter_height:
+          type: number
+        row_height:
+          type: number
+        number_of_rows:
+          type: number
+      example:
+        $ref: '#/components/examples/horizontalGrid'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    ColorData:
+      title: Color Data
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        source_id:
+          type: string
+          description: Color's identifier in the design tool
+        r:
+          type: integer
+          description: Red component of the color
+        g:
+          type: integer
+          description: Green component of the color
+        b:
+          type: integer
+          description: Blue component of the color
+        a:
+          type: number
+          description: Alpha component of the color
+      example:
+        $ref: '#/components/examples/colorData'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    LinkDestination:
+      title: Link Destination
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - component
+          - previous
+          description: Type of the link (`component` or `previous`)
+      example:
+        $ref: '#/components/examples/linkDestination'
+    ColorStop:
+      title: Color Stop
+      type: object
+      required:
+      - color
+      - position
+      properties:
+        color:
+          $ref: '#/components/schemas/ColorData'
+        position:
+          type: number
+      example:
+        $ref: '#/components/examples/colorStop'
+    User:
+      title: User
+      description: 'Basic info about Zeplin users.
+
+
+        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
+
+
+        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
+
+
+        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
+
+        '
+      type: object
+      required:
+      - id
+      - email
+      - username
+      properties:
+        id:
+          type: string
+          description: User's unique id
+        email:
+          type: string
+          description: Zeplin-only alias for the user's email (original)
+        username:
+          type: string
+          description: Username of the user
+        emotar:
+          type: string
+          format: emoji
+          description: Emotar of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        last_seen:
+          type: number
+          description: The unix timestamp when the user was last seen
+      example:
+        $ref: '#/components/examples/user'
+      x-examples:
+        User:
+          $ref: '#/components/examples/user'
+        My User:
+          $ref: '#/components/examples/me'
+    Link:
+      title: Link
+      type: object
+      required:
+      - rect
+      - destination
+      properties:
+        rect:
+          $ref: '#/components/schemas/HotspotBoundingRectangle'
+          description: Bounding rectangle of the link's hotspot
+        destination:
+          $ref: '#/components/schemas/LinkDestination'
+      example:
+        $ref: '#/components/examples/link'
+    Grid:
+      title: Grid
+      type: object
+      properties:
+        horizontal_offset:
+          type: number
+        vertical_offset:
+          type: number
+        vertical:
+          $ref: '#/components/schemas/VerticalGrid'
+        horizontal:
+          $ref: '#/components/schemas/HorizontalGrid'
+      example:
+        $ref: '#/components/examples/grid'
+    AssetContent:
+      title: Asset Content
+      type: object
+      required:
+      - url
+      - format
+      properties:
+        url:
+          type: string
+          description: URL of the asset content
+        format:
+          type: string
+          description: Format of the asset content
+          enum:
+          - png
+          - jpg
+          - svg
+          - pdf
+        density:
+          type: number
+          description: Density of the asset content
+          enum:
+          - 1
+          - 1.5
+          - 2
+          - 3
+          - 4
+      example:
+        $ref: '#/components/examples/assetContent'
+    ComponentSectionReference:
+      title: Component Section Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Unique id of the section that contains the component
+        group:
+          allOf:
+          - $ref: '#/components/schemas/EntityReference'
+          - description: Unique id of the group that contains the component
+      example:
+        $ref: '#/components/examples/componentSectionReference'
+    BlendModeEnum:
+      title: Blend Mode
+      type: string
+      enum:
+      - normal
+      - darken
+      - multiply
+      - color-burn
+      - lighten
+      - screen
+      - color-dodge
+      - overlay
+      - soft-light
+      - hard-light
+      - difference
+      - exclusion
+      - hue
+      - saturation
+      - color
+      - luminosity
+      - source-in
+      - source-out
+      - source-atop
+      - destination-over
+      - destination-in
+      - destination-out
+      - destination-atop
+      - dissolve
+      - linear-burn
+      - linear-dodge
+      - darker-color
+      - lighter-color
+      - vivid-light
+      - linear-light
+      - pin-light
+      - hard-mix
+      - subtract
+      - divide
+    LayerBlur:
+      title: Layer Blur
+      type: object
+      description: Blur applied to the layer
+      properties:
+        type:
+          type: string
+          enum:
+          - gaussian
+          - background
+          description: Type of the blur
+        radius:
+          type: number
+          description: Radius of the blur
+      example:
+        $ref: '#/components/examples/layerBlur'
+    SnapshotImage:
+      title: Snapshot Image
+      type: object
+      required:
+      - width
+      - height
+      - original_url
+      - thumbnails
+      properties:
+        width:
+          type: number
+          description: Width of the component image
+        height:
+          type: number
+          description: Height of the component image
+        thumbnails:
+          $ref: '#/components/schemas/Thumbnails'
+        original_url:
+          type: string
+          description: URL of the original image for the component (from the latest version)
+      example:
+        $ref: '#/components/examples/snapshotImage'
+    ResourceSource:
+      title: Resource Source
+      type: object
+      description: Source details for resource. It has to be either `project` or `styleguide`.
+      properties:
+        project:
+          $ref: '#/components/schemas/ResourceProjectSource'
+        styleguide:
+          $ref: '#/components/schemas/ResourceStyleguideSource'
+      example:
+        $ref: '#/components/examples/resourceSourceForProject'
+      x-examples:
+        Project:
+          $ref: '#/components/examples/resourceSourceForProject'
+        Styleguide:
+          $ref: '#/components/examples/resourceSourceForStyleguide'
+    ComponentSectionVariantProperty:
+      title: Component Section Variant Property
+      type: object
+      required:
+      - id
+      - name
+      - values
+      properties:
+        id:
+          type: string
+          description: Unique id of the variant property
+        name:
+          type: string
+          description: Name of the variant property (e.g. `“type”`, `“state”`, etc.)
+        values:
+          type: array
+          items:
+            type: string
+          description: Possible values that the property can take (e.g. `["default", "hover", "pressed"]`)
+      example:
+        $ref: '#/components/examples/componentSectionVariantProperty'
+    ComponentVersion:
+      title: Component Version
+      type: object
+      required:
+      - id
+      - source
+      - width
+      - height
+      - density_scale
+      - links
+      - layers
+      - assets
+      - created
+      properties:
+        id:
+          type: string
+          description: The unique id of the version
+        creator:
+          $ref: '#/components/schemas/User'
+        image_url:
+          type: string
+          format: url
+          description: URL of the image for the version
+        thumbnails:
+          $ref: '#/components/schemas/Thumbnails'
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          - description: Source application of the version
+        source_file_url:
+          type: string
+          format: url
+          description: Source file url of the version
+        width:
+          type: integer
+          description: Width of the version
+        height:
+          type: integer
+          description: Height of the version
+        background_color:
+          $ref: '#/components/schemas/ColorData'
+        density_scale:
+          type: number
+          description: Pixel density
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+        grid:
+          $ref: '#/components/schemas/Grid'
+        layers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Layer'
+          description: Layers of the component version
+        assets:
+          type: array
+          description: Assets of the component version
+          items:
+            $ref: '#/components/schemas/Asset'
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the component version was created
+      example:
+        $ref: '#/components/examples/componentVersion'
+    ComponentSectionVariant:
+      title: Component Section Variant
+      description: Variant information for this component section
+      type: object
+      required:
+      - properties
+      properties:
+        properties:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentSectionVariantProperty'
+          description: List of variant properties that the components of this section take
+        source_id:
+          type: string
+          description: Unique identifier used for this variant in the source design file
+      example:
+        $ref: '#/components/examples/componentSectionVariant'
+    ResourceProjectSource:
+      title: Source Project
+      type: object
+      description: The source project of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/resourceProjectSource'
+    LayerTextStyle:
+      title: Layer Text Style
+      type: object
+      properties:
+        range:
+          $ref: '#/components/schemas/LayerTextStyleRange'
+        style:
+          $ref: '#/components/schemas/TextStyleData'
+      example:
+        $ref: '#/components/examples/layerTextStyle'
+    ComponentVariantProperty:
+      title: Component Variant Property
+      type: object
+      required:
+      - id
+      - name
+      - value
+      properties:
+        id:
+          type: string
+          description: Unique id of the variant property
+        name:
+          type: string
+          description: Name of the variant property (e.g. `“type”`, `“state”`, etc.)
+        value:
+          type: string
+          description: Value for this property of the component (e.g. `"primary"`)
+      example:
+        $ref: '#/components/examples/componentVariantProperty'
+    TextStyleData:
+      title: Text Style Data
+      type: object
+      required:
+      - postscript_name
+      - font_family
+      - font_size
+      - font_weight
+      - font_style
+      - font_stretch
+      properties:
+        postscript_name:
+          type: string
+          description: PostScript name of the text style, e.g. Roboto-Regular
+        font_family:
+          type: string
+          description: Font family of the text style, e.g. Roboto, Arial
+        font_size:
+          type: number
+          description: Font size of the text style
+        font_weight:
+          type: number
+          description: Font weight of the text style, e.g. 500, 700
+        font_style:
+          type: string
+          description: Font style of the text style, e.g. italic, oblique
+        font_stretch:
+          type: number
+          description: Font stretch form of the text style, e.g. 0.75, 1.00
+        line_height:
+          type: number
+          description: Minimum height of a line for the text style
+        letter_spacing:
+          type: number
+          description: Spacing between letters
+        text_align:
+          type: string
+          description: Horizontal alignment of the text style, left, right, center, or justify
+        color:
+          $ref: '#/components/schemas/ColorData'
+      example:
+        $ref: '#/components/examples/textStyleData'
+    LayerBorder:
+      title: Layer Border
+      type: object
+      properties:
+        position:
+          type: string
+          enum:
+          - center
+          - inside
+          - outside
+          description: Position of the border
+        thickness:
+          type: number
+          description: Thickness of the border
+        fill:
+          $ref: '#/components/schemas/LayerFill'
+      example:
+        $ref: '#/components/examples/layerBorder'
+    Layer:
+      title: Layer
+      type: object
+      required:
+      - id
+      - type
+      - rect
+      - opacity
+      properties:
+        id:
+          type: string
+          description: Layer's unique id
+        source_id:
+          type: string
+          description: Layer's identifier in the design tool
+        type:
+          type: string
+          enum:
+          - text
+          - shape
+          - group
+          description: Type of the layer
+        name:
+          type: string
+          description: Name of the layer
+        rect:
+          $ref: '#/components/schemas/BoundingRectangle'
+          description: Bounding rectangle of the layer
+        fills:
+          type: array
+          description: Fills applied to the layer
+          items:
+            $ref: '#/components/schemas/LayerFill'
+        borders:
+          type: array
+          description: Borders of the layer
+          items:
+            $ref: '#/components/schemas/LayerBorder'
+        shadows:
+          type: array
+          description: Shadows applied to the layer
+          items:
+            $ref: '#/components/schemas/LayerShadow'
+        blur:
+          $ref: '#/components/schemas/LayerBlur'
+        opacity:
+          type: number
+          description: Opacity of the layer, [0, 1]
+        blend_mode:
+          $ref: '#/components/schemas/BlendModeEnum'
+        border_radius:
+          type: number
+          description: Border radius of the layer
+        rotation:
+          type: number
+          description: Rotation of the layer
+        exportable:
+          type: boolean
+          description: Indicates whether the layer has assets or not
+        content:
+          type: string
+          description: Text of the text layer
+        text_styles:
+          type: array
+          items:
+            $ref: '#/components/schemas/LayerTextStyle'
+        layers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Layer'
+        component_name:
+          type: string
+          description: Name of the component the group layer is referencing
+      example:
+        $ref: '#/components/examples/layer'
+    LayerShadow:
+      title: Layer Shadow
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - outer
+          - inner
+          description: Type of the shadow
+        offset_x:
+          type: number
+          description: Horizontal offset of the shadow
+        offset_y:
+          type: number
+          description: Vertical offset of the shadow
+        blur_radius:
+          type: number
+          description: Blur radius of the shadow
+        spread:
+          type: number
+          description: Spread of the shadow
+        color:
+          $ref: '#/components/schemas/ColorData'
+      example:
+        $ref: '#/components/examples/layerShadow'
+  examples:
+    textStyleData:
+      summary: Layer Text Style
+      value:
+        postscript_name: HelveticaNeue-Bold
+        font_family: HelveticaNeue
+        font_size: 24
+        font_weight: 700
+        font_style: normal
+        line_height: 24
+        font_stretch: 1
+        text_align: left
+        color:
+          $ref: '#/components/examples/colorData/value'
+    boundingRectangle:
+      summary: Bounding Rectangle
+      value:
+        x: 0
+        y: 0
+        width: 40
+        height: 40
+        absolute:
+          $ref: '#/components/examples/layerPosition/value'
+    resourceStyleguideSource:
+      summary: Source Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        parent:
+          id: 5db981be9df2b3e1bfa19ef2
+    grid:
+      summary: Grid
+      value:
+        horizontal_offset: 0
+        vertical_offset: 0
+        vertical:
+          $ref: '#/components/examples/verticalGrid/value'
+        horizontal:
+          $ref: '#/components/examples/horizontalGrid/value'
+    resourceSourceForProject:
+      summary: Source for Project
+      value:
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
+    resourceProjectSource:
+      summary: Source Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    colorData:
+      summary: Color Data
+      value:
+        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
+        r: 143
+        g: 152
+        b: 5
+        a: 1
+    thumbnails:
+      summary: Thumbnails
+      value:
+        small: http://placekitten.com/256/256
+        medium: http://placekitten.com/512/512
+        large: http://placekitten.com/1024/1024
+    componentVariantProperty:
+      summary: Component Variant Property
+      value:
+        id: 60422281c96b47c3be1a912f
+        name: Type
+        value: Primary
+    componentSectionReference:
+      summary: Component
+      value:
+        id: 5db81e6e6a4462065f04d932
+        group:
+          id: 507f1f77bcf86cd799439011
+    asset:
+      summary: Asset
+      value:
+        layer_source_id: 55CC0025-C3C1-429E-92B2-610D56368473
+        display_name: rectangle
+        layer_name: Rectangle
+        contents:
+        - $ref: '#/components/examples/assetContent/value'
+    snapshotImage:
+      summary: Snapshot Image
+      value:
+        width: 2560
+        height: 1920
+        original_url: http://placekitten.com/2560/1920
+        thumbnails:
+          $ref: '#/components/examples/thumbnails/value'
+    horizontalGrid:
+      summary: Horizontal Grid
+      value:
+        number_of_rows: 6
+        gutter_height: 12
+        row_height: 60
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    componentSectionVariantProperty:
+      summary: Component Section Variant Property
+      value:
+        id: 60422281c96b47c3be1a912f
+        name: State
+        values:
+        - default
+        - hover
+        - pressed
+    layerFill:
+      summary: Layer Fill
+      value:
+        type: color
+        color:
+          $ref: '#/components/examples/colorData/value'
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    assetContent:
+      summary: Asset Content
+      value:
+        url: http://placekitten.com/100/200
+        format: png
+        density: 1
+    layer:
+      summary: Layer
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        source_id: 2FF14739-F1CD-4221-A9C1-0EA296C67AD1
+        type: shape
+        name: First rectangle in group
+        rect:
+          x: 0
+          y: 0
+          width: 40
+          height: 40
+          absolute:
+            x: 0
+            y: 0
+        fills:
+        - $ref: '#/components/examples/layerFill/value'
+        borders:
+        - thickness: 1
+          position: inside
+          fill:
+            $ref: '#/components/examples/layerFill/value'
+        opacity: 1
+        blend_mode: normal
+        border_radius: 0
+        rotation: 0
+        exportable: false
+    componentSectionVariant:
+      summary: Component Section Variant
+      value:
+        properties:
+        - $ref: '#/components/examples/componentSectionVariantProperty/value'
+        source_id: x9wDrXF1Rr44n3hPTADKMV-13:0
+    layerBlur:
+      summary: Layer Blur
+      value:
+        type: gaussian
+        radius: 10
+    link:
+      summary: Link
+      value:
+        rect:
+          x: 0
+          y: 0
+          width: 40
+          height: 40
+        destination:
+          $ref: '#/components/examples/linkDestination/value'
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
+    verticalGrid:
+      summary: Vertical Grid
+      value:
+        column_width: 60
+        number_of_cols: 12
+        gutters_on_outside: true
+        gutter_width: 20
+    component:
+      summary: Component
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Button
+        description: Generic button for HAL 9000
+        image:
+          $ref: '#/components/examples/snapshotImage/value'
+        created: 1517184000
+        updated: 1572347818
+        section:
+          $ref: '#/components/examples/componentSectionReference/value'
+        source:
+          $ref: '#/components/examples/resourceSourceForProject/value'
+        variant_properties:
+        - $ref: '#/components/examples/componentVariantProperty/value'
+    componentGroup:
+      summary: Component Group
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        created: 1572347507
+        name: Red buttons
+    linkDestination:
+      summary: Link Destination
+      value:
+        name: Artboard
+        type: screen
+    page:
+      summary: Page
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        created: 1572347507
+        name: New Page
+        type: default
+        description: New page description
+        componentSections:
+        - 5db81e73e1e35ee19f138c2d
+    layerShadow:
+      summary: Layer Shadow
+      value:
+        type: outer
+        offset_x: 0
+        offset_y: 2
+        blur_radius: 4
+        spread: 0
+        color:
+          $ref: '#/components/examples/colorData/value'
+    hotspotBoundingRectangle:
+      summary: Hotspot Bounding Rectangle
+      value:
+        x: 0
+        y: 0
+        width: 40
+        height: 40
+    gradient:
+      summary: Gradient
+      value:
+        type: linear
+        color_stops:
+        - position: 0
+          color:
+            r: 227
+            g: 9
+            b: 9
+            a: 1
+        - position: 1
+          color:
+            r: 65
+            g: 65
+            b: 65
+            a: 1
+    layerTextStyle:
+      summary: Layer
+      value:
+        range:
+          $ref: '#/components/examples/layerTextStyleRange/value'
+        style:
+          $ref: '#/components/examples/textStyleData/value'
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    layerPosition:
+      summary: Position
+      value:
+        x: 0
+        y: 0
+    componentVersion:
+      summary: Component Version
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        created: 1517184000
+        creator:
+          $ref: '#/components/examples/user/value'
+        image_url: http://placekitten.com/2560/1920
+        thumbnails:
+          $ref: '#/components/examples/thumbnails/value'
+        width: 2560
+        height: 1920
+        density_scale: 2
+        source: figma
+        source_file_url: https://www.figma.com/file/fileId/session?node-id=nodeId
+        background_color:
+          $ref: '#/components/examples/colorData/value'
+        links:
+        - $ref: '#/components/examples/link/value'
+        layers:
+        - $ref: '#/components/examples/layer/value'
+        assets:
+        - $ref: '#/components/examples/asset/value'
+    layerBorder:
+      summary: Layer Border
+      value:
+        thickness: 1
+        position: inside
+        fill:
+          $ref: '#/components/examples/layerFill/value'
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    componentSection:
+      summary: Component Section
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        created: 1572347507
+        name: Red buttons
+        groups:
+        - $ref: '#/components/examples/componentGroup/value'
+        variant:
+          $ref: '#/components/examples/componentSectionVariant/value'
+    colorStop:
+      summary: Color Stop
+      value:
+        position: 0
+        color:
+          $ref: '#/components/examples/colorData/value'
+    layerTextStyleRange:
+      value:
+        location: 0
+        length: 14
+  parameters:
+    linked_styleguide:
+      name: linked_styleguide
+      in: query
+      description: Reference styleguide id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    sort_components:
+      name: sort
+      in: query
+      description: Sort components by their `section` or their `created` date
+      required: false
+      schema:
+        type: string
+        default: section
+        enum:
+        - section
+        - created
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    component_id:
+      name: component_id
+      in: path
+      description: Component id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    filter_by_section_id:
+      name: section_id
+      in: query
+      description: Filter by section id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    styleguide_id:
+      name: styleguide_id
+      in: path
+      description: Styleguide id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    linked_project:
+      name: linked_project
+      in: query
+      description: Reference project id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    include_latest_version:
+      name: include_latest_version
+      in: query
+      description: Whether to include the latest version data in the Component object
+      required: false
+      schema:
+        type: boolean
+        default: false
+    filter_by_page_id:
+      name: page_id
+      in: query
+      description: Filter by page id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+  responses:
+    styleguideArchived:
+      description: Styleguide archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide archived response:
+              value:
+                message: Styleguide is archived
+    cannotUpdateStyleguideComponent:
+      description: User cannot update the styleguide component
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot update the styleguide component:
+              value:
+                message: User with role alien in a styleguide cannot update the component
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
+    styleguideNotFound:
+      description: Styleguide not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found response:
+              value:
+                message: Styleguide not found
+    cannotUpdateProjectComponent:
+      description: User cannot update the project component
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot update the project component:
+              value:
+                message: User with role alien in a project cannot update the component
+    cannotGetVersionInProject:
+      description: Cannot get version in project
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Cannot get version in project:
+              value:
+                message: User with role alien in a project cannot get version
+    notAProjectMemberOrArchived:
+      description: Not a project member or project archived
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a member:
+              value:
+                message: User is not a member of the project
+            Project is archived:
+              value:
+                message: Project is archived
+    noContent:
+      description: Successful response
+    projectArchived:
+      description: Project archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project archived response:
+              value:
+                message: Project is archived
+    projectOrComponentNotFound:
+      description: Project or component not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Component not found:
+              value:
+                message: Component not found
+    projectComponentOrComponentVersionNotFound:
+      description: Project, component or component version not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Component not found:
+              value:
+                message: Component not found
+            Component version not found:
+              value:
+                message: Component version not found
+    styleguideComponentOrComponentVersionNotFound:
+      description: Styleguide, component or component version not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found:
+              value:
+                message: Styleguide not found
+            Component not found:
+              value:
+                message: Component not found
+            Component version not found:
+              value:
+                message: Component not found
+    forbiddenStyleguideComponentVersion:
+      description: Cannot get component version in styleguide
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Alien styleguide user:
+              value:
+                message: User with role alien in a styleguide cannot get version
+            Alien linked styleguide user:
+              value:
+                message: User with role alien in a linked styleguide cannot get version
+            Alien linked project user:
+              value:
+                message: User with role alien in a linked project cannot get version
+    notAStyleguideMemberOrArchived:
+      description: Not a styleguide member or styleguide archived
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a member:
+              value:
+                message: User is not a member of the styleguide
+            Styleguide is archived:
+              value:
+                message: Styleguide is archived
+    styleguideOrComponentNotFound:
+      description: Styleguide or component not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found:
+              value:
+                message: Styleguide not found
+            Component not found:
+              value:
+                message: Component not found
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /v1/oauth/authorize
+          tokenUrl: /v1/oauth/token
+          refreshUrl: /v1/oauth/token
+          scopes: {}
+    PersonalAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

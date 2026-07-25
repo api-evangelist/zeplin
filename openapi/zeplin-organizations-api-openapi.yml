@@ -1,0 +1,1334 @@
+openapi: 3.0.2
+info:
+  title: Zeplin Authorization Organizations API
+  description: Access your resources in Zeplin
+  version: 1.38.0
+  contact:
+    name: Zeplin
+    url: https://zeplin.io
+    email: support@zeplin.io
+servers:
+- url: https://api.zeplin.dev
+security:
+- PersonalAccessToken: []
+- OAuth2: []
+tags:
+- name: Organizations
+paths:
+  /v1/organizations:
+    get:
+      tags:
+      - Organizations
+      summary: Get organizations
+      description: List all organizations that user is a member of
+      operationId: GetOrganizations
+      parameters:
+      - $ref: '#/components/parameters/organization_role'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationSummary'
+              examples:
+                Organization Summary:
+                  value:
+                  - $ref: '#/components/examples/organizationSummary/value'
+  /v1/organizations/{organization_id}:
+    get:
+      tags:
+      - Organizations
+      summary: Get a single organization
+      description: Get details of the organization
+      operationId: GetOrganization
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+              examples:
+                response:
+                  $ref: '#/components/examples/organization'
+        '404':
+          $ref: '#/components/responses/organizationNotFound'
+  /v1/organizations/{organization_id}/billing:
+    get:
+      tags:
+      - Organizations
+      summary: Get organization billing details
+      description: Get total and used seat count in the organization
+      operationId: GetOrganizationBilling
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationBilling'
+              examples:
+                response:
+                  $ref: '#/components/examples/organizationBilling'
+        '403':
+          description: Only organization admins (or higher) can access billing details response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Only organization admins (or higher) can access billing details response:
+                  value:
+                    message: Only organization admins (or higher) can access billing details
+        '404':
+          $ref: '#/components/responses/organizationNotFound'
+  /v1/organizations/{organization_id}/projects:
+    get:
+      tags:
+      - Organizations
+      summary: Get organization projects
+      description: List all projects that belong to the organization
+      operationId: GetOrganizationProjects
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+              examples:
+                Organization Projects:
+                  value:
+                  - $ref: '#/components/examples/organizationProject/value'
+        '404':
+          $ref: '#/components/responses/organizationNotFound'
+  /v1/organizations/{organization_id}/workflow_statuses:
+    get:
+      tags:
+      - Organizations
+      summary: Get organization workflow statuses
+      description: List all workflow statuses that belong to the organization
+      operationId: GetOrganizationWorkflowStatuses
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WorkflowStatus'
+              examples:
+                Organization Workflow Statuses:
+                  value:
+                  - $ref: '#/components/examples/workflowStatus/value'
+        '404':
+          $ref: '#/components/responses/organizationNotFound'
+  /v1/organizations/{organization_id}/styleguides:
+    get:
+      tags:
+      - Organizations
+      summary: Get organization styleguides
+      description: List all styleguides that belong to the organization
+      operationId: GetOrganizationStyleguides
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Styleguide'
+              examples:
+                Organization Styleguides:
+                  value:
+                  - $ref: '#/components/examples/organizationStyleguide/value'
+        '404':
+          $ref: '#/components/responses/organizationNotFound'
+  /v1/organizations/{organization_id}/aliens:
+    get:
+      tags:
+      - Organizations
+      summary: Get organization aliens
+      description: List all aliens in the organization
+      operationId: GetOrganizationAliens
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              examples:
+                Successful response:
+                  value:
+                  - $ref: '#/components/examples/user/value'
+        '403':
+          description: User is restricted response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                User is restricted response:
+                  value:
+                    message: User is restricted
+        '404':
+          $ref: '#/components/responses/organizationNotFound'
+  /v1/organizations/{organization_id}/members:
+    get:
+      tags:
+      - Organizations
+      summary: Get organization members
+      description: List all members in the organization
+      operationId: GetOrganizationMembers
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/handle'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationMember'
+              examples:
+                Organization Members:
+                  value:
+                  - $ref: '#/components/examples/organizationMember/value'
+        '403':
+          description: User is restricted or not allowed response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                User is restricted response:
+                  value:
+                    message: User is restricted
+                User is not allowed response:
+                  value:
+                    message: Only organization admins (or higher) can filter organizaton members via email using their personal access tokens
+        '404':
+          $ref: '#/components/responses/organizationNotFound'
+    post:
+      tags:
+      - Organizations
+      summary: Invite member
+      description: 'Invite a new organization member.
+
+
+        ☝️*Only organization admins (or higher) can invite members using **personal access tokens**. OAuth applications are not allowed.*
+
+        '
+      operationId: InviteOrganizationMember
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationMemberInviteBody'
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationMember'
+              examples:
+                response:
+                  $ref: '#/components/examples/organizationMember'
+        '400':
+          description: Admin cannot be restricted response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Admin cannot be restricted response:
+                  value:
+                    message: Organization admin cannot be restricted
+        '402':
+          description: Not allowed in current plan response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Role not allowed response:
+                  value:
+                    message: '"member" role is not allowed in your workspace, contact us to learn more: support@zeplin.io'
+                Not enough seats response:
+                  value:
+                    message: 'Looks like you reached the member limit of your organization, contact us to learn more: support@zeplin.io'
+        '403':
+          description: User is restricted or not allowed response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                User is restricted response:
+                  value:
+                    message: User is restricted
+                User is not allowed response:
+                  value:
+                    message: Only organization admins (or higher) can add new members
+        '404':
+          $ref: '#/components/responses/organizationNotFound'
+        '422':
+          description: Organization is suspended or does not allow users from external domain response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Organization is suspended response:
+                  value:
+                    message: Organization is suspended
+                External users are not allowed reponse:
+                  value:
+                    message: The organization does not allow users from external domains
+        '423':
+          description: Organization resource is locked response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Organization resource is locked response:
+                  value:
+                    message: Organization resource is locked. Please try again later.
+  /v1/organizations/{organization_id}/members/{member_id}:
+    patch:
+      tags:
+      - Organizations
+      summary: Update an organization member
+      description: 'Update an organization member''s role, access restriction, and tags.
+
+
+        ☝️*Only organization admins (or higher) can update members using **personal access tokens**. OAuth applications are not allowed.*
+
+        '
+      operationId: UpdateOrganizationMember
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      - $ref: '#/components/parameters/member_id'
+      security:
+      - PersonalAccessToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationMemberUpdateBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '400':
+          description: Admin cannot be restricted response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Admin cannot be restricted response:
+                  value:
+                    message: Organization admin cannot be restricted
+        '402':
+          description: Not allowed in current plan response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Role not allowed response:
+                  value:
+                    message: '"member" role is not allowed in your workspace, contact us to learn more: support@zeplin.io'
+                Not enough seats response:
+                  value:
+                    message: 'Looks like you reached the member limit of your organization, contact us to learn more: support@zeplin.io'
+        '403':
+          description: User is restricted or not allowed response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                User is restricted response:
+                  value:
+                    message: User is restricted
+                User is not allowed response:
+                  value:
+                    message: Only organization admins (or higher) can update members
+        '404':
+          $ref: '#/components/responses/organizationOrMemberNotFound'
+        '422':
+          description: Organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Organization is suspended response:
+                  value:
+                    message: Organization is suspended
+                Owner role update is not allowed reponse:
+                  value:
+                    message: Owner role cannot be updated
+        '423':
+          description: Organization resource is locked response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Organization resource is locked response:
+                  value:
+                    message: Organization resource is locked. Please try again later.
+    delete:
+      tags:
+      - Organizations
+      summary: Remove an organization member
+      description: 'Remove a member from organization.
+
+
+        ☝️*Only organization admins (or higher) can remove members using **personal access tokens**. OAuth applications are not allowed.*
+
+        '
+      operationId: RemoveOrganizationMember
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      - $ref: '#/components/parameters/member_id'
+      security:
+      - PersonalAccessToken: []
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '403':
+          description: User is restricted or not allowed response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                User is restricted response:
+                  value:
+                    message: User is restricted
+                User is not allowed response:
+                  value:
+                    message: Only organization admins (or higher) can remove members
+        '404':
+          $ref: '#/components/responses/organizationOrMemberNotFound'
+        '422':
+          description: Organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Organization is suspended response:
+                  value:
+                    message: Organization is suspended
+                Owner leave is not allowed reponse:
+                  value:
+                    message: Owner cannot leave the organization
+        '423':
+          description: Organization resource is locked response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                Organization resource is locked response:
+                  value:
+                    message: Organization resource is locked. Please try again later.
+  /v1/organizations/{organization_id}/members/{member_id}/projects:
+    get:
+      tags:
+      - Organizations
+      summary: Get a member's projects
+      description: Get a list of projects that an organization member is a part of
+      operationId: GetOrganizationMemberProjects
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      - $ref: '#/components/parameters/member_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+              examples:
+                Projects:
+                  value:
+                  - $ref: '#/components/examples/project/value'
+                  - $ref: '#/components/examples/organizationProject/value'
+        '403':
+          description: User is restricted response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                User is restricted response:
+                  value:
+                    message: User is restricted
+        '404':
+          $ref: '#/components/responses/organizationOrMemberNotFound'
+  /v1/organizations/{organization_id}/members/{member_id}/styleguides:
+    get:
+      tags:
+      - Organizations
+      summary: Get a member's styleguides
+      description: Get a list of styleguides that an organization member is a part of
+      operationId: GetOrganizationMemberStyleguides
+      parameters:
+      - $ref: '#/components/parameters/organization_id'
+      - $ref: '#/components/parameters/member_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Styleguide'
+              examples:
+                Organization Styleguides:
+                  value:
+                  - $ref: '#/components/examples/styleguide/value'
+        '403':
+          description: User is restricted response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                User is restricted response:
+                  value:
+                    message: User is restricted
+        '404':
+          $ref: '#/components/responses/organizationOrMemberNotFound'
+components:
+  examples:
+    organizationSummary:
+      summary: Organization Project
+      value:
+        id: 5d9caaecb4a3fa9b972f86ce
+        name: Acme, Inc.
+        logo: http://placekitten.com/200/300
+    organizationStyleguide:
+      summary: Organization Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        description: Global styleguide for all projects of Discovery 1.
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        created: 1517184000
+        updated: 1572347818
+        organization:
+          $ref: '#/components/examples/organizationSummary/value'
+        number_of_members: 13
+        number_of_components: 241
+        number_of_connected_components: 195
+        number_of_text_styles: 48
+        number_of_colors: 37
+        number_of_spacing_tokens: 21
+        parent:
+          id: 5db981b14ce405d079b376f0
+    workflowStatus:
+      summary: Workflow Status
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Done
+        color:
+          $ref: '#/components/examples/workflowStatusColor/value'
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    workflowStatusColor:
+      summary: Workflow Status Color
+      value:
+        name: yellow
+        r: 254
+        g: 207
+        b: 51
+        a: 1
+    project:
+      summary: Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        description: UI designs for the onboard computer on the spaceship Discovery 1
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        scene_url: https://scene.zeplin.io/project/5db81e73e1e36ee19f138c1a
+        created: 1517184000
+        updated: 1572347818
+        number_of_members: 47
+        number_of_screens: 112
+        number_of_components: 46
+        number_of_connected_components: 32
+        number_of_text_styles: 28
+        number_of_colors: 17
+        linked_styleguide:
+          id: 5db81e6e6a4462065f04d932
+    styleguide:
+      summary: Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        description: Global styleguide for all projects of Discovery 1.
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        created: 1517184000
+        updated: 1572347818
+        number_of_members: 13
+        number_of_components: 241
+        number_of_connected_components: 195
+        number_of_text_styles: 48
+        number_of_colors: 37
+        parent:
+          id: 5db981b14ce405d079b376f0
+    organizationBilling:
+      summary: Organization Billing Information
+      value:
+        total_seat_count: 16
+        used_seat_count: 14
+    organizationProject:
+      summary: Organization Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        description: UI designs for the onboard computer on the spaceship Discovery 1
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        created: 1517184000
+        updated: 1572347818
+        organization:
+          $ref: '#/components/examples/organizationSummary/value'
+        workflow_status:
+          $ref: '#/components/examples/workflowStatus/value'
+        number_of_members: 47
+        number_of_screens: 112
+        number_of_components: 46
+        number_of_connected_components: 32
+        number_of_text_styles: 28
+        number_of_colors: 17
+        number_of_spacing_tokens: 63
+        linked_styleguide:
+          id: 5db81e6e6a4462065f04d932
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    organizationMember:
+      summary: Organization Member
+      value:
+        user:
+          $ref: '#/components/examples/user/value'
+        role: owner
+        tags:
+        - developers
+        restricted: false
+        invited: 1517184000
+    remPreferences:
+      summary: rem Preferences
+      value:
+        status: enabled
+        root_font_size: 16
+        use_for_font_sizes: false
+        use_for_measurements: true
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    organization:
+      summary: Organization
+      value:
+        id: 5db981b14ce405d079b376f0
+        name: Acme, Inc.
+        members:
+        - $ref: '#/components/examples/organizationMember/value'
+  schemas:
+    OrganizationMemberInviteBody:
+      title: Organization Member Invite Body
+      type: object
+      properties:
+        handle:
+          type: string
+          description: Email, username or unique identifier of the user
+        tags:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Tags of the user in the organization
+        role:
+          type: string
+          enum:
+          - admin
+          - editor
+          - member
+          - alien
+          description: 'The role of the user in the organization
+
+
+            ☝️Note that the Developer role maps to `member` and the Reviewer role maps to `alien` in the API.
+
+            '
+        restricted:
+          type: boolean
+          description: Whether the user's membership is restricted to only the projects that they are member of
+      required:
+      - handle
+      - role
+      - restricted
+    WorkflowStatusColor:
+      title: Workflow Status Color
+      type: object
+      required:
+      - name
+      - r
+      - g
+      - b
+      - a
+      properties:
+        name:
+          type: string
+          description: The name of the color
+        r:
+          type: integer
+          description: red component of the color
+        g:
+          type: integer
+          description: green component of the color
+        b:
+          type: integer
+          description: blue component of the color
+        a:
+          type: number
+          description: alpha component of the color
+      example:
+        $ref: '#/components/examples/workflowStatusColor'
+    Styleguide:
+      title: Styleguide
+      type: object
+      required:
+      - id
+      - name
+      - platform
+      - status
+      - created
+      - number_of_members
+      - number_of_components
+      - number_of_colors
+      - number_of_text_styles
+      - number_of_spacing_tokens
+      - number_of_connected_components
+      properties:
+        id:
+          type: string
+          description: The unique id of the styleguide
+        name:
+          type: string
+          description: The name of the styleguide
+        description:
+          type: string
+          description: The description of the styleguide (It can contain markdown https://zpl.io/article/markdown-support)
+        platform:
+          type: string
+          enum:
+          - base
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the styleguide
+        thumbnail:
+          type: string
+          description: URL of the styleguide's thumbnail image
+        status:
+          $ref: '#/components/schemas/StyleguideStatusEnum'
+        organization:
+          $ref: '#/components/schemas/OrganizationSummary'
+        rem_preferences:
+          $ref: '#/components/schemas/RemPreferences'
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the styleguide was created
+        updated:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the styleguide was updated
+        number_of_members:
+          type: integer
+          description: The number of members of the styleguide
+        number_of_connected_components:
+          type: integer
+          description: The number of connected components in the styleguide
+        number_of_components:
+          type: integer
+          description: The number of components exported to the styleguide
+        number_of_text_styles:
+          type: integer
+          description: The number of text styles added to the styleguide
+        number_of_colors:
+          type: integer
+          description: The number of colors added to the styleguide
+        number_of_spacing_tokens:
+          type: integer
+          description: The number of spacing tokens added to the styleguide
+        parent:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the parent styleguide
+      example:
+        $ref: '#/components/examples/styleguide'
+      x-examples:
+        Personal Styleguide:
+          $ref: '#/components/examples/styleguide'
+        Organization Styleguide:
+          $ref: '#/components/examples/organizationStyleguide'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    Project:
+      title: Project
+      type: object
+      required:
+      - id
+      - name
+      - platform
+      - status
+      - created
+      - number_of_members
+      - number_of_screens
+      - number_of_components
+      - number_of_connected_components
+      - number_of_colors
+      - number_of_text_styles
+      - number_of_spacing_tokens
+      properties:
+        id:
+          type: string
+          description: The unique id of the project
+        name:
+          type: string
+          description: The name of the project
+        description:
+          type: string
+          description: The description of the project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the project
+        thumbnail:
+          type: string
+          description: URL of the project's thumbnail image
+        status:
+          $ref: '#/components/schemas/ProjectStatusEnum'
+        organization:
+          $ref: '#/components/schemas/OrganizationSummary'
+        rem_preferences:
+          $ref: '#/components/schemas/RemPreferences'
+        workflow_status:
+          $ref: '#/components/schemas/WorkflowStatus'
+        scene_url:
+          type: string
+          description: URL of the project's scene (public projects only)
+          format: url
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the project was created
+        updated:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the project was updated
+        number_of_members:
+          type: integer
+          description: The number of members of the project
+        number_of_screens:
+          type: integer
+          description: The number of screens in the project
+        number_of_components:
+          type: integer
+          description: The number of components exported to the project
+        number_of_connected_components:
+          type: integer
+          description: The number of connected components in the project
+        number_of_text_styles:
+          type: integer
+          description: The number of text styles added to the project
+        number_of_colors:
+          type: integer
+          description: The number of colors added to the project
+        number_of_spacing_tokens:
+          type: integer
+          description: The number of spacing tokens added to the project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference the styleguide which the project is linked to
+      example:
+        $ref: '#/components/examples/project'
+      x-examples:
+        Personal Project:
+          $ref: '#/components/examples/project'
+        Organization Project:
+          $ref: '#/components/examples/organizationProject'
+    EnabledRemPreferences:
+      title: Enabled rem Preferences
+      type: object
+      required:
+      - status
+      - root_font_size
+      - use_for_font_sizes
+      - use_for_measurements
+      properties:
+        status:
+          type: string
+          description: The status of the preferences
+          enum:
+          - enabled
+        root_font_size:
+          description: Font size of the root element
+          type: number
+        use_for_font_sizes:
+          description: Whether rem unit is used for font sizes
+          type: boolean
+        use_for_measurements:
+          description: Whether rem unit is used for measurements
+          type: boolean
+      example:
+        $ref: '#/components/examples/remPreferences'
+    OrganizationMemberUpdateBody:
+      title: Organization Member Update Body
+      type: object
+      properties:
+        tags:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          description: Tags of the user in the organization
+        role:
+          type: string
+          enum:
+          - admin
+          - editor
+          - member
+          - alien
+          description: 'The role of the user in the organization
+
+
+            ☝️Note that the Developer role maps to `member` and the Reviewer role maps to `alien` in the API.
+
+            '
+        restricted:
+          type: boolean
+          description: Whether the user's membership is restricted to only the
+    OrganizationSummary:
+      title: Organization Summary
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Organization's unique id
+        name:
+          type: string
+          description: Name of the user
+        logo:
+          type: string
+          description: URL of the organization's logo
+          format: url
+      example:
+        $ref: '#/components/examples/organizationSummary'
+    User:
+      title: User
+      description: 'Basic info about Zeplin users.
+
+
+        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
+
+
+        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
+
+
+        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
+
+        '
+      type: object
+      required:
+      - id
+      - email
+      - username
+      properties:
+        id:
+          type: string
+          description: User's unique id
+        email:
+          type: string
+          description: Zeplin-only alias for the user's email (original)
+        username:
+          type: string
+          description: Username of the user
+        emotar:
+          type: string
+          format: emoji
+          description: Emotar of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        last_seen:
+          type: number
+          description: The unix timestamp when the user was last seen
+      example:
+        $ref: '#/components/examples/user'
+      x-examples:
+        User:
+          $ref: '#/components/examples/user'
+        My User:
+          $ref: '#/components/examples/me'
+    OrganizationBilling:
+      title: Organization Billing Details
+      type: object
+      required:
+      - total_seat_count
+      - used_seat_count
+      properties:
+        total_seat_count:
+          type: number
+          description: Total number of seats reserved for the organization
+        used_seat_count:
+          type: number
+          description: Number of used seats for the organization
+      example:
+        $ref: '#/components/examples/organizationBilling'
+    StyleguideStatusEnum:
+      title: Styleguide Status
+      type: string
+      enum:
+      - active
+      - archived
+      description: The status of the styleguide
+    WorkflowStatus:
+      title: Workflow Status
+      type: object
+      required:
+      - id
+      - name
+      - color
+      properties:
+        id:
+          type: string
+          description: The unique id of the workflow status
+        name:
+          type: string
+          description: The name of the workflow status
+        color:
+          $ref: '#/components/schemas/WorkflowStatusColor'
+      example:
+        $ref: '#/components/examples/workflowStatus'
+    OrganizationMember:
+      title: Organization Member
+      type: object
+      required:
+      - user
+      - tags
+      - role
+      - restricted
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags of the user in the organization
+        role:
+          type: string
+          enum:
+          - owner
+          - admin
+          - editor
+          - member
+          - alien
+          description: 'The role of the user in the organization
+
+
+            ☝️Note that the Developer role maps to `member` and the Reviewer role maps to `alien` in the API.
+
+            '
+        restricted:
+          type: boolean
+          description: Whether the user's membership is restricted to only the projects that they are member of
+        invited:
+          type: number
+          description: Invitation timestamp of the user to the organization
+      example:
+        $ref: '#/components/examples/organizationMember'
+    RemPreferences:
+      title: rem Preferences
+      description: rem preferences of project or styleguide. The content of this property varies depending on the value of its status field.
+      discriminator:
+        propertyName: status
+        mapping:
+          enabled: '#/components/schemas/EnabledRemPreferences'
+          disabled: '#/components/schemas/DisabledOrLinkedRemPreferences'
+          linked: '#/components/schemas/DisabledOrLinkedRemPreferences'
+      oneOf:
+      - $ref: '#/components/schemas/EnabledRemPreferences'
+      - $ref: '#/components/schemas/DisabledOrLinkedRemPreferences'
+    ProjectStatusEnum:
+      title: Project Status
+      type: string
+      enum:
+      - active
+      - archived
+      description: The status of the project
+    DisabledOrLinkedRemPreferences:
+      title: Disabled or Linked rem Preferences
+      type: object
+      description: If `status` is `"linked"`, project or styleguide uses its parent styleguide as the source of preferences.
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The status of the preferences.
+          enum:
+          - disabled
+          - linked
+    Organization:
+      title: Organization
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Organization's unique id
+        name:
+          type: string
+          description: Name of the user
+        logo:
+          type: string
+          description: URL of the organization's logo
+          format: url
+        members:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationMember'
+          description: Members of the organization (Does not exist on the response when user is restricted in organization)
+      example:
+        $ref: '#/components/examples/organization'
+  parameters:
+    organization_id:
+      name: organization_id
+      in: path
+      description: Organization id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    member_id:
+      name: member_id
+      in: path
+      description: Member id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    handle:
+      name: handle
+      in: query
+      description: 'Filter organization members by email, username or unique identifier of the user
+
+
+        ☝️Note that only organization admins (or higher) can filter members using email addresses.
+
+
+        Example: `?handle=zozo&handle=5d9caaecb4a3fa9bc9718686&handle=zozo%40zeplin.io`
+
+        '
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+    organization_role:
+      name: role
+      in: query
+      description: 'Filter by role
+
+
+        ☝️Note that the Developer role maps to `member` and the Reviewer role maps to `alien` in the API.
+
+
+        Example: `?role=owner&role=admin`
+
+        '
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          type: string
+          enum:
+          - owner
+          - admin
+          - editor
+          - member
+          - alien
+  responses:
+    organizationOrMemberNotFound:
+      description: Organization or member not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Organization not found:
+              value:
+                message: Organization not found
+            Member not found:
+              value:
+                message: User is not a member of the organization
+    noContent:
+      description: Successful response
+    organizationNotFound:
+      description: Organization not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Organization not found response:
+              value:
+                message: Organization not found
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /v1/oauth/authorize
+          tokenUrl: /v1/oauth/token
+          refreshUrl: /v1/oauth/token
+          scopes: {}
+    PersonalAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,586 @@
+openapi: 3.0.2
+info:
+  title: Zeplin Authorization TextStyles API
+  description: Access your resources in Zeplin
+  version: 1.38.0
+  contact:
+    name: Zeplin
+    url: https://zeplin.io
+    email: support@zeplin.io
+servers:
+- url: https://api.zeplin.dev
+security:
+- PersonalAccessToken: []
+- OAuth2: []
+tags:
+- name: TextStyles
+paths:
+  /v1/projects/{project_id}/text_styles:
+    get:
+      tags:
+      - TextStyles
+      summary: Get project text styles
+      description: List all text styles in the project's local styleguide
+      operationId: GetProjectTextStyles
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TextStyle'
+              examples:
+                Project Text Styles:
+                  value:
+                  - $ref: '#/components/examples/textStyle/value'
+        '404':
+          $ref: '#/components/responses/projectNotFound'
+        '422':
+          $ref: '#/components/responses/projectArchived'
+  /v1/projects/{project_id}/text_styles/{text_style_id}:
+    patch:
+      tags:
+      - TextStyles
+      summary: Update project text style
+      description: Update a text style in the project's local styleguide
+      operationId: UpdateProjectTextStyle
+      parameters:
+      - $ref: '#/components/parameters/project_id'
+      - $ref: '#/components/parameters/text_style_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextStyleUpdateBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '403':
+          $ref: '#/components/responses/cannotUpdateAProjectTextStyle'
+        '404':
+          $ref: '#/components/responses/projectOrTextStyleNotFound'
+        '422':
+          $ref: '#/components/responses/notAProjectMemberOrArchived'
+  /v1/styleguides/{styleguide_id}/text_styles:
+    get:
+      tags:
+      - TextStyles
+      summary: Get styleguide text styles
+      description: 'Returns the text styles of the styleguide that user has access.
+
+
+        See [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.
+
+        '
+      operationId: GetStyleguideTextStyles
+      parameters:
+      - $ref: '#/components/parameters/styleguide_id'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/linked_project'
+      - $ref: '#/components/parameters/linked_styleguide'
+      - $ref: '#/components/parameters/include_linked_styleguides'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TextStyle'
+              examples:
+                Styleguide Text Styles:
+                  value:
+                  - $ref: '#/components/examples/textStyle/value'
+        '404':
+          $ref: '#/components/responses/styleguideNotFound'
+        '422':
+          $ref: '#/components/responses/styleguideArchived'
+  /v1/styleguides/{styleguide_id}/text_styles/{text_style_id}:
+    patch:
+      tags:
+      - TextStyles
+      summary: Update styleguide text style
+      description: Update a text style in the styleguide
+      operationId: UpdateStyleguideTextStyle
+      parameters:
+      - $ref: '#/components/parameters/styleguide_id'
+      - $ref: '#/components/parameters/text_style_id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextStyleUpdateBody'
+      responses:
+        '204':
+          $ref: '#/components/responses/noContent'
+        '403':
+          $ref: '#/components/responses/cannotUpdateAStyleguideTextStyle'
+        '404':
+          $ref: '#/components/responses/styleguideOrTextStyleNotFound'
+        '422':
+          $ref: '#/components/responses/notAStyleguideMemberOrArchived'
+components:
+  examples:
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
+    resourceStyleguideSource:
+      summary: Source Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        parent:
+          id: 5db981be9df2b3e1bfa19ef2
+    resourceSourceForProject:
+      summary: Source for Project
+      value:
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
+    resourceProjectSource:
+      summary: Source Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    colorData:
+      summary: Color Data
+      value:
+        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
+        r: 143
+        g: 152
+        b: 5
+        a: 1
+    textStyle:
+      summary: Text Style
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Header - H1
+        created: 1517184000
+        postscript_name: HelveticaNeue-Bold
+        font_family: HelveticaNeue
+        font_size: 24
+        font_weight: 700
+        font_style: normal
+        line_height: 24
+        font_stretch: 1
+        text_align: left
+        color:
+          $ref: '#/components/examples/colorData/value'
+        source:
+          $ref: '#/components/examples/resourceSourceForProject/value'
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+  responses:
+    styleguideOrTextStyleNotFound:
+      description: Styleguide or text style not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found:
+              value:
+                message: Styleguide not found
+            Text style not found:
+              value:
+                message: Text style not found
+    styleguideArchived:
+      description: Styleguide archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide archived response:
+              value:
+                message: Styleguide is archived
+    cannotUpdateAStyleguideTextStyle:
+      description: User cannot update a styleguide text style
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot update a styleguide text style:
+              value:
+                message: User with role alien in a styleguide cannot update a text style
+    cannotUpdateAProjectTextStyle:
+      description: User cannot update a project text style
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot update a project text style:
+              value:
+                message: User with role alien in a project cannot update a text style
+    notAProjectMemberOrArchived:
+      description: Not a project member or project archived
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a member:
+              value:
+                message: User is not a member of the project
+            Project is archived:
+              value:
+                message: Project is archived
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
+    styleguideNotFound:
+      description: Styleguide not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found response:
+              value:
+                message: Styleguide not found
+    projectOrTextStyleNotFound:
+      description: Project or text style not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Text style not found:
+              value:
+                message: Text style not found
+    notAStyleguideMemberOrArchived:
+      description: Not a styleguide member or styleguide archived
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a member:
+              value:
+                message: User is not a member of the styleguide
+            Styleguide is archived:
+              value:
+                message: Styleguide is archived
+    noContent:
+      description: Successful response
+    projectArchived:
+      description: Project archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project archived response:
+              value:
+                message: Project is archived
+  schemas:
+    ResourceProjectSource:
+      title: Source Project
+      type: object
+      description: The source project of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/resourceProjectSource'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    ColorData:
+      title: Color Data
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        source_id:
+          type: string
+          description: Color's identifier in the design tool
+        r:
+          type: integer
+          description: Red component of the color
+        g:
+          type: integer
+          description: Green component of the color
+        b:
+          type: integer
+          description: Blue component of the color
+        a:
+          type: number
+          description: Alpha component of the color
+      example:
+        $ref: '#/components/examples/colorData'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    ResourceSource:
+      title: Resource Source
+      type: object
+      description: Source details for resource. It has to be either `project` or `styleguide`.
+      properties:
+        project:
+          $ref: '#/components/schemas/ResourceProjectSource'
+        styleguide:
+          $ref: '#/components/schemas/ResourceStyleguideSource'
+      example:
+        $ref: '#/components/examples/resourceSourceForProject'
+      x-examples:
+        Project:
+          $ref: '#/components/examples/resourceSourceForProject'
+        Styleguide:
+          $ref: '#/components/examples/resourceSourceForStyleguide'
+    TextStyleUpdateBody:
+      title: Text Style Update Body
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the text style
+        color:
+          title: color
+          $ref: '#/components/schemas/ColorData'
+    TextStyle:
+      title: Text Style
+      type: object
+      required:
+      - id
+      - name
+      - created
+      - postscript_name
+      - font_family
+      - font_size
+      - font_weight
+      - font_style
+      - font_stretch
+      properties:
+        id:
+          type: string
+          description: Identifier of the text style
+        name:
+          type: string
+          description: Name of the text style
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the text style was created
+        postscript_name:
+          type: string
+          description: PostScript name of the text style, e.g. Roboto-Regular
+        font_family:
+          type: string
+          description: Font family of the text style, e.g. Roboto, Arial
+        font_size:
+          type: number
+          description: Font size of the text style
+        font_weight:
+          type: number
+          description: Font weight of the text style, e.g. 500, 700
+        font_style:
+          type: string
+          description: Font style of the text style, e.g. italic, oblique
+        font_stretch:
+          type: number
+          description: Font stretch form of the text style, e.g. 0.75, 1.00
+        line_height:
+          type: number
+          description: Minimum height of a line for the text style
+        letter_spacing:
+          type: number
+          description: Spacing between letters
+        text_align:
+          type: string
+          description: Horizontal alignment of the text style, left, right, center, or justify
+        color:
+          $ref: '#/components/schemas/ColorData'
+        source:
+          $ref: '#/components/schemas/ResourceSource'
+          description: Source of the text style–either `project` or `styleguide`.
+      example:
+        $ref: '#/components/examples/textStyle'
+    ResourceStyleguideSource:
+      title: Source Styleguide
+      type: object
+      description: The source styleguide of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source styleguide
+        name:
+          type: string
+          description: The name of the source styleguide
+        platform:
+          type: string
+          enum:
+          - base
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source styleguide
+        parent:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the parent styleguide of the source styleguide
+      example:
+        $ref: '#/components/examples/resourceStyleguideSource'
+  parameters:
+    linked_styleguide:
+      name: linked_styleguide
+      in: query
+      description: Reference styleguide id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    linked_project:
+      name: linked_project
+      in: query
+      description: Reference project id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    text_style_id:
+      name: text_style_id
+      in: path
+      description: Text style id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+    styleguide_id:
+      name: styleguide_id
+      in: path
+      description: Styleguide id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: /v1/oauth/authorize
+          tokenUrl: /v1/oauth/token
+          refreshUrl: /v1/oauth/token
+          scopes: {}
+    PersonalAccessToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
