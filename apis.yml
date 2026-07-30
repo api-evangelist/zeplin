@@ -10,7 +10,20 @@ description: Zeplin is a design-to-development handoff platform that bridges the
   workflows. The API uses OAuth 2.0 with PKCE support and personal access tokens for
   authentication, with an official JavaScript SDK and OpenAPI specification available.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/zeplin.png
 url: https://raw.githubusercontent.com/api-evangelist/zeplin/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
@@ -27,30 +40,18 @@ tags:
 - Assets
 - Webhooks
 apis:
-- aid: zeplin:zeplin-api
-  name: Zeplin API
-  description: The Zeplin REST API provides programmatic access to design collaboration
-    data including projects, screens, components, layers, assets, style guides, annotations,
-    and design tokens. Supports both read and write operations for select resources,
-    real-time webhook notifications, and design token management including variable
-    collections and modes.
+- aid: zeplin:zeplin-authorization-api
+  name: Zeplin Authorization API
+  description: The Authorization API from Zeplin — 2 operation(s) for authorization.
   humanURL: https://docs.zeplin.dev/reference/introduction
   baseURL: https://api.zeplin.io
   tags:
-  - Design
-  - Design Handoff
-  - Projects
-  - Screens
-  - Components
-  - Style Guides
-  - Webhooks
+  - Authorization
   properties:
+  - type: OpenAPI
+    url: openapi/zeplin-authorization-api-openapi.yml
   - type: Documentation
     url: https://docs.zeplin.dev/docs/welcome
-  - type: OpenAPI
-    url: https://github.com/zeplin/openapi
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/zeplin/refs/heads/main/openapi/zeplin-zeplin-api-openapi.yml
   - type: Authentication
     url: https://docs.zeplin.dev/reference/authentication
   - type: RateLimits
@@ -59,12 +60,370 @@ apis:
     url: https://docs.zeplin.dev/reference/webhook-events-overview
   - type: JavaScriptSDK
     url: https://github.com/zeplin/javascript-sdk
-  - type: MCPServer
-    url: https://github.com/zeplin/mcp-server
   - type: CLI
     url: https://github.com/zeplin/cli
-  - url: graphql/zeplin-graphql.md
-    type: GraphQL
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-colors-api
+  name: Zeplin Colors API
+  description: The Colors API from Zeplin — 4 operation(s) for colors.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Colors
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-colors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-components-api
+  name: Zeplin Components API
+  description: The Components API from Zeplin — 10 operation(s) for components.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Components
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-components-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-connected-components-api
+  name: Zeplin Connected Components API
+  description: The Connected Components API from Zeplin — 2 operation(s) for connected components.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Connected Components
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-connected-components-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-design-tokens-api
+  name: Zeplin Design Tokens API
+  description: The Design Tokens API from Zeplin — 2 operation(s) for design tokens.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Design Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-design-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-flows-api
+  name: Zeplin Flows API
+  description: The Flows API from Zeplin — 7 operation(s) for flows.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Flows
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-flows-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-notifications-api
+  name: Zeplin Notifications API
+  description: The Notifications API from Zeplin — 2 operation(s) for notifications.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-organizations-api
+  name: Zeplin Organizations API
+  description: The Organizations API from Zeplin — 11 operation(s) for organizations.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-projects-api
+  name: Zeplin Projects API
+  description: The Projects API from Zeplin — 5 operation(s) for projects.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-screens-api
+  name: Zeplin Screens API
+  description: The Screens API from Zeplin — 17 operation(s) for screens.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Screens
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-screens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-spacing-api
+  name: Zeplin Spacing API
+  description: The Spacing API from Zeplin — 6 operation(s) for spacing.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Spacing
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-spacing-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-styleguides-api
+  name: Zeplin Styleguides API
+  description: The Styleguides API from Zeplin — 6 operation(s) for styleguides.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Styleguides
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-styleguides-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-textstyles-api
+  name: Zeplin TextStyles API
+  description: The TextStyles API from Zeplin — 4 operation(s) for textstyles.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - TextStyles
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-textstyles-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-users-api
+  name: Zeplin Users API
+  description: The Users API from Zeplin — 3 operation(s) for users.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-variable-collections-api
+  name: Zeplin Variable Collections API
+  description: The Variable Collections API from Zeplin — 2 operation(s) for variable collections.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Variable Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-variable-collections-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
+- aid: zeplin:zeplin-webhooks-api
+  name: Zeplin Webhooks API
+  description: The Webhooks API from Zeplin — 8 operation(s) for webhooks.
+  humanURL: https://docs.zeplin.dev/reference/introduction
+  baseURL: https://api.zeplin.io
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/zeplin-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.zeplin.dev/docs/welcome
+  - type: Authentication
+    url: https://docs.zeplin.dev/reference/authentication
+  - type: RateLimits
+    url: https://docs.zeplin.dev/reference/rate-limiting
+  - type: Webhooks
+    url: https://docs.zeplin.dev/reference/webhook-events-overview
+  - type: JavaScriptSDK
+    url: https://github.com/zeplin/javascript-sdk
+  - type: CLI
+    url: https://github.com/zeplin/cli
+  - type: GraphQL
+    url: graphql/zeplin-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/zeplin-agentic-access.yml
