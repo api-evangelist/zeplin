@@ -1,0 +1,168 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization TextStyles API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TextStyles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project text styles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/text_styles",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "List all text styles in the project's local styleguide"
+        },
+        {
+          "info": {
+            "name": "Update project text style",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/text_styles/:text_style_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "text_style_id",
+                "value": "",
+                "type": "path",
+                "description": "Text style id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a text style in the project's local styleguide"
+        },
+        {
+          "info": {
+            "name": "Get styleguide text styles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/text_styles",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "Returns the text styles of the styleguide that user has access.\n\nSee [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.\n"
+        },
+        {
+          "info": {
+            "name": "Update styleguide text style",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/text_styles/:text_style_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "text_style_id",
+                "value": "",
+                "type": "path",
+                "description": "Text style id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a text style in the styleguide"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

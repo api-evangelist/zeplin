@@ -1,0 +1,262 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Spacing API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Spacing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get spacing tokens of the project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/spacing_tokens",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "List all spacing tokens of the project"
+        },
+        {
+          "info": {
+            "name": "Update project spacing token",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/spacing_tokens/:spacing_token_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "spacing_token_id",
+                "value": "",
+                "type": "path",
+                "description": "Spacing token id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "/v1/oauth/authorize",
+              "accessTokenUrl": "/v1/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a spacing token in the project's local styleguide"
+        },
+        {
+          "info": {
+            "name": "Get spacing sections of the project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/spacing_sections",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all spacing sections of the project"
+        },
+        {
+          "info": {
+            "name": "Get spacing tokens of the styleguide",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/spacing_tokens",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "List all spacing tokens of the styleguide that user has access.\n\nSee [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.\n"
+        },
+        {
+          "info": {
+            "name": "Update styleguide spacing token",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/spacing_tokens/:spacing_token_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "spacing_token_id",
+                "value": "",
+                "type": "path",
+                "description": "Spacing token id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "/v1/oauth/authorize",
+              "accessTokenUrl": "/v1/oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a spacing token in the styleguide"
+        },
+        {
+          "info": {
+            "name": "Get spacing sections of the styleguide",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/spacing_sections",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              }
+            ]
+          },
+          "docs": "List all spacing sections of the styleguide that user has access.\n\nSee [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

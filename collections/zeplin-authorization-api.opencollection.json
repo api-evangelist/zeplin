@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authorization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authorization endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/oauth/authorize",
+            "params": [
+              {
+                "name": "response_type",
+                "value": "",
+                "type": "query",
+                "description": "Only `code` flow is supported"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "query",
+                "description": "Identifier of the Zeplin app requesting user authentication"
+              },
+              {
+                "name": "redirect_uri",
+                "value": "",
+                "type": "query",
+                "description": "User is redirected to this endpoint after authorization"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "RECOMMENDED. An opaque value used by the client to maintain state between the request and callback."
+              },
+              {
+                "name": "code_challenge",
+                "value": "",
+                "type": "query",
+                "description": "RECOMMENDED. A PKCE code challenge derived from the code verifier, to be verified against later."
+              },
+              {
+                "name": "code_challenge_method",
+                "value": "",
+                "type": "query",
+                "description": "RECOMMENDED. PKCE code verifier transformation method."
+              }
+            ]
+          },
+          "docs": "Users are redirected to web app to authenticate themselves and authorize the app with `client_id` to act on behalf of themselves."
+        },
+        {
+          "info": {
+            "name": "Access token endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/oauth/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If `grant_type` is given as `authorization_code`; handles code flow. If `grant_type` is given as `refresh_token` handles refresh token flow."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Users API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/users/me"
+          },
+          "docs": "Get current user's details"
+        },
+        {
+          "info": {
+            "name": "Get personal projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/users/me/projects",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status"
+              }
+            ]
+          },
+          "docs": "List all projects that belong to the current user"
+        },
+        {
+          "info": {
+            "name": "Get personal styleguides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/users/me/styleguides",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status"
+              }
+            ]
+          },
+          "docs": "List all styleguides that belong to the current user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

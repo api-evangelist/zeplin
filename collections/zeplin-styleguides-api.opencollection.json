@@ -1,0 +1,280 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Styleguides API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Styleguides",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all member styleguides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "workspace",
+                "value": "",
+                "type": "query",
+                "description": "Workspace of the styleguide, it can be `personal` or the id of organization"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              }
+            ]
+          },
+          "docs": "Lists all styleguides user is a member of unless `linked_project` or `linked_styleguide` parameter is given.\n\nIf `linked_project` parameter is provided, lists styleguide linked to the given project and its ancestors. Returns error if the project referenced with `linked_project` is not accessible.\n\nSimiarly, lists styleguide linked to the given styleguide and its ancestors if `linked_styleguide` parameter is provided. Returns error if the styleguide referenced with `linked_styleguide` is not acce"
+        },
+        {
+          "info": {
+            "name": "Get a single styleguide",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              }
+            ]
+          },
+          "docs": "Returns a single styleguide that user has access.\n\nUser is considered eligible to access a styleguide if any of the following conditions is met:\n* User is a member of the styleguide\n* User is a member of the organization that the styleguide belongs to\n* User is a member of a project which is linked to the styleguide (using `linked_project` parameter)\n* User is a member of a project and the styleguide is an ancestor of the project's linked styleguide (using `linked_project` parameter)\n* User is a"
+        },
+        {
+          "info": {
+            "name": "Update a styleguide",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a styleguide's name and description"
+        },
+        {
+          "info": {
+            "name": "Get styleguide members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/members",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              }
+            ]
+          },
+          "docs": "Returns members of a styleguide that user has access.\n\nSee [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.\n"
+        },
+        {
+          "info": {
+            "name": "Invite a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/members",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite a member to the styleguide."
+        },
+        {
+          "info": {
+            "name": "Remove a member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/members/:member_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "member_id",
+                "value": "",
+                "type": "path",
+                "description": "Member id"
+              }
+            ]
+          },
+          "docs": "Remove a member from the styleguide."
+        },
+        {
+          "info": {
+            "name": "Get linked projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/linked_projects",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all projects linked to the styleguide"
+        },
+        {
+          "info": {
+            "name": "Get styleguide design tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/design_tokens",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              },
+              {
+                "name": "token_name_case",
+                "value": "",
+                "type": "query",
+                "description": "Case for token names"
+              }
+            ]
+          },
+          "docs": "Fetch all design tokens of the styleguide"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

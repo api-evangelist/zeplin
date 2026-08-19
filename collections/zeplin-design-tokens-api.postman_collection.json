@@ -1,0 +1,537 @@
+{
+  "item": [
+    {
+      "id": "0e62b398-1e04-4095-a633-b946bd62c288",
+      "name": "Design Tokens",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "999d9cf1-9483-46d3-8224-93152f09640a",
+          "name": "Get project design tokens",
+          "request": {
+            "name": "Get project design tokens",
+            "description": {
+              "content": "Fetch all design tokens of the project",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":project_id",
+                "design_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_linked_styleguides",
+                  "value": "false",
+                  "description": "Whether to include linked styleguides or not"
+                },
+                {
+                  "disabled": false,
+                  "key": "token_name_case",
+                  "value": "kebab",
+                  "description": "Case for token names"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) Project id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "56d0affd-f699-4413-9f4f-e3a3f4ba4253",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project_id",
+                    "design_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_linked_styleguides",
+                      "value": "false"
+                    },
+                    {
+                      "key": "token_name_case",
+                      "value": "kebab"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"colors\": {\n    \"yellow\": {\n      \"value\": \"rgb(255, 255, 0)\",\n      \"metadata\": {\n        \"source\": {\n          \"styleguide\": {\n            \"id\": \"5db981be9df2b3e1bfa19ef2\",\n            \"name\": \"Discovery 1\",\n            \"platform\": \"web\"\n          }\n        },\n        \"resource\": {\n          \"id\": \"605df86a46d1fe50fceb9b49\",\n          \"type\": \"Color\"\n        }\n      }\n    },\n    \"light-yellow\": {\n      \"value\": \"rgb(255, 255, 224)\",\n      \"metadata\": {\n        \"source\": {\n          \"project\": {\n            \"id\": \"5db81e73e1e36ee19f138c1a\",\n            \"name\": \"HAL 9000\",\n            \"platform\": \"web\",\n            \"linked_styleguide\": {\n              \"id\": \"5db981be9df2b3e1bfa19ef2\"\n            }\n          }\n        },\n        \"resource\": {\n          \"id\": \"5dbad85a76ea51c1f35b6f69\",\n          \"type\": \"Color\"\n        }\n      }\n    }\n  },\n  \"spacing\": {\n    \"xs-spacing\": {\n      \"value\": 16,\n      \"metadata\": {\n        \"source\": {\n          \"project\": {\n            \"id\": \"5db81e73e1e36ee19f138c1a\",\n            \"name\": \"HAL 9000\",\n            \"platform\": \"web\",\n            \"linked_styleguide\": {\n              \"id\": \"5db981be9df2b3e1bfa19ef2\"\n            }\n          }\n        },\n        \"resource\": {\n          \"id\": \"605df8fb1e558896ebd801c1\",\n          \"type\": \"SpacingToken\"\n        },\n        \"spacing_section\": {\n          \"id\": \"5db81e6e6a4462065f04d932\"\n        }\n      }\n    }\n  },\n  \"text_styles\": {\n    \"header-h1\": {\n      \"value\": {\n        \"line_height\": 36,\n        \"alignment\": \"left\",\n        \"font\": {\n          \"family\": \"HelveticaNeue\",\n          \"size\": 36,\n          \"weight\": 900,\n          \"stretch\": 1\n        },\n        \"color\": \"rgb(204, 204, 0)\"\n      },\n      \"metadata\": {\n        \"source\": {\n          \"styleguide\": {\n            \"id\": \"5db981be9df2b3e1bfa19ef2\",\n            \"name\": \"Discovery 1\",\n            \"platform\": \"web\"\n          }\n        },\n        \"resource\": {\n          \"id\": \"5dbad85a76ea51c1f35b6f69\",\n          \"type\": \"TextStyle\"\n        }\n      }\n    },\n    \"header-h2\": {\n      \"value\": {\n        \"line_height\": 24,\n        \"alignment\": \"left\",\n        \"font\": {\n          \"family\": \"HelveticaNeue\",\n          \"size\": 24,\n          \"weight\": 700,\n          \"stretch\": 1\n        },\n        \"color\": \"{$colors.light-yellow.value}\"\n      },\n      \"metadata\": {\n        \"source\": {\n          \"project\": {\n            \"id\": \"5db81e73e1e36ee19f138c1a\",\n            \"name\": \"HAL 9000\",\n            \"platform\": \"web\",\n            \"linked_styleguide\": {\n              \"id\": \"5db981be9df2b3e1bfa19ef2\"\n            }\n          }\n        },\n        \"resource\": {\n          \"id\": \"5dbad85a76ea51c1f35b6f69\",\n          \"type\": \"TextStyle\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "998dabf0-34fe-4ee1-b27e-fb2cd12a3a98",
+              "name": "Project not found response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project_id",
+                    "design_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_linked_styleguides",
+                      "value": "false"
+                    },
+                    {
+                      "key": "token_name_case",
+                      "value": "kebab"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Project not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6836017-b7e1-4455-8fe8-7b6cf2fbcaef",
+              "name": "Project archived response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":project_id",
+                    "design_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_linked_styleguides",
+                      "value": "false"
+                    },
+                    {
+                      "key": "token_name_case",
+                      "value": "kebab"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) Project id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Project is archived\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7c01df3-57ab-4717-b6ff-1d5839f47d6f",
+          "name": "Get styleguide design tokens",
+          "request": {
+            "name": "Get styleguide design tokens",
+            "description": {
+              "content": "Fetch all design tokens of the styleguide",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "styleguides",
+                ":styleguide_id",
+                "design_tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include_linked_styleguides",
+                  "value": "false",
+                  "description": "Whether to include linked styleguides or not"
+                },
+                {
+                  "disabled": false,
+                  "key": "token_name_case",
+                  "value": "kebab",
+                  "description": "Case for token names"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "styleguide_id",
+                  "description": "(Required) Styleguide id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8beda71-303b-4054-a9fc-fd2291631bf6",
+              "name": "Successful response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "styleguides",
+                    ":styleguide_id",
+                    "design_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_linked_styleguides",
+                      "value": "false"
+                    },
+                    {
+                      "key": "token_name_case",
+                      "value": "kebab"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "styleguide_id",
+                      "description": "(Required) Styleguide id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"colors\": {\n    \"yellow\": {\n      \"value\": \"rgb(255, 255, 0)\",\n      \"metadata\": {\n        \"source\": {\n          \"styleguide\": {\n            \"id\": \"5db981be9df2b3e1bfa19ef2\",\n            \"name\": \"Discovery 1\",\n            \"platform\": \"web\"\n          }\n        },\n        \"resource\": {\n          \"id\": \"605df86a46d1fe50fceb9b49\",\n          \"type\": \"Color\"\n        }\n      }\n    },\n    \"light-yellow\": {\n      \"value\": \"rgb(255, 255, 224)\",\n      \"metadata\": {\n        \"source\": {\n          \"styleguide\": {\n            \"id\": \"5db81e73e1e36ee19f138c1a\",\n            \"name\": \"HAL 9000\",\n            \"platform\": \"web\",\n            \"parent\": {\n              \"id\": \"5db981be9df2b3e1bfa19ef2\"\n            }\n          }\n        },\n        \"resource\": {\n          \"id\": \"5dbad85a76ea51c1f35b6f69\",\n          \"type\": \"Color\"\n        }\n      }\n    }\n  },\n  \"spacing\": {\n    \"xs-spacing\": {\n      \"value\": 16,\n      \"metadata\": {\n        \"source\": {\n          \"styleguide\": {\n            \"id\": \"5db81e73e1e36ee19f138c1a\",\n            \"name\": \"HAL 9000\",\n            \"platform\": \"web\",\n            \"parent\": {\n              \"id\": \"5db981be9df2b3e1bfa19ef2\"\n            }\n          }\n        },\n        \"resource\": {\n          \"id\": \"605df8fb1e558896ebd801c1\",\n          \"type\": \"SpacingToken\"\n        },\n        \"spacing_section\": {\n          \"id\": \"5db81e6e6a4462065f04d932\"\n        }\n      }\n    }\n  },\n  \"text_styles\": {\n    \"header-h1\": {\n      \"value\": {\n        \"line_height\": 36,\n        \"alignment\": \"left\",\n        \"font\": {\n          \"family\": \"HelveticaNeue\",\n          \"size\": 36,\n          \"weight\": 900,\n          \"stretch\": 1\n        },\n        \"color\": \"rgb(204, 204, 0)\"\n      },\n      \"metadata\": {\n        \"source\": {\n          \"styleguide\": {\n            \"id\": \"5db981be9df2b3e1bfa19ef2\",\n            \"name\": \"Discovery 1\",\n            \"platform\": \"web\"\n          }\n        },\n        \"resource\": {\n          \"id\": \"5dbad85a76ea51c1f35b6f69\",\n          \"type\": \"TextStyle\"\n        }\n      }\n    },\n    \"header-h2\": {\n      \"value\": {\n        \"line_height\": 24,\n        \"alignment\": \"left\",\n        \"font\": {\n          \"family\": \"HelveticaNeue\",\n          \"size\": 24,\n          \"weight\": 700,\n          \"stretch\": 1\n        },\n        \"color\": \"{$colors.light-yellow.value}\"\n      },\n      \"metadata\": {\n        \"source\": {\n          \"styleguide\": {\n            \"id\": \"5db81e73e1e36ee19f138c1a\",\n            \"name\": \"HAL 9000\",\n            \"platform\": \"web\",\n            \"parent\": {\n              \"id\": \"5db981be9df2b3e1bfa19ef2\"\n            }\n          }\n        },\n        \"resource\": {\n          \"id\": \"5dbad85a76ea51c1f35b6f69\",\n          \"type\": \"TextStyle\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "73502ef4-33be-4aee-8eeb-17ba68e2abd9",
+              "name": "Styleguide not found response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "styleguides",
+                    ":styleguide_id",
+                    "design_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_linked_styleguides",
+                      "value": "false"
+                    },
+                    {
+                      "key": "token_name_case",
+                      "value": "kebab"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "styleguide_id",
+                      "description": "(Required) Styleguide id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Styleguide not found\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23456190-e5ee-403c-bfbb-5e3807579bee",
+              "name": "Styleguide archived response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "styleguides",
+                    ":styleguide_id",
+                    "design_tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include_linked_styleguides",
+                      "value": "false"
+                    },
+                    {
+                      "key": "token_name_case",
+                      "value": "kebab"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "styleguide_id",
+                      "description": "(Required) Styleguide id"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Styleguide is archived\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.zeplin.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "19b46205-0e6b-4606-8191-d2b14929895c",
+    "name": "Zeplin Authorization Design Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Access your resources in Zeplin\n\nContact Support:\n Name: Zeplin\n Email: support@zeplin.io",
+      "type": "text/plain"
+    }
+  }
+}

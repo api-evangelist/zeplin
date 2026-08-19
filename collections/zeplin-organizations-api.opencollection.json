@@ -1,0 +1,377 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Organizations API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations",
+            "params": [
+              {
+                "name": "role",
+                "value": "",
+                "type": "query",
+                "description": "Filter by role\n\n☝️Note that the Developer role maps to `member` and the Reviewer role maps to `alien` in the API.\n\nExample: `?role=owner&role=admin`\n"
+              }
+            ]
+          },
+          "docs": "List all organizations that user is a member of"
+        },
+        {
+          "info": {
+            "name": "Get a single organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              }
+            ]
+          },
+          "docs": "Get details of the organization"
+        },
+        {
+          "info": {
+            "name": "Get organization billing details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/billing",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              }
+            ]
+          },
+          "docs": "Get total and used seat count in the organization"
+        },
+        {
+          "info": {
+            "name": "Get organization projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/projects",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all projects that belong to the organization"
+        },
+        {
+          "info": {
+            "name": "Get organization workflow statuses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/workflow_statuses",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              }
+            ]
+          },
+          "docs": "List all workflow statuses that belong to the organization"
+        },
+        {
+          "info": {
+            "name": "Get organization styleguides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/styleguides",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all styleguides that belong to the organization"
+        },
+        {
+          "info": {
+            "name": "Get organization aliens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/aliens",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              }
+            ]
+          },
+          "docs": "List all aliens in the organization"
+        },
+        {
+          "info": {
+            "name": "Get organization members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/members",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "handle",
+                "value": "",
+                "type": "query",
+                "description": "Filter organization members by email, username or unique identifier of the user\n\n☝️Note that only organization admins (or higher) can filter members using email addresses.\n\nExample: `?handle=zozo&handle=5d9caaecb4a3fa9bc9718686&handle=zozo%40zeplin.io`\n"
+              }
+            ]
+          },
+          "docs": "List all members in the organization"
+        },
+        {
+          "info": {
+            "name": "Invite member",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/members",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invite a new organization member.\n\n☝️*Only organization admins (or higher) can invite members using **personal access tokens**. OAuth applications are not allowed.*\n"
+        },
+        {
+          "info": {
+            "name": "Update an organization member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/members/:member_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "member_id",
+                "value": "",
+                "type": "path",
+                "description": "Member id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an organization member's role, access restriction, and tags.\n\n☝️*Only organization admins (or higher) can update members using **personal access tokens**. OAuth applications are not allowed.*\n"
+        },
+        {
+          "info": {
+            "name": "Remove an organization member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/members/:member_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "member_id",
+                "value": "",
+                "type": "path",
+                "description": "Member id"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove a member from organization.\n\n☝️*Only organization admins (or higher) can remove members using **personal access tokens**. OAuth applications are not allowed.*\n"
+        },
+        {
+          "info": {
+            "name": "Get a member's projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/members/:member_id/projects",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "member_id",
+                "value": "",
+                "type": "path",
+                "description": "Member id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "Get a list of projects that an organization member is a part of"
+        },
+        {
+          "info": {
+            "name": "Get a member's styleguides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/members/:member_id/styleguides",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "member_id",
+                "value": "",
+                "type": "path",
+                "description": "Member id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "Get a list of styleguides that an organization member is a part of"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

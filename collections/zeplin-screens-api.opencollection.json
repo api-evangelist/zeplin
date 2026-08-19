@@ -1,0 +1,885 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Screens API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Screens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project screens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by section id"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort screens by their `section` or their `created` date"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all screens of the project"
+        },
+        {
+          "info": {
+            "name": "Create a new screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Create a new screen in the project"
+        },
+        {
+          "info": {
+            "name": "Get a single screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              }
+            ]
+          },
+          "docs": "Get a single screen by id"
+        },
+        {
+          "info": {
+            "name": "Update a screen",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a screen's description"
+        },
+        {
+          "info": {
+            "name": "Get screen components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/components",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "include_latest_version",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include the latest version data in the Component object"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "List all components in the screen"
+        },
+        {
+          "info": {
+            "name": "Get screen notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/notes",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all notes in the screen"
+        },
+        {
+          "info": {
+            "name": "Create a note",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/notes",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a note on the screen"
+        },
+        {
+          "info": {
+            "name": "Get a single screen note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/notes/:note_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "note_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen note id"
+              }
+            ]
+          },
+          "docs": "Get a screen note by id"
+        },
+        {
+          "info": {
+            "name": "Update a note",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/notes/:note_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "note_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen note id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a note on the screen"
+        },
+        {
+          "info": {
+            "name": "Delete a note",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/notes/:note_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "note_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen note id"
+              }
+            ]
+          },
+          "docs": "Delete a note on the screen"
+        },
+        {
+          "info": {
+            "name": "Create a comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/notes/:note_id/comments",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "note_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen note id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create comment on the screen note"
+        },
+        {
+          "info": {
+            "name": "Update comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/notes/:note_id/comments/:comment_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "note_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen note id"
+              },
+              {
+                "name": "comment_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen comment id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update comments on the screen note"
+        },
+        {
+          "info": {
+            "name": "Delete comment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/notes/:note_id/comments/:comment_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "note_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen note id"
+              },
+              {
+                "name": "comment_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen comment id"
+              }
+            ]
+          },
+          "docs": "Delete a comment on the screen note"
+        },
+        {
+          "info": {
+            "name": "Get screen annotations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/annotations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all annotations in the screen"
+        },
+        {
+          "info": {
+            "name": "Create an annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/annotations",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an annotation on the screen"
+        },
+        {
+          "info": {
+            "name": "Get a single screen annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/annotations/:annotation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "annotation_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen annotation id"
+              }
+            ]
+          },
+          "docs": "Get a screen annotation by id"
+        },
+        {
+          "info": {
+            "name": "Update an annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/annotations/:annotation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "annotation_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen annotation id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an annotation on the screen"
+        },
+        {
+          "info": {
+            "name": "Delete an annotation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/annotations/:annotation_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "annotation_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen annotation id"
+              }
+            ]
+          },
+          "docs": "Delete an annotation on the screen"
+        },
+        {
+          "info": {
+            "name": "Get screen annotation note types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/annotations/note_types",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              }
+            ]
+          },
+          "docs": "List all annotation note types in the project"
+        },
+        {
+          "info": {
+            "name": "Get screen versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/versions",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all versions of the screen in a project"
+        },
+        {
+          "info": {
+            "name": "Create a new screen version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/versions",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Create a new screen version in the project"
+        },
+        {
+          "info": {
+            "name": "Get a single screen version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/versions/:version_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen version id"
+              }
+            ]
+          },
+          "docs": "Get details of the screen version"
+        },
+        {
+          "info": {
+            "name": "Get the latest screen version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screens/:screen_id/versions/latest",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "screen_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen id"
+              }
+            ]
+          },
+          "docs": "Get details of the latest version"
+        },
+        {
+          "info": {
+            "name": "Get screen sections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screen_sections",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all screen sections of the project"
+        },
+        {
+          "info": {
+            "name": "Get a single screen section",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screen_sections/:section_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen section id"
+              }
+            ]
+          },
+          "docs": "Get a screen section by id"
+        },
+        {
+          "info": {
+            "name": "Get screen variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screen_variants",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all screen variants of the project"
+        },
+        {
+          "info": {
+            "name": "Get a single screen variant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/screen_variants/:variant_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "variant_id",
+                "value": "",
+                "type": "path",
+                "description": "Screen variant id"
+              }
+            ]
+          },
+          "docs": "Get a screen variant by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

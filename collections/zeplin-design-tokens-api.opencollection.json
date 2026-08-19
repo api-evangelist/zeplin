@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Design Tokens API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Design Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project design tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/design_tokens",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              },
+              {
+                "name": "token_name_case",
+                "value": "",
+                "type": "query",
+                "description": "Case for token names"
+              }
+            ]
+          },
+          "docs": "Fetch all design tokens of the project"
+        },
+        {
+          "info": {
+            "name": "Get styleguide design tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/design_tokens",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              },
+              {
+                "name": "token_name_case",
+                "value": "",
+                "type": "query",
+                "description": "Case for token names"
+              }
+            ]
+          },
+          "docs": "Fetch all design tokens of the styleguide"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

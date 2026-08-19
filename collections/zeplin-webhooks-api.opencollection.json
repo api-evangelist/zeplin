@@ -1,0 +1,572 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Webhooks API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get organization webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/webhooks",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by webhook status"
+              },
+              {
+                "name": "url_health",
+                "value": "",
+                "type": "query",
+                "description": "Filter by health of webhook's URL"
+              }
+            ]
+          },
+          "docs": "List all webhooks of organization\n\nNote: Zeplin apps can only list the webhook that are created by them.\nTo list all webhooks created by any app or without app, personal access token is needed.\n"
+        },
+        {
+          "info": {
+            "name": "Create organization webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/webhooks",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a webhook for the organization\n\nWildcard `\"*\"` can be used for `project_ids` and `styleguide_ids` to receive events for all projects and styleguides that you own. You'll also automatically subscribe to the new ones you create in the future.\n\nNote: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.\n"
+        },
+        {
+          "info": {
+            "name": "Get a webhook of organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ]
+          },
+          "docs": "Get a webhook by id"
+        },
+        {
+          "info": {
+            "name": "Update organization webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a webhook for the organization"
+        },
+        {
+          "info": {
+            "name": "Delete a webhook of an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/organizations/:organization_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path",
+                "description": "Organization id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ]
+          },
+          "docs": "Delete a webhook by id"
+        },
+        {
+          "info": {
+            "name": "Get project webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/webhooks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by webhook status"
+              },
+              {
+                "name": "url_health",
+                "value": "",
+                "type": "query",
+                "description": "Filter by health of webhook's URL"
+              }
+            ]
+          },
+          "docs": "List all webhooks of the project\n\nNote: Zeplin apps can only list the webhook that are created by them.\nTo list all webhooks created by any app or without app, personal access token is needed.\n"
+        },
+        {
+          "info": {
+            "name": "Create project webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/webhooks",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a webhook for the project\n\nNote: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.\n"
+        },
+        {
+          "info": {
+            "name": "Get a webhook of project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ]
+          },
+          "docs": "Get a webhook by id"
+        },
+        {
+          "info": {
+            "name": "Update project webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a webhook for the project"
+        },
+        {
+          "info": {
+            "name": "Delete a webhook of a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ]
+          },
+          "docs": "Delete a webhook by id"
+        },
+        {
+          "info": {
+            "name": "Get styleguide webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/webhooks",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by webhook status"
+              },
+              {
+                "name": "url_health",
+                "value": "",
+                "type": "query",
+                "description": "Filter by health of webhook's URL"
+              }
+            ]
+          },
+          "docs": "List all webhooks of the styleguide\n\nNote: Zeplin apps can only list the webhook that are created by them.\nTo list all webhooks created by any app or without app, personal access token is needed.\n"
+        },
+        {
+          "info": {
+            "name": "Create styleguide webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/webhooks",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a webhook for the styleguide\n\nNote: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.\n"
+        },
+        {
+          "info": {
+            "name": "Get a webhook of styleguide",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ]
+          },
+          "docs": "Get a webhook by id"
+        },
+        {
+          "info": {
+            "name": "Update styleguide webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a webhook for the styleguide"
+        },
+        {
+          "info": {
+            "name": "Delete a webhook of a styleguide",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ]
+          },
+          "docs": "Delete a webhook by id"
+        },
+        {
+          "info": {
+            "name": "Get user webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/users/me/webhooks",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by webhook status"
+              },
+              {
+                "name": "url_health",
+                "value": "",
+                "type": "query",
+                "description": "Filter by health of webhook's URL"
+              }
+            ]
+          },
+          "docs": "List all webhooks of the user\n\nNote: Zeplin apps can only list the webhook that are created by them.\nTo list all webhooks created by any app or without app, personal access token is needed.\n"
+        },
+        {
+          "info": {
+            "name": "Create user webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.zeplin.dev/v1/users/me/webhooks",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a webhook for the user\n\nWildcard `\"*\"` can be used for `project_ids` and `styleguide_ids` to receive events for all projects and styleguides that you own. You'll also automatically subscribe to the new ones you create in the future.\n\nNote: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.\n"
+        },
+        {
+          "info": {
+            "name": "Get a webhook of user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/users/me/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ]
+          },
+          "docs": "Get a webhook by id"
+        },
+        {
+          "info": {
+            "name": "Update user webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/users/me/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a webhook for the user"
+        },
+        {
+          "info": {
+            "name": "Delete a webhook of a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.zeplin.dev/v1/users/me/webhooks/:webhook_id",
+            "params": [
+              {
+                "name": "webhook_id",
+                "value": "",
+                "type": "path",
+                "description": "Webhook id"
+              }
+            ]
+          },
+          "docs": "Delete a webhook by id"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

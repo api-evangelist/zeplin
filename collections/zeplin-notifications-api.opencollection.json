@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Notifications API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Notifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/users/me/notifications",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "is_read",
+                "value": "",
+                "type": "query",
+                "description": "Whether the notification is read or not"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by type\n\nExample: `?type=project.extension&type=styleguide.extension`\n"
+              }
+            ]
+          },
+          "docs": "List all notifications of the user"
+        },
+        {
+          "info": {
+            "name": "Bulk update user notifications",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/users/me/notifications",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by type\n\nExample: `?type=project.extension&type=styleguide.extension`\n"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by id\n\nExample: `?id=5fbe387f8c72ef23659fb500&id=602281f4783f72fccc045484`\n"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates all user notifications unless `type` or `id` parameter is given.\n\nIf `type` parameter is provided, updates notifications with matching type.\n\nSimilarly, updates notifications with matching identifiers if `id` parameter is provided.\n\n☝️ `type` and `id` should not be used in conjunction.\n"
+        },
+        {
+          "info": {
+            "name": "Get a notification of user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/users/me/notifications/:notification_id",
+            "params": [
+              {
+                "name": "notification_id",
+                "value": "",
+                "type": "path",
+                "description": "Notification id"
+              }
+            ]
+          },
+          "docs": "Get a notification by id"
+        },
+        {
+          "info": {
+            "name": "Update user notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/users/me/notifications/:notification_id",
+            "params": [
+              {
+                "name": "notification_id",
+                "value": "",
+                "type": "path",
+                "description": "Notification id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a notification for the user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

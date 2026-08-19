@@ -1,0 +1,247 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Flows API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Flows",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project flow boards",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/flow_boards",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              }
+            ]
+          },
+          "docs": "List all flow boards in a project."
+        },
+        {
+          "info": {
+            "name": "Get a single project flow board",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/flow_boards/:flow_board_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "flow_board_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow Board id"
+              }
+            ]
+          },
+          "docs": "Get flow board details related to a project"
+        },
+        {
+          "info": {
+            "name": "Get project flow board groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/flow_boards/:flow_board_id/groups",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "flow_board_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow Board id"
+              }
+            ]
+          },
+          "docs": "List all flow board groups in a project."
+        },
+        {
+          "info": {
+            "name": "Get project flow board connectors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/flow_boards/:flow_board_id/connectors",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "flow_board_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow Board id"
+              },
+              {
+                "name": "starting_node_id",
+                "value": "",
+                "type": "query",
+                "description": "Starting node id"
+              },
+              {
+                "name": "ending_node_id",
+                "value": "",
+                "type": "query",
+                "description": "Ending node id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all connectors of the flow board in a project"
+        },
+        {
+          "info": {
+            "name": "Get a single project flow board connector",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/flow_boards/:flow_board_id/connectors/:connector_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "flow_board_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow Board id"
+              },
+              {
+                "name": "connector_id",
+                "value": "",
+                "type": "path",
+                "description": "Board connector id"
+              }
+            ]
+          },
+          "docs": "Get details of the project flow board connector"
+        },
+        {
+          "info": {
+            "name": "Get project flow board nodes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/flow_boards/:flow_board_id/nodes",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "flow_board_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow Board id"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Group id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all nodes of the flow board in a project"
+        },
+        {
+          "info": {
+            "name": "Get a single project flow board node",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/flow_boards/:flow_board_id/nodes/:node_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "flow_board_id",
+                "value": "",
+                "type": "path",
+                "description": "Flow Board id"
+              },
+              {
+                "name": "node_id",
+                "value": "",
+                "type": "path",
+                "description": "Board node id"
+              }
+            ]
+          },
+          "docs": "Get details of the project flow board node"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

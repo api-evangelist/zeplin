@@ -1,0 +1,512 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Zeplin Authorization Components API",
+    "version": "1.38.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Components",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/components",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by section id"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort components by their `section` or their `created` date"
+              },
+              {
+                "name": "include_latest_version",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include the latest version data in the Component object"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all components of a project"
+        },
+        {
+          "info": {
+            "name": "Get a single project component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/components/:component_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path",
+                "description": "Component id"
+              },
+              {
+                "name": "include_latest_version",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include the latest version data in the Component object"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "Get a project component by id"
+        },
+        {
+          "info": {
+            "name": "Update a project component",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/components/:component_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path",
+                "description": "Component id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a component's description in a project"
+        },
+        {
+          "info": {
+            "name": "Get latest project component version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/components/:component_id/versions/latest",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path",
+                "description": "Component id"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "Get latest version of the component in a project"
+        },
+        {
+          "info": {
+            "name": "Get project component sections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/component_sections",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by page id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all component sections of the project"
+        },
+        {
+          "info": {
+            "name": "Get project pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/projects/:project_id/pages",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path",
+                "description": "Project id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all pages of the project"
+        },
+        {
+          "info": {
+            "name": "Get styleguide components",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/components",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by section id"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort components by their `section` or their `created` date"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              },
+              {
+                "name": "include_latest_version",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include the latest version data in the Component object"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "Returns components in a styleguide that user has access.\n\nSee [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.\n"
+        },
+        {
+          "info": {
+            "name": "Get a single styleguide component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/components/:component_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path",
+                "description": "Component id"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              },
+              {
+                "name": "include_latest_version",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include the latest version data in the Component object"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "Returns the component in a styleguide that user has access.\n\nSee [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.\n"
+        },
+        {
+          "info": {
+            "name": "Update a styleguide component",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/components/:component_id",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path",
+                "description": "Component id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a component's description in a styleguide"
+        },
+        {
+          "info": {
+            "name": "Get latest styleguide component version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/components/:component_id/versions/latest",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "component_id",
+                "value": "",
+                "type": "path",
+                "description": "Component id"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              },
+              {
+                "name": "include_linked_styleguides",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include linked styleguides or not"
+              }
+            ]
+          },
+          "docs": "Returns the latest version of the component in a styleguide that user has access.\n\nSee [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.\n"
+        },
+        {
+          "info": {
+            "name": "Get styleguide component sections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/component_sections",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "page_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by page id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "linked_project",
+                "value": "",
+                "type": "query",
+                "description": "Reference project id"
+              },
+              {
+                "name": "linked_styleguide",
+                "value": "",
+                "type": "query",
+                "description": "Reference styleguide id"
+              }
+            ]
+          },
+          "docs": "Returns the component sections of a styleguide that user has access.\n\nSee [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.\n"
+        },
+        {
+          "info": {
+            "name": "Get styleguide pages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.zeplin.dev/v1/styleguides/:styleguide_id/pages",
+            "params": [
+              {
+                "name": "styleguide_id",
+                "value": "",
+                "type": "path",
+                "description": "Styleguide id"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ]
+          },
+          "docs": "List all pages of the styleguide"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
