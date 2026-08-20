@@ -38,6 +38,17 @@ tags:
 - Style Guides
 - Components
 - Assets
+- Webhook
+tags_raw:
+- Design
+- Design Handoff
+- Developer Tools
+- Figma
+- Sketch
+- Adobe XD
+- Style Guides
+- Components
+- Assets
 - Webhooks
 apis:
 - aid: zeplin:zeplin-authorization-api
@@ -190,6 +201,8 @@ apis:
   humanURL: https://docs.zeplin.dev/reference/introduction
   baseURL: https://api.zeplin.io
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
@@ -214,6 +227,8 @@ apis:
   humanURL: https://docs.zeplin.dev/reference/introduction
   baseURL: https://api.zeplin.io
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -238,6 +253,8 @@ apis:
   humanURL: https://docs.zeplin.dev/reference/introduction
   baseURL: https://api.zeplin.io
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -310,6 +327,8 @@ apis:
   humanURL: https://docs.zeplin.dev/reference/introduction
   baseURL: https://api.zeplin.io
   tags:
+  - Style Guides
+  tags_raw:
   - Styleguides
   properties:
   - type: OpenAPI
@@ -358,6 +377,8 @@ apis:
   humanURL: https://docs.zeplin.dev/reference/introduction
   baseURL: https://api.zeplin.io
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -406,6 +427,8 @@ apis:
   humanURL: https://docs.zeplin.dev/reference/introduction
   baseURL: https://api.zeplin.io
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
