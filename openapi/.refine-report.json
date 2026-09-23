@@ -1,22 +1,7 @@
 {
   "provider": "zeplin",
   "sources": [
-    "zeplin-authorization-api-openapi.yml",
-    "zeplin-colors-api-openapi.yml",
-    "zeplin-components-api-openapi.yml",
-    "zeplin-connected-components-api-openapi.yml",
-    "zeplin-design-tokens-api-openapi.yml",
-    "zeplin-flows-api-openapi.yml",
-    "zeplin-notifications-api-openapi.yml",
-    "zeplin-organizations-api-openapi.yml",
-    "zeplin-projects-api-openapi.yml",
-    "zeplin-screens-api-openapi.yml",
-    "zeplin-spacing-api-openapi.yml",
-    "zeplin-styleguides-api-openapi.yml",
-    "zeplin-textstyles-api-openapi.yml",
-    "zeplin-users-api-openapi.yml",
-    "zeplin-variable-collections-api-openapi.yml",
-    "zeplin-webhooks-api-openapi.yml"
+    "_original/zeplin-zeplin-api-openapi.yml"
   ],
   "outputs": [
     "zeplin-authorization-api-openapi.yml",
@@ -39,6 +24,43 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "zeplin-zeplin-api-openapi.yml: upgraded openapi 3.0.2 -> OpenAPI 3.2.0",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Authorization",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Colors",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Components",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Connected Components",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Design Tokens",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Flows",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Notifications",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Organizations",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Projects",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Screens",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Spacing",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Styleguides",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: TextStyles",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Users",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Variable Collections",
+    "zeplin-zeplin-api-openapi.yml: declared missing tag: Webhooks",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "zeplin-authorization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-colors-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-components-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-connected-components-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-design-tokens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-flows-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-notifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-screens-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-spacing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-styleguides-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-textstyles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-variable-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "zeplin-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Zeplin Authorization Colors API
+  title: Zeplin Colors API
   description: Access your resources in Zeplin
   version: 1.38.0
   contact:
@@ -23,9 +23,7 @@ paths:
       description: 'This endpoint returns all of the colors in a project.
 
 
-        You need to be a member of the project or a member of the organization that owns the project. Returns `Not Found` response otherwise.
-
-        '
+        You need to be a member of the project or a member of the organization that owns the project. Returns `Not Found` response otherwise.'
       operationId: GetProjectColors
       parameters:
       - $ref: '#/components/parameters/project_id'
@@ -112,9 +110,7 @@ paths:
       description: 'Returns colors in a styleguide that user has access.
 
 
-        See [Styleguide docs](#getstyleguide) for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.
-
-        '
+        See Styleguide docs for more details about how `linked_project` and `linked_styleguide` parameters can be used to retrieve resources from styleguides that user is eligible to access.'
       operationId: GetStyleguideColors
       parameters:
       - $ref: '#/components/parameters/styleguide_id'
@@ -197,24 +193,6 @@ paths:
           $ref: '#/components/responses/notAStyleguideMemberOrArchived'
 components:
   examples:
-    resourceSourceForStyleguide:
-      summary: Source for Styleguide
-      value:
-        styleguide:
-          $ref: '#/components/examples/resourceStyleguideSource/value'
-    resourceStyleguideSource:
-      summary: Source Styleguide
-      value:
-        id: 5db981be9df2b3e1bfa19ef2
-        name: Discovery 1
-        platform: web
-        parent:
-          id: 5db981be9df2b3e1bfa19ef2
-    resourceSourceForProject:
-      summary: Source for Project
-      value:
-        project:
-          $ref: '#/components/examples/resourceProjectSource/value'
     resourceProjectSource:
       summary: Source Project
       value:
@@ -238,76 +216,38 @@ components:
           $ref: '#/components/examples/variableInfo/value'
         source:
           $ref: '#/components/examples/resourceSourceForProject/value'
-    error:
-      summary: Error
+    resourceStyleguideSource:
+      summary: Source Styleguide
       value:
-        message: Project is not found
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        parent:
+          id: 5db981be9df2b3e1bfa19ef2
     variableInfo:
       summary: Variable Info
       value:
         source_id: 280c52e619f9c84a4e5e265bb746ede50d898cb3
         collection_source_id: 4af2ee68305a9b4f0c655141e7ba01a51ab61bde
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
+    error:
+      summary: Error
+      value:
+        message: Project is not found
     entityReference:
       summary: Object Reference
       value:
         id: 5dbad85a76ea51c1f35b6f69
+    resourceSourceForProject:
+      summary: Source for Project
+      value:
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
   responses:
-    styleguideOrColorNotFound:
-      description: Styleguide or color not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide not found:
-              value:
-                message: Styleguide not found
-            Color not found:
-              value:
-                message: Color not found
-    styleguideArchived:
-      description: Styleguide archived response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide archived response:
-              value:
-                message: Styleguide is archived
-    cannotCreateAColor:
-      description: User cannot create a project color
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            User cannot create a project color:
-              value:
-                message: User with role member in a project cannot create a color
-    projectOrColorNotFound:
-      description: Project or color not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found:
-              value:
-                message: Project not found
-            Color not found:
-              value:
-                message: Color not found
-    cannotUpdateAProjectColor:
-      description: User cannot update a project color
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            User cannot update a project color:
-              value:
-                message: User with role alien in a project cannot update a color
     notAProjectMemberOrArchived:
       description: Not a project member or project archived
       content:
@@ -321,26 +261,19 @@ components:
             Project is archived:
               value:
                 message: Project is archived
-    projectNotFound:
-      description: Project not found response
+    styleguideOrColorNotFound:
+      description: Styleguide or color not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Project not found response:
-              value:
-                message: Project not found
-    styleguideNotFound:
-      description: Styleguide not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide not found response:
+            Styleguide not found:
               value:
                 message: Styleguide not found
+            Color not found:
+              value:
+                message: Color not found
     cannotUpdateAStyleguideColor:
       description: User cannot update a styleguide color
       content:
@@ -351,16 +284,81 @@ components:
             User cannot update a styleguide color:
               value:
                 message: User with role alien in a styleguide cannot update a color
-    cannotCreateAStyleguideColor:
-      description: User cannot create a styleguide color
+    styleguideNotFound:
+      description: Styleguide not found response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            User cannot create a styleguide color:
+            Styleguide not found response:
               value:
-                message: User with role alien in a styleguide cannot create a color
+                message: Styleguide not found
+    noContent:
+      description: Successful response
+    cannotUpdateAProjectColor:
+      description: User cannot update a project color
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot update a project color:
+              value:
+                message: User with role alien in a project cannot update a color
+    cannotCreateAColor:
+      description: User cannot create a project color
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot create a project color:
+              value:
+                message: User with role member in a project cannot create a color
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
+    projectArchived:
+      description: Project archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project archived response:
+              value:
+                message: Project is archived
+    styleguideArchived:
+      description: Styleguide archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide archived response:
+              value:
+                message: Styleguide is archived
+    projectOrColorNotFound:
+      description: Project or color not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Color not found:
+              value:
+                message: Color not found
     notAStyleguideMemberOrArchived:
       description: Not a styleguide member or styleguide archived
       content:
@@ -374,144 +372,85 @@ components:
             Styleguide is archived:
               value:
                 message: Styleguide is archived
-    noContent:
-      description: Successful response
-    projectArchived:
-      description: Project archived response
+    cannotCreateAStyleguideColor:
+      description: User cannot create a styleguide color
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Project archived response:
+            User cannot create a styleguide color:
               value:
-                message: Project is archived
+                message: User with role alien in a styleguide cannot create a color
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    linked_project:
+      name: linked_project
+      in: query
+      description: Reference project id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    styleguide_id:
+      name: styleguide_id
+      in: path
+      description: Styleguide id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    color_id:
+      name: color_id
+      in: path
+      description: Color id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    linked_styleguide:
+      name: linked_styleguide
+      in: query
+      description: Reference styleguide id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
   schemas:
-    ColorCreateBody:
-      title: Color Create Body
-      required:
-      - name
-      - r
-      - g
-      - b
-      - a
-      type: object
-      properties:
-        name:
-          type: string
-          minLength: 1
-          maxLength: 100
-          description: Name of the color
-        source_id:
-          type: string
-          description: Color's identifier in the design tool
-        r:
-          type: integer
-          minimum: 0
-          maximum: 255
-          description: Red component of the color
-        g:
-          type: integer
-          minimum: 0
-          maximum: 255
-          description: Green component of the color
-        b:
-          type: integer
-          minimum: 0
-          maximum: 255
-          description: Blue component of the color
-        a:
-          type: number
-          minimum: 0
-          maximum: 1
-          description: Alpha component of the color
-    ResourceProjectSource:
-      title: Source Project
-      type: object
-      description: The source project of the resource
-      required:
-      - id
-      - name
-      - platform
-      properties:
-        id:
-          type: string
-          description: The unique id of the source project
-        name:
-          type: string
-          description: The name of the source project
-        platform:
-          type: string
-          enum:
-          - web
-          - ios
-          - android
-          - macos
-          description: The target platform of the source project
-        linked_styleguide:
-          $ref: '#/components/schemas/EntityReference'
-          description: Reference of the styleguide which the source project is linked to
-      example:
-        $ref: '#/components/examples/resourceProjectSource'
-    EntityReference:
-      title: Object Reference
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Id of the entity
-      example:
-        $ref: '#/components/examples/entityReference'
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
-    ResourceSource:
-      title: Resource Source
-      type: object
-      description: Source details for resource. It has to be either `project` or `styleguide`.
-      properties:
-        project:
-          $ref: '#/components/schemas/ResourceProjectSource'
-        styleguide:
-          $ref: '#/components/schemas/ResourceStyleguideSource'
-      example:
-        $ref: '#/components/examples/resourceSourceForProject'
-      x-examples:
-        Project:
-          $ref: '#/components/examples/resourceSourceForProject'
-        Styleguide:
-          $ref: '#/components/examples/resourceSourceForStyleguide'
-    VariableInfo:
-      title: Variable Info
-      type: object
-      required:
-      - source_id
-      - collection_source_id
-      properties:
-        source_id:
-          type: string
-          description: The source id of the variable
-        collection_source_id:
-          type: string
-          description: The source id of the collection that the variable belongs to
-      example:
-        $ref: '#/components/examples/variableInfo'
     Color:
       title: Color
       type: object
@@ -557,6 +496,131 @@ components:
           description: Variable info of the color
       example:
         $ref: '#/components/examples/color'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    ResourceSource:
+      title: Resource Source
+      type: object
+      description: Source details for resource. It has to be either `project` or `styleguide`.
+      properties:
+        project:
+          $ref: '#/components/schemas/ResourceProjectSource'
+        styleguide:
+          $ref: '#/components/schemas/ResourceStyleguideSource'
+      example:
+        $ref: '#/components/examples/resourceSourceForProject'
+      x-examples:
+        Project:
+          $ref: '#/components/examples/resourceSourceForProject'
+        Styleguide:
+          $ref: '#/components/examples/resourceSourceForStyleguide'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    ResourceProjectSource:
+      title: Source Project
+      type: object
+      description: The source project of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/resourceProjectSource'
+    ColorCreateBody:
+      title: Color Create Body
+      required:
+      - name
+      - r
+      - g
+      - b
+      - a
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: Name of the color
+        source_id:
+          type: string
+          description: Color's identifier in the design tool
+        r:
+          type: integer
+          minimum: 0
+          maximum: 255
+          description: Red component of the color
+        g:
+          type: integer
+          minimum: 0
+          maximum: 255
+          description: Green component of the color
+        b:
+          type: integer
+          minimum: 0
+          maximum: 255
+          description: Blue component of the color
+        a:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Alpha component of the color
+    VariableInfo:
+      title: Variable Info
+      type: object
+      required:
+      - source_id
+      - collection_source_id
+      properties:
+        source_id:
+          type: string
+          description: The source id of the variable
+        collection_source_id:
+          type: string
+          description: The source id of the collection that the variable belongs to
+      example:
+        $ref: '#/components/examples/variableInfo'
     ResourceStyleguideSource:
       title: Source Styleguide
       type: object
@@ -615,74 +679,6 @@ components:
           minimum: 0
           maximum: 1
           description: Alpha component of the color
-  parameters:
-    linked_styleguide:
-      name: linked_styleguide
-      in: query
-      description: Reference styleguide id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    linked_project:
-      name: linked_project
-      in: query
-      description: Reference project id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    project_id:
-      name: project_id
-      in: path
-      description: Project id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    include_linked_styleguides:
-      name: include_linked_styleguides
-      in: query
-      description: Whether to include linked styleguides or not
-      required: false
-      schema:
-        type: boolean
-        default: false
-    styleguide_id:
-      name: styleguide_id
-      in: path
-      description: Styleguide id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    color_id:
-      name: color_id
-      in: path
-      description: Color id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
   securitySchemes:
     OAuth2:
       type: oauth2

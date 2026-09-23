@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Zeplin Authorization Webhooks API
+  title: Zeplin Webhooks API
   description: Access your resources in Zeplin
   version: 1.38.0
   contact:
@@ -25,9 +25,7 @@ paths:
 
         Note: Zeplin apps can only list the webhook that are created by them.
 
-        To list all webhooks created by any app or without app, personal access token is needed.
-
-        '
+        To list all webhooks created by any app or without app, personal access token is needed.'
       operationId: GetOrganizationWebhooks
       parameters:
       - $ref: '#/components/parameters/organization_id'
@@ -62,9 +60,7 @@ paths:
         Wildcard `"*"` can be used for `project_ids` and `styleguide_ids` to receive events for all projects and styleguides that you own. You''ll also automatically subscribe to the new ones you create in the future.
 
 
-        Note: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.
-
-        '
+        Note: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.'
       operationId: CreateOrganizationWebhooks
       parameters:
       - $ref: '#/components/parameters/organization_id'
@@ -162,9 +158,7 @@ paths:
 
         Note: Zeplin apps can only list the webhook that are created by them.
 
-        To list all webhooks created by any app or without app, personal access token is needed.
-
-        '
+        To list all webhooks created by any app or without app, personal access token is needed.'
       operationId: GetProjectWebhooks
       parameters:
       - $ref: '#/components/parameters/project_id'
@@ -198,9 +192,7 @@ paths:
       description: 'Create a webhook for the project
 
 
-        Note: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.
-
-        '
+        Note: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.'
       operationId: CreateProjectWebhooks
       parameters:
       - $ref: '#/components/parameters/project_id'
@@ -304,9 +296,7 @@ paths:
 
         Note: Zeplin apps can only list the webhook that are created by them.
 
-        To list all webhooks created by any app or without app, personal access token is needed.
-
-        '
+        To list all webhooks created by any app or without app, personal access token is needed.'
       operationId: GetStyleguideWebhooks
       parameters:
       - $ref: '#/components/parameters/styleguide_id'
@@ -340,9 +330,7 @@ paths:
       description: 'Create a webhook for the styleguide
 
 
-        Note: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.
-
-        '
+        Note: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.'
       operationId: CreateStyleguideWebhooks
       parameters:
       - $ref: '#/components/parameters/styleguide_id'
@@ -446,9 +434,7 @@ paths:
 
         Note: Zeplin apps can only list the webhook that are created by them.
 
-        To list all webhooks created by any app or without app, personal access token is needed.
-
-        '
+        To list all webhooks created by any app or without app, personal access token is needed.'
       operationId: GetUserWebhooks
       parameters:
       - $ref: '#/components/parameters/limit'
@@ -478,9 +464,7 @@ paths:
         Wildcard `"*"` can be used for `project_ids` and `styleguide_ids` to receive events for all projects and styleguides that you own. You''ll also automatically subscribe to the new ones you create in the future.
 
 
-        Note: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.
-
-        '
+        Note: Users that have authorized the app before webhooks release must re-authorize the app to create webhooks.'
       operationId: CreateUserWebhooks
       requestBody:
         required: true
@@ -563,95 +547,6 @@ paths:
           $ref: '#/components/responses/unprocessableEntityUpdateWebhook'
 components:
   schemas:
-    ProjectWebhook:
-      title: Project Webhook
-      type: object
-      required:
-      - id
-      - url
-      - status
-      - url_health
-      - created
-      - updated
-      - created_by
-      - updated_by
-      - events
-      properties:
-        id:
-          type: string
-          description: The unique id of the webhook
-        url:
-          type: string
-          description: The URL of the webhook
-        name:
-          type: string
-          description: The name of the webhook
-        status:
-          $ref: '#/components/schemas/WebhookStatusEnum'
-        url_health:
-          $ref: '#/components/schemas/WebhookHealthEnum'
-        created:
-          type: number
-          description: The unix timestamp when the webhook was created
-        updated:
-          type: number
-          description: The unix timestamp when the webhook was updated
-        created_by:
-          allOf:
-          - $ref: '#/components/schemas/User'
-          - description: The user that creates the webhook
-        updated_by:
-          allOf:
-          - $ref: '#/components/schemas/User'
-          - description: The user that updates the webhook recently
-        zeplin_app:
-          allOf:
-          - $ref: '#/components/schemas/ZeplinApplication'
-          - description: The app that uses and manages the webhook
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProjectWebhookEventEnum'
-          minItems: 1
-          uniqueItems: true
-          description: The events of the webhook
-      example:
-        $ref: '#/components/examples/projectWebhook'
-    OrganizationWebhookUpdateBody:
-      title: Organization Webhook Update Body
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL of the webhook
-        name:
-          type: string
-          description: The name of the webhook
-        secret:
-          type: string
-          description: The secret to be used to generate signatures for webhook requests
-        status:
-          title: status
-          $ref: '#/components/schemas/WebhookStatusEnum'
-        project_ids:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: The project ids of the webhook
-        styleguide_ids:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: The styleguide ids of the webhook
-        events:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/OrganizationWebhookEventEnum'
-          minItems: 1
-          description: The events of the webhook
     ProjectWebhookCreateBody:
       title: Project Webhook Create Body
       type: object
@@ -681,6 +576,32 @@ components:
       - events
       - url
       - secret
+    StyleguideWebhookEventEnum:
+      title: Styleguide Webhook Event Type
+      type: string
+      enum:
+      - styleguide.*
+      - styleguide.color
+      - styleguide.component
+      - styleguide.member
+      - styleguide.spacing_token
+      - styleguide.text_style
+    ProjectWebhookEventEnum:
+      title: Project Webhook Event Type
+      type: string
+      enum:
+      - project.*
+      - project.color
+      - project.component
+      - project.member
+      - project.note
+      - project.note.comment
+      - project.note.comment.reaction
+      - project.screen
+      - project.screen.version
+      - project.spacing_token
+      - project.text_style
+      - project.flow_board
     OrganizationWebhookCreateBody:
       title: Organization Webhook Create Body
       type: object
@@ -724,366 +645,6 @@ components:
       - styleguide_ids
       - url
       - secret
-    WebhookStatusEnum:
-      title: Webhook Status
-      type: string
-      enum:
-      - active
-      - inactive
-      description: The status of the webhook
-    OrganizationWebhookEventEnum:
-      title: Organization Webhook Event Type
-      type: string
-      enum:
-      - '*'
-      - project.*
-      - project.color
-      - project.component
-      - project.member
-      - project.note
-      - project.note.comment
-      - project.note.comment.reaction
-      - project.screen
-      - project.screen.version
-      - project.spacing_token
-      - project.text_style
-      - styleguide.*
-      - styleguide.color
-      - styleguide.component
-      - styleguide.member
-      - styleguide.spacing_token
-      - styleguide.text_style
-      - workspace.*
-      - workspace.project
-      - workspace.styleguide
-      - workspace.organization
-      - workspace.organization.member
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
-    EntityReference:
-      title: Object Reference
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Id of the entity
-      example:
-        $ref: '#/components/examples/entityReference'
-    UserWebhookEventEnum:
-      title: User Webhook Event Type
-      type: string
-      enum:
-      - '*'
-      - project.*
-      - project.color
-      - project.component
-      - project.member
-      - project.note
-      - project.note.comment
-      - project.note.comment.reaction
-      - project.screen
-      - project.screen.version
-      - project.spacing_token
-      - project.text_style
-      - styleguide.*
-      - styleguide.color
-      - styleguide.component
-      - styleguide.member
-      - styleguide.spacing_token
-      - styleguide.text_style
-      - workspace.*
-      - workspace.notification
-      - workspace.project
-      - workspace.styleguide
-    ZeplinApplication:
-      title: Zeplin Application
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: The unique id of the app
-        name:
-          type: string
-          description: The name of the app
-        description:
-          type: string
-          description: The description of the app
-        website:
-          type: string
-          description: The website of the app
-        logo:
-          type: string
-          description: The logo of the app
-      example:
-        $ref: '#/components/examples/zeplinApplication'
-    User:
-      title: User
-      description: 'Basic info about Zeplin users.
-
-
-        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
-
-
-        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
-
-
-        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
-
-        '
-      type: object
-      required:
-      - id
-      - email
-      - username
-      properties:
-        id:
-          type: string
-          description: User's unique id
-        email:
-          type: string
-          description: Zeplin-only alias for the user's email (original)
-        username:
-          type: string
-          description: Username of the user
-        emotar:
-          type: string
-          format: emoji
-          description: Emotar of the user
-        avatar:
-          type: string
-          description: Avatar of the user
-        last_seen:
-          type: number
-          description: The unix timestamp when the user was last seen
-      example:
-        $ref: '#/components/examples/user'
-      x-examples:
-        User:
-          $ref: '#/components/examples/user'
-        My User:
-          $ref: '#/components/examples/me'
-    ProjectWebhookUpdateBody:
-      title: Project Webhook Update Body
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL of the webhook
-        name:
-          type: string
-          description: The name of the webhook
-        secret:
-          type: string
-          description: The secret to be used to generate signatures for webhook requests
-        status:
-          title: status
-          $ref: '#/components/schemas/WebhookStatusEnum'
-        events:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/ProjectWebhookEventEnum'
-          minItems: 1
-          description: The events of the webhook
-    WebhookHealthEnum:
-      title: Webhook Health
-      type: string
-      enum:
-      - healthy
-      - unhealthy
-      description: The health of a webhook URL
-    UserWebhookUpdateBody:
-      title: User Webhook Update Body
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL of the webhook
-        name:
-          type: string
-          description: The name of the webhook
-        secret:
-          type: string
-          description: The secret to be used to generate signatures for webhook requests
-        status:
-          title: status
-          $ref: '#/components/schemas/WebhookStatusEnum'
-        project_ids:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: The project ids of the webhook
-        styleguide_ids:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: The styleguide ids of the webhook
-        events:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/UserWebhookEventEnum'
-          minItems: 1
-          description: The events of the webhook
-    UserWebhookCreateBody:
-      title: User Webhook Create Body
-      type: object
-      properties:
-        url:
-          type: string
-          description: The URL of the webhook
-        name:
-          type: string
-          description: The name of the webhook
-        secret:
-          type: string
-          description: The secret to be used to generate signatures for webhook requests
-        status:
-          title: status
-          allOf:
-          - $ref: '#/components/schemas/WebhookStatusEnum'
-          - default: active
-        project_ids:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: The project ids of the webhook
-        styleguide_ids:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: The styleguide ids of the webhook
-        events:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/UserWebhookEventEnum'
-          minItems: 1
-          description: The events of the webhook
-      required:
-      - events
-      - project_ids
-      - styleguide_ids
-      - url
-      - secret
-    StyleguideWebhookEventEnum:
-      title: Styleguide Webhook Event Type
-      type: string
-      enum:
-      - styleguide.*
-      - styleguide.color
-      - styleguide.component
-      - styleguide.member
-      - styleguide.spacing_token
-      - styleguide.text_style
-    OrganizationWebhook:
-      title: Organization Webhook
-      type: object
-      required:
-      - id
-      - url
-      - status
-      - url_health
-      - created
-      - updated
-      - created_by
-      - updated_by
-      - events
-      - project_ids
-      - styleguide_ids
-      properties:
-        id:
-          type: string
-          description: The unique id of the webhook
-        url:
-          type: string
-          description: The URL of the webhook
-        name:
-          type: string
-          description: The name of the webhook
-        status:
-          $ref: '#/components/schemas/WebhookStatusEnum'
-        url_health:
-          $ref: '#/components/schemas/WebhookHealthEnum'
-        created:
-          type: number
-          description: The unix timestamp when the webhook was created
-        updated:
-          type: number
-          description: The unix timestamp when the webhook was updated
-        created_by:
-          allOf:
-          - $ref: '#/components/schemas/User'
-          - description: The user that creates the webhook
-        updated_by:
-          allOf:
-          - $ref: '#/components/schemas/User'
-          - description: The user that updates the webhook recently
-        zeplin_app:
-          allOf:
-          - $ref: '#/components/schemas/ZeplinApplication'
-          - description: The app that uses and manages the webhook
-        events:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrganizationWebhookEventEnum'
-          minItems: 1
-          uniqueItems: true
-          description: The events of the webhook
-        project_ids:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: 'The project ids of the webhooks. Note: `*` wildcard denotes all project_ids'
-        styleguide_ids:
-          type: array
-          items:
-            type: string
-          uniqueItems: true
-          description: 'The styleguide ids of the webhooks. Note: `*` wildcard denotes all styleguide_ids'
-      example:
-        $ref: '#/components/examples/webhook'
-    ProjectWebhookEventEnum:
-      title: Project Webhook Event Type
-      type: string
-      enum:
-      - project.*
-      - project.color
-      - project.component
-      - project.member
-      - project.note
-      - project.note.comment
-      - project.note.comment.reaction
-      - project.screen
-      - project.screen.version
-      - project.spacing_token
-      - project.text_style
-      - project.flow_board
     UserWebhook:
       title: User Webhook
       type: object
@@ -1152,8 +713,19 @@ components:
           description: 'The styleguide ids of the webhooks. Note: `*` wildcard denotes all styleguide_ids'
       example:
         $ref: '#/components/examples/webhook'
-    StyleguideWebhookUpdateBody:
-      title: Styleguide Webhook Update Body
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    OrganizationWebhookUpdateBody:
+      title: Organization Webhook Update Body
       type: object
       properties:
         url:
@@ -1168,42 +740,171 @@ components:
         status:
           title: status
           $ref: '#/components/schemas/WebhookStatusEnum'
+        project_ids:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: The project ids of the webhook
+        styleguide_ids:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: The styleguide ids of the webhook
         events:
           type: array
           uniqueItems: true
           items:
-            $ref: '#/components/schemas/StyleguideWebhookEventEnum'
+            $ref: '#/components/schemas/OrganizationWebhookEventEnum'
           minItems: 1
           description: The events of the webhook
-    StyleguideWebhookCreateBody:
-      title: Styleguide Webhook Create Body
+    ProjectWebhook:
+      title: Project Webhook
       type: object
+      required:
+      - id
+      - url
+      - status
+      - url_health
+      - created
+      - updated
+      - created_by
+      - updated_by
+      - events
       properties:
+        id:
+          type: string
+          description: The unique id of the webhook
         url:
           type: string
           description: The URL of the webhook
         name:
           type: string
           description: The name of the webhook
-        secret:
-          type: string
-          description: The secret to be used to generate signatures for webhook requests
         status:
-          title: status
+          $ref: '#/components/schemas/WebhookStatusEnum'
+        url_health:
+          $ref: '#/components/schemas/WebhookHealthEnum'
+        created:
+          type: number
+          description: The unix timestamp when the webhook was created
+        updated:
+          type: number
+          description: The unix timestamp when the webhook was updated
+        created_by:
           allOf:
-          - $ref: '#/components/schemas/WebhookStatusEnum'
-          - default: active
+          - $ref: '#/components/schemas/User'
+          - description: The user that creates the webhook
+        updated_by:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          - description: The user that updates the webhook recently
+        zeplin_app:
+          allOf:
+          - $ref: '#/components/schemas/ZeplinApplication'
+          - description: The app that uses and manages the webhook
         events:
           type: array
-          uniqueItems: true
           items:
-            $ref: '#/components/schemas/StyleguideWebhookEventEnum'
+            $ref: '#/components/schemas/ProjectWebhookEventEnum'
           minItems: 1
+          uniqueItems: true
           description: The events of the webhook
+      example:
+        $ref: '#/components/examples/projectWebhook'
+    OrganizationWebhook:
+      title: Organization Webhook
+      type: object
       required:
-      - events
+      - id
       - url
-      - secret
+      - status
+      - url_health
+      - created
+      - updated
+      - created_by
+      - updated_by
+      - events
+      - project_ids
+      - styleguide_ids
+      properties:
+        id:
+          type: string
+          description: The unique id of the webhook
+        url:
+          type: string
+          description: The URL of the webhook
+        name:
+          type: string
+          description: The name of the webhook
+        status:
+          $ref: '#/components/schemas/WebhookStatusEnum'
+        url_health:
+          $ref: '#/components/schemas/WebhookHealthEnum'
+        created:
+          type: number
+          description: The unix timestamp when the webhook was created
+        updated:
+          type: number
+          description: The unix timestamp when the webhook was updated
+        created_by:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          - description: The user that creates the webhook
+        updated_by:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          - description: The user that updates the webhook recently
+        zeplin_app:
+          allOf:
+          - $ref: '#/components/schemas/ZeplinApplication'
+          - description: The app that uses and manages the webhook
+        events:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrganizationWebhookEventEnum'
+          minItems: 1
+          uniqueItems: true
+          description: The events of the webhook
+        project_ids:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: 'The project ids of the webhooks. Note: `*` wildcard denotes all project_ids'
+        styleguide_ids:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: 'The styleguide ids of the webhooks. Note: `*` wildcard denotes all styleguide_ids'
+      example:
+        $ref: '#/components/examples/webhook'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    WebhookHealthEnum:
+      title: Webhook Health
+      type: string
+      enum:
+      - healthy
+      - unhealthy
+      description: The health of a webhook URL
     StyleguideWebhook:
       title: Styleguide Webhook
       type: object
@@ -1258,7 +959,472 @@ components:
           description: The events of the webhook
       example:
         $ref: '#/components/examples/styleguideWebhook'
+    StyleguideWebhookUpdateBody:
+      title: Styleguide Webhook Update Body
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the webhook
+        name:
+          type: string
+          description: The name of the webhook
+        secret:
+          type: string
+          description: The secret to be used to generate signatures for webhook requests
+        status:
+          title: status
+          $ref: '#/components/schemas/WebhookStatusEnum'
+        events:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/StyleguideWebhookEventEnum'
+          minItems: 1
+          description: The events of the webhook
+    StyleguideWebhookCreateBody:
+      title: Styleguide Webhook Create Body
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the webhook
+        name:
+          type: string
+          description: The name of the webhook
+        secret:
+          type: string
+          description: The secret to be used to generate signatures for webhook requests
+        status:
+          title: status
+          allOf:
+          - $ref: '#/components/schemas/WebhookStatusEnum'
+          - default: active
+        events:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/StyleguideWebhookEventEnum'
+          minItems: 1
+          description: The events of the webhook
+      required:
+      - events
+      - url
+      - secret
+    UserWebhookEventEnum:
+      title: User Webhook Event Type
+      type: string
+      enum:
+      - '*'
+      - project.*
+      - project.color
+      - project.component
+      - project.member
+      - project.note
+      - project.note.comment
+      - project.note.comment.reaction
+      - project.screen
+      - project.screen.version
+      - project.spacing_token
+      - project.text_style
+      - styleguide.*
+      - styleguide.color
+      - styleguide.component
+      - styleguide.member
+      - styleguide.spacing_token
+      - styleguide.text_style
+      - workspace.*
+      - workspace.notification
+      - workspace.project
+      - workspace.styleguide
+    ZeplinApplication:
+      title: Zeplin Application
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: The unique id of the app
+        name:
+          type: string
+          description: The name of the app
+        description:
+          type: string
+          description: The description of the app
+        website:
+          type: string
+          description: The website of the app
+        logo:
+          type: string
+          description: The logo of the app
+      example:
+        $ref: '#/components/examples/zeplinApplication'
+    WebhookStatusEnum:
+      title: Webhook Status
+      type: string
+      enum:
+      - active
+      - inactive
+      description: The status of the webhook
+    User:
+      title: User
+      description: 'Basic info about Zeplin users.
+
+
+        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
+
+
+        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
+
+
+        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
+
+        '
+      type: object
+      required:
+      - id
+      - email
+      - username
+      properties:
+        id:
+          type: string
+          description: User's unique id
+        email:
+          type: string
+          description: Zeplin-only alias for the user's email (original)
+        username:
+          type: string
+          description: Username of the user
+        emotar:
+          type: string
+          format: emoji
+          description: Emotar of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        last_seen:
+          type: number
+          description: The unix timestamp when the user was last seen
+      example:
+        $ref: '#/components/examples/user'
+      x-examples:
+        User:
+          $ref: '#/components/examples/user'
+        My User:
+          $ref: '#/components/examples/me'
+    OrganizationWebhookEventEnum:
+      title: Organization Webhook Event Type
+      type: string
+      enum:
+      - '*'
+      - project.*
+      - project.color
+      - project.component
+      - project.member
+      - project.note
+      - project.note.comment
+      - project.note.comment.reaction
+      - project.screen
+      - project.screen.version
+      - project.spacing_token
+      - project.text_style
+      - styleguide.*
+      - styleguide.color
+      - styleguide.component
+      - styleguide.member
+      - styleguide.spacing_token
+      - styleguide.text_style
+      - workspace.*
+      - workspace.project
+      - workspace.styleguide
+      - workspace.organization
+      - workspace.organization.member
+    UserWebhookCreateBody:
+      title: User Webhook Create Body
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the webhook
+        name:
+          type: string
+          description: The name of the webhook
+        secret:
+          type: string
+          description: The secret to be used to generate signatures for webhook requests
+        status:
+          title: status
+          allOf:
+          - $ref: '#/components/schemas/WebhookStatusEnum'
+          - default: active
+        project_ids:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: The project ids of the webhook
+        styleguide_ids:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: The styleguide ids of the webhook
+        events:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/UserWebhookEventEnum'
+          minItems: 1
+          description: The events of the webhook
+      required:
+      - events
+      - project_ids
+      - styleguide_ids
+      - url
+      - secret
+    ProjectWebhookUpdateBody:
+      title: Project Webhook Update Body
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the webhook
+        name:
+          type: string
+          description: The name of the webhook
+        secret:
+          type: string
+          description: The secret to be used to generate signatures for webhook requests
+        status:
+          title: status
+          $ref: '#/components/schemas/WebhookStatusEnum'
+        events:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/ProjectWebhookEventEnum'
+          minItems: 1
+          description: The events of the webhook
+    UserWebhookUpdateBody:
+      title: User Webhook Update Body
+      type: object
+      properties:
+        url:
+          type: string
+          description: The URL of the webhook
+        name:
+          type: string
+          description: The name of the webhook
+        secret:
+          type: string
+          description: The secret to be used to generate signatures for webhook requests
+        status:
+          title: status
+          $ref: '#/components/schemas/WebhookStatusEnum'
+        project_ids:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: The project ids of the webhook
+        styleguide_ids:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+          description: The styleguide ids of the webhook
+        events:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/UserWebhookEventEnum'
+          minItems: 1
+          description: The events of the webhook
+  examples:
+    projectWebhook:
+      summary: Project Webhook
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: my lovely hook
+        status: active
+        created: 1586852836
+        created_by:
+          id: 5d9caaecb4a3fa9bc9718686
+          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        updated: 1586852836
+        updated_by:
+          id: 5d9caaecb4a3fa9bc9718686
+          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        url: https://www.example.com/base
+        url_health: healthy
+        events:
+        - project.screen
+    webhook:
+      summary: Webhook
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: my lovely hook
+        status: active
+        created: 1586852836
+        created_by:
+          id: 5d9caaecb4a3fa9bc9718686
+          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.
+        updated: 1586852836
+        updated_by:
+          id: 5d9caaecb4a3fa9bc9718686
+          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        url: https://www.example.com/base
+        url_health: healthy
+        events:
+        - '*'
+        project_ids:
+        - '*'
+        styleguide_ids:
+        - '*'
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    zeplinApplication:
+      summary: Zeplin Application
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: My App
+        description: Simple app
+        website: https://zeplin.io/
+        logo: http://placekitten.com/32/32
+    styleguideWebhook:
+      summary: Styleguide Webhook
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: my lovely hook
+        status: active
+        created: 1586852836
+        created_by:
+          id: 5d9caaecb4a3fa9bc9718686
+          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        updated: 1586852836
+        updated_by:
+          id: 5d9caaecb4a3fa9bc9718686
+          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        url: https://www.example.com/base
+        url_health: healthy
+        events:
+        - styleguide.color
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
   responses:
+    notAProjectMemberOrArchived:
+      description: Not a project member or project archived
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a member:
+              value:
+                message: User is not a member of the project
+            Project is archived:
+              value:
+                message: Project is archived
+    cannotCreateUserWebhook:
+      description: User cannot create webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot create webhook:
+              value:
+                message: This zeplin app cannot create webhook. User needs to re-authorize the app to create webhook
+    cannotGetWebhook:
+      description: User cannot get webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot get webhook:
+              value:
+                message: Only organization admins (or higher) can create an organization webhook
+    styleguideNotFound:
+      description: Styleguide not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found response:
+              value:
+                message: Styleguide not found
+    cannotDeleteUserWebhook:
+      description: User cannot delete webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot delete webhook:
+              value:
+                message: User cannot delete webhooks created by Zeplin apps
+    unprocessableEntityProjectWebhook:
+      description: Not a project member or project archived
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a member:
+              value:
+                message: User is not a member of the project
+            Project is archived:
+              value:
+                message: Project is archived
+    cannotCreateOrganizationWebhook:
+      description: User cannot create webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            unathorized role:
+              value:
+                message: Only organization admins (or higher) can create an organization webhook
+            zeplin app error:
+              value:
+                message: This zeplin app cannot create webhook. User needs to re-authorize the app to create webhook
+    userWebhookNotFound:
+      description: Webhook not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Webhook not found response:
+              value:
+                message: Webhook not found
     cannotDeleteStyleguideWebhook:
       description: User cannot delete styleguide webhook
       content:
@@ -1275,172 +1441,6 @@ components:
             Cannot delete app webhook:
               value:
                 message: User cannot delete webhooks created by Zeplin apps
-    cannotAccessStyleguideWebhook:
-      description: User cannot access styleguide webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Organization styleguide webhook:
-              value:
-                message: Only organization editor (or higher) can access styleguide webhooks
-            Personal styleguide webhook:
-              value:
-                message: Only owner of the styleguide can access webhooks
-    unprocessableEntityProjectWebhook:
-      description: Not a project member or project archived
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Not a member:
-              value:
-                message: User is not a member of the project
-            Project is archived:
-              value:
-                message: Project is archived
-    unprocessableEntityStyleguideWebhook:
-      description: Not a styleguide member or styleguide archived
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Not a member:
-              value:
-                message: User is not a member of the styleguide
-            Styleguide is archived:
-              value:
-                message: Styleguide is archived
-    unprocessableEntityCreateStyleguideWebhook:
-      description: Cannot create a styleguide webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            URL unhealthy with status active:
-              value:
-                message: Cannot create a webhook with active status because provided URL is unhealthy
-            Styleguide is archived:
-              value:
-                message: Styleguide is archived
-            Not a member:
-              value:
-                message: User is not a member of the styleguide
-    cannotDeleteOrganizationWebhook:
-      description: User cannot delete webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            unathorized role:
-              value:
-                message: Only organization admins (or higher) can create an organization webhook
-            zeplin app error:
-              value:
-                message: User cannot delete webhooks created by Zeplin apps
-    projectWebhookNotFound:
-      description: Webhook not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found:
-              value:
-                message: Project not found
-            webhook not found:
-              value:
-                message: Webhook not found
-    cannotAccessProjectWebhook:
-      description: User cannot access project webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Organization project webhook:
-              value:
-                message: Only organization editor (or higher) can access project webhooks
-            Personal project webhook:
-              value:
-                message: Only owner of the project can access webhooks
-    cannotUpdateOrganizationWebhook:
-      description: User cannot update webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            unathorized role:
-              value:
-                message: Only organization admins (or higher) can update an organization webhook
-            zeplin app error:
-              value:
-                message: User cannot update webhooks created by Zeplin apps
-    unprocessableEntityCreateProjectWebhook:
-      description: Cannot create a project webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            URL unhealthy with status active:
-              value:
-                message: Cannot create a webhook with active status because provided URL is unhealthy
-            Project is archived:
-              value:
-                message: Project is archived
-            Not a member:
-              value:
-                message: User is not a member of the project
-    notAProjectMemberOrArchived:
-      description: Not a project member or project archived
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Not a member:
-              value:
-                message: User is not a member of the project
-            Project is archived:
-              value:
-                message: Project is archived
-    styleguideNotFound:
-      description: Styleguide not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide not found response:
-              value:
-                message: Styleguide not found
-    projectNotFound:
-      description: Project not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found response:
-              value:
-                message: Project not found
-    cannotGetWebhook:
-      description: User cannot get webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            User cannot get webhook:
-              value:
-                message: Only organization admins (or higher) can create an organization webhook
     unprocessableEntityUpdateWebhook:
       description: Cannot update webhook because URL unhealthy
       content:
@@ -1466,6 +1466,189 @@ components:
             project_ids not found:
               value:
                 message: 5ea975058dfb1930747cd82e, 5ea974fc362dfe6dcba214ac and 5ea974b04c1dd72d978e1e63 in project_ids are not found
+    projectWebhookNotFound:
+      description: Webhook not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            webhook not found:
+              value:
+                message: Webhook not found
+    noContent:
+      description: Successful response
+    unprocessableEntityCreateProjectWebhook:
+      description: Cannot create a project webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            URL unhealthy with status active:
+              value:
+                message: Cannot create a webhook with active status because provided URL is unhealthy
+            Project is archived:
+              value:
+                message: Project is archived
+            Not a member:
+              value:
+                message: User is not a member of the project
+    forbiddenCreateProjectWebhook:
+      description: User cannot create a project webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Cannot access webhook of organization project:
+              value:
+                message: Only organization editor (or higher) can access project webhooks
+            Cannot access webhook of personal project:
+              value:
+                message: Only owner of the project can access webhooks
+            Zeplin app error:
+              value:
+                message: This zeplin app cannot create webhook. User needs to re-authorize the app to create webhook
+    cannotUpdateUserWebhook:
+      description: User cannot update webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot update webhook:
+              value:
+                message: User cannot update webhooks created by Zeplin apps
+    cannotAccessStyleguideWebhook:
+      description: User cannot access styleguide webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Organization styleguide webhook:
+              value:
+                message: Only organization editor (or higher) can access styleguide webhooks
+            Personal styleguide webhook:
+              value:
+                message: Only owner of the styleguide can access webhooks
+    unprocessableEntityUpdateProjectWebhook:
+      description: Project archived, not a member or status active with unhealthy URL
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project is archived:
+              value:
+                message: Project is archived
+            Not a member:
+              value:
+                message: User is not a member of the project
+            Cannot make status active:
+              value:
+                message: Cannot update webhook to have active status because the URL "https://unhealthy.com" is unhealthy
+            Cannot update URL:
+              value:
+                message: Cannot update webhook's URL because an active webhook's URL cannot be unhealthy
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
+    cannotUpdateStyleguideWebhook:
+      description: User cannot update styleguide webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Organization styleguide webhook:
+              value:
+                message: Only organization editor (or higher) can access styleguide webhooks
+            Personal styleguide webhook:
+              value:
+                message: Only owner of the styleguide can access webhooks
+            Cannot update app webhook:
+              value:
+                message: User cannot update webhooks created by Zeplin apps
+    cannotUpdateOrganizationWebhook:
+      description: User cannot update webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            unathorized role:
+              value:
+                message: Only organization admins (or higher) can update an organization webhook
+            zeplin app error:
+              value:
+                message: User cannot update webhooks created by Zeplin apps
+    forbiddenCreateStyleguideWebhook:
+      description: User cannot create a styleguide webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Cannot access webhook of organization styleguide:
+              value:
+                message: Only organization editor (or higher) can access styleguide webhooks
+            Cannot access webhook of personal styleguide:
+              value:
+                message: Only owner of the styleguide can access webhooks
+            Zeplin app error:
+              value:
+                message: This zeplin app cannot create webhook. User needs to re-authorize the app to create webhook
+    cannotUpdateProjectWebhook:
+      description: User cannot update project webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Organization project webhook:
+              value:
+                message: Only organization editor (or higher) can access project webhooks
+            Personal project webhook:
+              value:
+                message: Only owner of the project can access webhooks
+            Cannot update app webhook:
+              value:
+                message: User cannot update webhooks created by Zeplin apps
+    organizationNotFound:
+      description: Organization not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Organization not found response:
+              value:
+                message: Organization not found
+    cannotAccessProjectWebhook:
+      description: User cannot access project webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Organization project webhook:
+              value:
+                message: Only organization editor (or higher) can access project webhooks
+            Personal project webhook:
+              value:
+                message: Only owner of the project can access webhooks
     unprocessableEntityUpdateStyleguideWebhook:
       description: Styleguide archived, not a member or status active with unhealthy URL
       content:
@@ -1485,74 +1668,6 @@ components:
             Cannot update URL:
               value:
                 message: Cannot update webhook's URL because an active webhook's URL cannot be unhealthy
-    forbiddenCreateStyleguideWebhook:
-      description: User cannot create a styleguide webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Cannot access webhook of organization styleguide:
-              value:
-                message: Only organization editor (or higher) can access styleguide webhooks
-            Cannot access webhook of personal styleguide:
-              value:
-                message: Only owner of the styleguide can access webhooks
-            Zeplin app error:
-              value:
-                message: This zeplin app cannot create webhook. User needs to re-authorize the app to create webhook
-    cannotDeleteUserWebhook:
-      description: User cannot delete webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            User cannot delete webhook:
-              value:
-                message: User cannot delete webhooks created by Zeplin apps
-    cannotUpdateUserWebhook:
-      description: User cannot update webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            User cannot update webhook:
-              value:
-                message: User cannot update webhooks created by Zeplin apps
-    cannotUpdateProjectWebhook:
-      description: User cannot update project webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Organization project webhook:
-              value:
-                message: Only organization editor (or higher) can access project webhooks
-            Personal project webhook:
-              value:
-                message: Only owner of the project can access webhooks
-            Cannot update app webhook:
-              value:
-                message: User cannot update webhooks created by Zeplin apps
-    forbiddenCreateProjectWebhook:
-      description: User cannot create a project webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Cannot access webhook of organization project:
-              value:
-                message: Only organization editor (or higher) can access project webhooks
-            Cannot access webhook of personal project:
-              value:
-                message: Only owner of the project can access webhooks
-            Zeplin app error:
-              value:
-                message: This zeplin app cannot create webhook. User needs to re-authorize the app to create webhook
     notAStyleguideMemberOrArchived:
       description: Not a styleguide member or styleguide archived
       content:
@@ -1566,32 +1681,6 @@ components:
             Styleguide is archived:
               value:
                 message: Styleguide is archived
-    userWebhookNotFound:
-      description: Webhook not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Webhook not found response:
-              value:
-                message: Webhook not found
-    cannotUpdateStyleguideWebhook:
-      description: User cannot update styleguide webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Organization styleguide webhook:
-              value:
-                message: Only organization editor (or higher) can access styleguide webhooks
-            Personal styleguide webhook:
-              value:
-                message: Only owner of the styleguide can access webhooks
-            Cannot update app webhook:
-              value:
-                message: User cannot update webhooks created by Zeplin apps
     cannotDeleteProjectWebhook:
       description: User cannot access project webhook
       content:
@@ -1608,19 +1697,61 @@ components:
             Cannot delete app webhook:
               value:
                 message: User cannot delete webhooks created by Zeplin apps
-    cannotCreateOrganizationWebhook:
-      description: User cannot create webhook
+    unprocessableEntityStyleguideWebhook:
+      description: Not a styleguide member or styleguide archived
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            unathorized role:
+            Not a member:
               value:
-                message: Only organization admins (or higher) can create an organization webhook
-            zeplin app error:
+                message: User is not a member of the styleguide
+            Styleguide is archived:
               value:
-                message: This zeplin app cannot create webhook. User needs to re-authorize the app to create webhook
+                message: Styleguide is archived
+    organizationWebhookNotFound:
+      description: Webhook not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            organization not found:
+              value:
+                message: Organization not found
+            webhook not found:
+              value:
+                message: Webhook not found
+    styleguideWebhookNotFound:
+      description: Webhook not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found:
+              value:
+                message: Styleguide not found
+            webhook not found:
+              value:
+                message: Webhook not found
+    unprocessableEntityCreateStyleguideWebhook:
+      description: Cannot create a styleguide webhook
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            URL unhealthy with status active:
+              value:
+                message: Cannot create a webhook with active status because provided URL is unhealthy
+            Styleguide is archived:
+              value:
+                message: Styleguide is archived
+            Not a member:
+              value:
+                message: User is not a member of the styleguide
     unprocessableEntityCreateWebhook:
       description: Cannot create active webhook
       content:
@@ -1643,89 +1774,20 @@ components:
             project_ids not found:
               value:
                 message: 5ea975058dfb1930747cd82e, 5ea974fc362dfe6dcba214ac and 5ea974b04c1dd72d978e1e63 in project_ids are not found
-    noContent:
-      description: Successful response
-    styleguideWebhookNotFound:
-      description: Webhook not found response
+    cannotDeleteOrganizationWebhook:
+      description: User cannot delete webhook
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Styleguide not found:
+            unathorized role:
               value:
-                message: Styleguide not found
-            webhook not found:
+                message: Only organization admins (or higher) can create an organization webhook
+            zeplin app error:
               value:
-                message: Webhook not found
-    cannotCreateUserWebhook:
-      description: User cannot create webhook
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            User cannot create webhook:
-              value:
-                message: This zeplin app cannot create webhook. User needs to re-authorize the app to create webhook
-    unprocessableEntityUpdateProjectWebhook:
-      description: Project archived, not a member or status active with unhealthy URL
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project is archived:
-              value:
-                message: Project is archived
-            Not a member:
-              value:
-                message: User is not a member of the project
-            Cannot make status active:
-              value:
-                message: Cannot update webhook to have active status because the URL "https://unhealthy.com" is unhealthy
-            Cannot update URL:
-              value:
-                message: Cannot update webhook's URL because an active webhook's URL cannot be unhealthy
-    organizationWebhookNotFound:
-      description: Webhook not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            organization not found:
-              value:
-                message: Organization not found
-            webhook not found:
-              value:
-                message: Webhook not found
-    organizationNotFound:
-      description: Organization not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Organization not found response:
-              value:
-                message: Organization not found
+                message: User cannot delete webhooks created by Zeplin apps
   parameters:
-    webhook_status:
-      name: status
-      in: query
-      description: Filter by webhook status
-      required: false
-      schema:
-        $ref: '#/components/schemas/WebhookStatusEnum'
-    organization_id:
-      name: organization_id
-      in: path
-      description: Organization id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
     limit:
       name: limit
       in: query
@@ -1736,19 +1798,10 @@ components:
         minimum: 1
         maximum: 100
         default: 30
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    project_id:
-      name: project_id
+    styleguide_id:
+      name: styleguide_id
       in: path
-      description: Project id
+      description: Styleguide id
       required: true
       schema:
         type: string
@@ -1760,6 +1813,14 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/WebhookHealthEnum'
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
     webhook_id:
       name: webhook_id
       in: path
@@ -1768,107 +1829,30 @@ components:
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
-    styleguide_id:
-      name: styleguide_id
+    organization_id:
+      name: organization_id
       in: path
-      description: Styleguide id
+      description: Organization id
       required: true
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
-  examples:
-    user:
-      summary: User
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    zeplinApplication:
-      summary: Zeplin Application
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: My App
-        description: Simple app
-        website: https://zeplin.io/
-        logo: http://placekitten.com/32/32
-    webhook:
-      summary: Webhook
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: my lovely hook
-        status: active
-        created: 1586852836
-        created_by:
-          id: 5d9caaecb4a3fa9bc9718686
-          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.
-        updated: 1586852836
-        updated_by:
-          id: 5d9caaecb4a3fa9bc9718686
-          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        url: https://www.example.com/base
-        url_health: healthy
-        events:
-        - '*'
-        project_ids:
-        - '*'
-        styleguide_ids:
-        - '*'
-    error:
-      summary: Error
-      value:
-        message: Project is not found
-    styleguideWebhook:
-      summary: Styleguide Webhook
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: my lovely hook
-        status: active
-        created: 1586852836
-        created_by:
-          id: 5d9caaecb4a3fa9bc9718686
-          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        updated: 1586852836
-        updated_by:
-          id: 5d9caaecb4a3fa9bc9718686
-          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        url: https://www.example.com/base
-        url_health: healthy
-        events:
-        - styleguide.color
-    projectWebhook:
-      summary: Project Webhook
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: my lovely hook
-        status: active
-        created: 1586852836
-        created_by:
-          id: 5d9caaecb4a3fa9bc9718686
-          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        updated: 1586852836
-        updated_by:
-          id: 5d9caaecb4a3fa9bc9718686
-          email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        url: https://www.example.com/base
-        url_health: healthy
-        events:
-        - project.screen
-    me:
-      summary: My user
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: zo@zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    webhook_status:
+      name: status
+      in: query
+      description: Filter by webhook status
+      required: false
+      schema:
+        $ref: '#/components/schemas/WebhookStatusEnum'
   securitySchemes:
     OAuth2:
       type: oauth2

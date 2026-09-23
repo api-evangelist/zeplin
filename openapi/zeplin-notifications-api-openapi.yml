@@ -1,6 +1,6 @@
-openapi: 3.0.2
+openapi: 3.2.0
 info:
-  title: Zeplin Authorization Notifications API
+  title: Zeplin Notifications API
   description: Access your resources in Zeplin
   version: 1.38.0
   contact:
@@ -53,9 +53,7 @@ paths:
         Similarly, updates notifications with matching identifiers if `id` parameter is provided.
 
 
-        ☝️ `type` and `id` should not be used in conjunction.
-
-        '
+        ☝️ `type` and `id` should not be used in conjunction.'
       operationId: UpdateUserNotifications
       parameters:
       - $ref: '#/components/parameters/notification_type'
@@ -123,7 +121,77 @@ paths:
         '404':
           $ref: '#/components/responses/notificationNotFound'
 components:
+  examples:
+    notification:
+      summary: Notification
+      value:
+        id: 5fbe387f8c72ef23659fb500
+        timestamp: 1586852836
+        type: project.color
+        action: created
+        is_read: false
+        resource:
+          $ref: '#/components/examples/notificationResource/value'
+        context:
+          project:
+            id: 5db81e73e1e36ee19f138c1a
+            type: Project
+            extra:
+              name: HAL 9000
+              platform: web
+        actor:
+          $ref: '#/components/examples/notificationActor/value'
+    notificationActor:
+      summary: Notification Actor
+      value:
+        user:
+          $ref: '#/components/examples/user/value'
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    notificationResource:
+      summary: Notification Resource
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        type: Color
+        extra:
+          name: baby poop green
+          r: 143
+          g: 152
+          b: 5
+          a: 1
   schemas:
+    NotificationActor:
+      title: Notification Actor
+      type: object
+      description: The actor of the change triggering this notification
+      required:
+      - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+          description: User object
+      example:
+        $ref: '#/components/examples/notificationActor'
     NotificationTypeEnum:
       title: Notification Type
       type: string
@@ -154,15 +222,23 @@ components:
       - project.member
       - styleguide.member
       - project.flow_board
-    NotificationUpdateBody:
-      title: Notifications Update Body
+    ErrorResponse:
+      title: Error Response
       type: object
       required:
-      - is_read
+      - message
       properties:
-        is_read:
-          type: boolean
-          description: New is_read status for notifications
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
     Notification:
       title: Notification
       description: 'Notification objects have a polymorphic structure. They can be of various types and each type has a certain set of actions that describe the notification further.
@@ -269,23 +345,35 @@ components:
           $ref: '#/components/schemas/NotificationActor'
       example:
         $ref: '#/components/examples/notification'
-    ErrorResponse:
-      title: Error Response
+    NotificationUpdateBody:
+      title: Notifications Update Body
       type: object
       required:
-      - message
+      - is_read
       properties:
-        message:
+        is_read:
+          type: boolean
+          description: New is_read status for notifications
+    NotificationResource:
+      title: Notification Resource
+      type: object
+      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
+      required:
+      - id
+      - type
+      - extra
+      properties:
+        id:
           type: string
-          description: A user readable descriptive message for the error
-        detail:
+          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
+        type:
           type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
+          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
+        extra:
+          type: object
+          description: Partial data of the resource, whose content changes depending on the `type` field
       example:
-        $ref: '#/components/examples/error'
+        $ref: '#/components/examples/notificationResource'
     User:
       title: User
       description: 'Basic info about Zeplin users.
@@ -332,47 +420,7 @@ components:
           $ref: '#/components/examples/user'
         My User:
           $ref: '#/components/examples/me'
-    NotificationResource:
-      title: Notification Resource
-      type: object
-      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
-      required:
-      - id
-      - type
-      - extra
-      properties:
-        id:
-          type: string
-          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
-        type:
-          type: string
-          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
-        extra:
-          type: object
-          description: Partial data of the resource, whose content changes depending on the `type` field
-      example:
-        $ref: '#/components/examples/notificationResource'
-    NotificationActor:
-      title: Notification Actor
-      type: object
-      description: The actor of the change triggering this notification
-      required:
-      - user
-      properties:
-        user:
-          $ref: '#/components/schemas/User'
-          description: User object
-      example:
-        $ref: '#/components/examples/notificationActor'
   parameters:
-    notification_id:
-      name: notification_id
-      in: path
-      description: Notification id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
     limit:
       name: limit
       in: query
@@ -383,15 +431,6 @@ components:
         minimum: 1
         maximum: 100
         default: 30
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     notification_type:
       name: type
       in: query
@@ -407,6 +446,23 @@ components:
         uniqueItems: true
         items:
           $ref: '#/components/schemas/NotificationTypeEnum'
+    notification_id:
+      name: notification_id
+      in: path
+      description: Notification id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     is_read:
       name: is_read
       in: query
@@ -414,67 +470,7 @@ components:
       required: false
       schema:
         type: boolean
-  examples:
-    user:
-      summary: User
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    notificationResource:
-      summary: Notification Resource
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        type: Color
-        extra:
-          name: baby poop green
-          r: 143
-          g: 152
-          b: 5
-          a: 1
-    notification:
-      summary: Notification
-      value:
-        id: 5fbe387f8c72ef23659fb500
-        timestamp: 1586852836
-        type: project.color
-        action: created
-        is_read: false
-        resource:
-          $ref: '#/components/examples/notificationResource/value'
-        context:
-          project:
-            id: 5db81e73e1e36ee19f138c1a
-            type: Project
-            extra:
-              name: HAL 9000
-              platform: web
-        actor:
-          $ref: '#/components/examples/notificationActor/value'
-    notificationActor:
-      summary: Notification Actor
-      value:
-        user:
-          $ref: '#/components/examples/user/value'
-    error:
-      summary: Error
-      value:
-        message: Project is not found
-    me:
-      summary: My user
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: zo@zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
   responses:
-    noContent:
-      description: Successful response
     notificationNotFound:
       description: Notification not found response
       content:
@@ -485,6 +481,8 @@ components:
             Notification not found response:
               value:
                 message: Notification not found
+    noContent:
+      description: Successful response
   securitySchemes:
     OAuth2:
       type: oauth2

@@ -1,0 +1,27 @@
+# Front Door AI Index — zeplin — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: zeplin
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: zeplin.io
+  final_host: zeplin.io
+  ownership: own
+  owner: zeplin
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 16
+  host_score: 16
+  density: 13.29
+  words: 1204
+  tiers:
+    agentic: 2
+    core: 14
+    model: 0
+  ambiguous: 0
+  top_terms:
+    AI: 14
+    MCP: 1
+    prompts: 1
