@@ -85,8 +85,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-colors-api
   name: Zeplin Colors API
   description: The Colors API from Zeplin — 4 operation(s) for colors.
@@ -109,8 +107,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-components-api
   name: Zeplin Components API
   description: The Components API from Zeplin — 10 operation(s) for components.
@@ -133,8 +129,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-connected-components-api
   name: Zeplin Connected Components API
   description: The Connected Components API from Zeplin — 2 operation(s) for connected components.
@@ -157,8 +151,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-design-tokens-api
   name: Zeplin Design Tokens API
   description: The Design Tokens API from Zeplin — 2 operation(s) for design tokens.
@@ -181,8 +173,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-flows-api
   name: Zeplin Flows API
   description: The Flows API from Zeplin — 7 operation(s) for flows.
@@ -207,8 +197,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-notifications-api
   name: Zeplin Notifications API
   description: The Notifications API from Zeplin — 2 operation(s) for notifications.
@@ -233,8 +221,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-organizations-api
   name: Zeplin Organizations API
   description: The Organizations API from Zeplin — 11 operation(s) for organizations.
@@ -259,8 +245,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-projects-api
   name: Zeplin Projects API
   description: The Projects API from Zeplin — 5 operation(s) for projects.
@@ -285,8 +269,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-screens-api
   name: Zeplin Screens API
   description: The Screens API from Zeplin — 17 operation(s) for screens.
@@ -309,8 +291,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-spacing-api
   name: Zeplin Spacing API
   description: The Spacing API from Zeplin — 6 operation(s) for spacing.
@@ -333,8 +313,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-styleguides-api
   name: Zeplin Styleguides API
   description: The Styleguides API from Zeplin — 6 operation(s) for styleguides.
@@ -359,8 +337,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-textstyles-api
   name: Zeplin TextStyles API
   description: The TextStyles API from Zeplin — 4 operation(s) for textstyles.
@@ -383,8 +359,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-users-api
   name: Zeplin Users API
   description: The Users API from Zeplin — 3 operation(s) for users.
@@ -409,8 +383,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-variable-collections-api
   name: Zeplin Variable Collections API
   description: The Variable Collections API from Zeplin — 2 operation(s) for variable collections.
@@ -433,8 +405,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 - aid: zeplin:zeplin-webhooks-api
   name: Zeplin Webhooks API
   description: The Webhooks API from Zeplin — 8 operation(s) for webhooks.
@@ -459,8 +429,6 @@ apis:
     url: https://github.com/zeplin/javascript-sdk
   - type: CLI
     url: https://github.com/zeplin/cli
-  - type: GraphQL
-    url: graphql/zeplin-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/zeplin-agentic-access.yml
