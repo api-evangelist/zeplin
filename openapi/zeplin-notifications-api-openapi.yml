@@ -122,6 +122,19 @@ paths:
           $ref: '#/components/responses/notificationNotFound'
 components:
   examples:
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
     notification:
       summary: Notification
       value:
@@ -146,28 +159,6 @@ components:
       value:
         user:
           $ref: '#/components/examples/user/value'
-    user:
-      summary: User
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    error:
-      summary: Error
-      value:
-        message: Project is not found
-    me:
-      summary: My user
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: zo@zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
     notificationResource:
       summary: Notification Resource
       value:
@@ -179,7 +170,53 @@ components:
           g: 152
           b: 5
           a: 1
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
   schemas:
+    NotificationResource:
+      title: Notification Resource
+      type: object
+      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
+      required:
+      - id
+      - type
+      - extra
+      properties:
+        id:
+          type: string
+          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
+        type:
+          type: string
+          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
+        extra:
+          type: object
+          description: Partial data of the resource, whose content changes depending on the `type` field
+      example:
+        $ref: '#/components/examples/notificationResource'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
     NotificationActor:
       title: Notification Actor
       type: object
@@ -192,6 +229,61 @@ components:
           description: User object
       example:
         $ref: '#/components/examples/notificationActor'
+    User:
+      title: User
+      description: 'Basic info about Zeplin users.
+
+
+        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
+
+
+        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
+
+
+        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
+
+        '
+      type: object
+      required:
+      - id
+      - email
+      - username
+      properties:
+        id:
+          type: string
+          description: User's unique id
+        email:
+          type: string
+          description: Zeplin-only alias for the user's email (original)
+        username:
+          type: string
+          description: Username of the user
+        emotar:
+          type: string
+          format: emoji
+          description: Emotar of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        last_seen:
+          type: number
+          description: The unix timestamp when the user was last seen
+      example:
+        $ref: '#/components/examples/user'
+      x-examples:
+        User:
+          $ref: '#/components/examples/user'
+        My User:
+          $ref: '#/components/examples/me'
+    NotificationUpdateBody:
+      title: Notifications Update Body
+      type: object
+      required:
+      - is_read
+      properties:
+        is_read:
+          type: boolean
+          description: New is_read status for notifications
     NotificationTypeEnum:
       title: Notification Type
       type: string
@@ -222,23 +314,6 @@ components:
       - project.member
       - styleguide.member
       - project.flow_board
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
     Notification:
       title: Notification
       description: 'Notification objects have a polymorphic structure. They can be of various types and each type has a certain set of actions that describe the notification further.
@@ -345,92 +420,14 @@ components:
           $ref: '#/components/schemas/NotificationActor'
       example:
         $ref: '#/components/examples/notification'
-    NotificationUpdateBody:
-      title: Notifications Update Body
-      type: object
-      required:
-      - is_read
-      properties:
-        is_read:
-          type: boolean
-          description: New is_read status for notifications
-    NotificationResource:
-      title: Notification Resource
-      type: object
-      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
-      required:
-      - id
-      - type
-      - extra
-      properties:
-        id:
-          type: string
-          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
-        type:
-          type: string
-          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
-        extra:
-          type: object
-          description: Partial data of the resource, whose content changes depending on the `type` field
-      example:
-        $ref: '#/components/examples/notificationResource'
-    User:
-      title: User
-      description: 'Basic info about Zeplin users.
-
-
-        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
-
-
-        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
-
-
-        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
-
-        '
-      type: object
-      required:
-      - id
-      - email
-      - username
-      properties:
-        id:
-          type: string
-          description: User's unique id
-        email:
-          type: string
-          description: Zeplin-only alias for the user's email (original)
-        username:
-          type: string
-          description: Username of the user
-        emotar:
-          type: string
-          format: emoji
-          description: Emotar of the user
-        avatar:
-          type: string
-          description: Avatar of the user
-        last_seen:
-          type: number
-          description: The unix timestamp when the user was last seen
-      example:
-        $ref: '#/components/examples/user'
-      x-examples:
-        User:
-          $ref: '#/components/examples/user'
-        My User:
-          $ref: '#/components/examples/me'
   parameters:
-    limit:
-      name: limit
+    is_read:
+      name: is_read
       in: query
-      description: Pagination limit
+      description: Whether the notification is read or not
       required: false
       schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
+        type: boolean
     notification_type:
       name: type
       in: query
@@ -446,6 +443,16 @@ components:
         uniqueItems: true
         items:
           $ref: '#/components/schemas/NotificationTypeEnum'
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
     notification_id:
       name: notification_id
       in: path
@@ -463,13 +470,6 @@ components:
         type: integer
         minimum: 0
         default: 0
-    is_read:
-      name: is_read
-      in: query
-      description: Whether the notification is read or not
-      required: false
-      schema:
-        type: boolean
   responses:
     notificationNotFound:
       description: Notification not found response

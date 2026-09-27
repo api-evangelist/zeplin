@@ -163,21 +163,25 @@ paths:
                     detail: Provided `code_verifier` is incorrect
 components:
   schemas:
-    TokenCreateRefreshTokenBody:
-      title: Refresh token flow
+    TokenCreateAuthorizationCodeBody:
+      title: Authorization code flow
       type: object
       required:
       - grant_type
-      - refresh_token
+      - code
+      - redirect_uri
       - client_id
       properties:
         grant_type:
           type: string
           enum:
-          - refresh_token
-        refresh_token:
+          - authorization_code
+        code:
           type: string
-          description: Applies when `grant_type` is `refresh_token`. The `refresh_token` you obtained while generating the access token in the first place
+          description: Applies when `grant_type` is `authorization_code`. The `code` obtained after `authorization` request
+        redirect_uri:
+          type: string
+          description: The URL where users will be redirected after authorization
         client_id:
           type: string
           description: The `client_id` of your Zeplin app
@@ -214,6 +218,16 @@ components:
           description: Type of the token returned
       example:
         $ref: '#/components/examples/tokenResponse'
+    TokenCreateBody:
+      title: Token Create Body
+      discriminator:
+        propertyName: grant_type
+        mapping:
+          authorization_code: '#/components/schemas/TokenCreateAuthorizationCodeBody'
+          refresh_token: '#/components/schemas/TokenCreateRefreshTokenBody'
+      oneOf:
+      - $ref: '#/components/schemas/TokenCreateAuthorizationCodeBody'
+      - $ref: '#/components/schemas/TokenCreateRefreshTokenBody'
     ErrorResponse:
       title: Error Response
       type: object
@@ -231,25 +245,21 @@ components:
           description: The unique code for the error
       example:
         $ref: '#/components/examples/error'
-    TokenCreateAuthorizationCodeBody:
-      title: Authorization code flow
+    TokenCreateRefreshTokenBody:
+      title: Refresh token flow
       type: object
       required:
       - grant_type
-      - code
-      - redirect_uri
+      - refresh_token
       - client_id
       properties:
         grant_type:
           type: string
           enum:
-          - authorization_code
-        code:
+          - refresh_token
+        refresh_token:
           type: string
-          description: Applies when `grant_type` is `authorization_code`. The `code` obtained after `authorization` request
-        redirect_uri:
-          type: string
-          description: The URL where users will be redirected after authorization
+          description: Applies when `grant_type` is `refresh_token`. The `refresh_token` you obtained while generating the access token in the first place
         client_id:
           type: string
           description: The `client_id` of your Zeplin app
@@ -259,17 +269,11 @@ components:
         code_verifier:
           type: string
           description: A cryptographically random string that is used to correlate the authorization request to the token request
-    TokenCreateBody:
-      title: Token Create Body
-      discriminator:
-        propertyName: grant_type
-        mapping:
-          authorization_code: '#/components/schemas/TokenCreateAuthorizationCodeBody'
-          refresh_token: '#/components/schemas/TokenCreateRefreshTokenBody'
-      oneOf:
-      - $ref: '#/components/schemas/TokenCreateAuthorizationCodeBody'
-      - $ref: '#/components/schemas/TokenCreateRefreshTokenBody'
   examples:
+    error:
+      summary: Error
+      value:
+        message: Project is not found
     tokenResponse:
       summary: Token Response
       value:
@@ -278,10 +282,6 @@ components:
         refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDkyMDQ4ZTdkNjFlYjVkODYzNGY0OWUiLCJzY29wZSI6IiIsImlhdCI6MTU2OTg1MDUxMSwiZXhwIjo4NjU1Njk4NTA1MTEsInN1YiI6IjVkOTIwNDhlN2Q2MWViNWQ4NjM0ZjQ5ZiIsImp0aSI6ImQ2NWI5NDI1LTkxMTUtNDhmYy1hODg2LTJjYTczNmZmNjg0ZSJ9.AFd8Zn8-sl1SVvNIzAruMnTFlrohSrz2BQClNBPSLlY
         refresh_expires_in: 864000000
         token_type: bearer
-    error:
-      summary: Error
-      value:
-        message: Project is not found
   securitySchemes:
     OAuth2:
       type: oauth2

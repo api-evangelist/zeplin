@@ -81,6 +81,23 @@ paths:
           $ref: '#/components/responses/styleguideArchived'
 components:
   examples:
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    variable:
+      summary: Variable
+      value:
+        id: 666062f07fe9b3197040013e
+        name: Black
+        source_id: d36cffd7c2da067c567ecc4ece9ad5fafff6ec7c
+        values:
+        - $ref: '#/components/examples/variableValue/value'
     resourceProjectSource:
       summary: Source Project
       value:
@@ -100,27 +117,6 @@ components:
           $ref: '#/components/examples/variableMode'
         groups:
           $ref: '#/components/examples/variableGroup'
-    resourceStyleguideSource:
-      summary: Source Styleguide
-      value:
-        id: 5db981be9df2b3e1bfa19ef2
-        name: Discovery 1
-        platform: web
-        parent:
-          id: 5db981be9df2b3e1bfa19ef2
-    variable:
-      summary: Variable
-      value:
-        id: 666062f07fe9b3197040013e
-        name: Black
-        source_id: d36cffd7c2da067c567ecc4ece9ad5fafff6ec7c
-        values:
-        - $ref: '#/components/examples/variableValue/value'
-    resourceSourceForStyleguide:
-      summary: Source for Styleguide
-      value:
-        styleguide:
-          $ref: '#/components/examples/resourceStyleguideSource/value'
     colorData:
       summary: Color Data
       value:
@@ -129,10 +125,11 @@ components:
         g: 152
         b: 5
         a: 1
-    error:
-      summary: Error
+    resourceSourceForProject:
+      summary: Source for Project
       value:
-        message: Project is not found
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
     variableValue:
       summary: Variable value
       value:
@@ -149,15 +146,18 @@ components:
         id: 666062f07fe9b31970400138
         name: Mode 1
         mode_id: 4140
-    resourceSourceForProject:
-      summary: Source for Project
-      value:
-        project:
-          $ref: '#/components/examples/resourceProjectSource/value'
     entityReference:
       summary: Object Reference
       value:
         id: 5dbad85a76ea51c1f35b6f69
+    resourceStyleguideSource:
+      summary: Source Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        parent:
+          id: 5db981be9df2b3e1bfa19ef2
     variableGroup:
       summary: Variable Group
       value:
@@ -165,51 +165,138 @@ components:
         name: default
         variables:
         - $ref: '#/components/examples/variable/value'
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    styleguide_id:
-      name: styleguide_id
-      in: path
-      description: Styleguide id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    include_linked_styleguides:
-      name: include_linked_styleguides
-      in: query
-      description: Whether to include linked styleguides or not
-      required: false
-      schema:
-        type: boolean
-        default: false
-    project_id:
-      name: project_id
-      in: path
-      description: Project id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
   schemas:
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    VariableValue:
+      title: Variable value
+      type: object
+      required:
+      - mode_id
+      - type
+      - color
+      properties:
+        mode_id:
+          type: string
+          description: Mode id of the variable value
+        type:
+          $ref: '#/components/schemas/VariableValueTypeEnum'
+          description: Type of the variable value
+        color:
+          $ref: '#/components/schemas/ColorData'
+          description: Color value of the variable
+      example:
+        $ref: '#/components/examples/variableValue'
+    VariableMode:
+      title: Variable Mode
+      type: object
+      required:
+      - id
+      - name
+      - mode_id
+      properties:
+        id:
+          type: string
+          description: Identifier of the mode
+        name:
+          type: string
+          description: Name of the mode
+        mode_id:
+          type: string
+          description: Mode's identifier in the design tool
+      example:
+        $ref: '#/components/examples/variableMode'
+    VariableValueTypeEnum:
+      title: Source
+      type: string
+      description: Variable value types
+      enum:
+      - color
+    ResourceSource:
+      title: Resource Source
+      type: object
+      description: Source details for resource. It has to be either `project` or `styleguide`.
+      properties:
+        project:
+          $ref: '#/components/schemas/ResourceProjectSource'
+        styleguide:
+          $ref: '#/components/schemas/ResourceStyleguideSource'
+      example:
+        $ref: '#/components/examples/resourceSourceForProject'
+      x-examples:
+        Project:
+          $ref: '#/components/examples/resourceSourceForProject'
+        Styleguide:
+          $ref: '#/components/examples/resourceSourceForStyleguide'
+    ResourceProjectSource:
+      title: Source Project
+      type: object
+      description: The source project of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/resourceProjectSource'
+    VariableGroup:
+      title: Variable Group
+      type: object
+      required:
+      - id
+      - name
+      - variables
+      properties:
+        id:
+          type: string
+          description: Identifier of the color
+        name:
+          type: string
+          description: Name of the color
+        description:
+          type: string
+          description: Description of the color
+        parent:
+          type: string
+          description: Parent group of the group
+        variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variable'
+      example:
+        $ref: '#/components/examples/variableGroup'
     ColorData:
       title: Color Data
       type: object
@@ -236,6 +323,44 @@ components:
           description: Alpha component of the color
       example:
         $ref: '#/components/examples/colorData'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    Variable:
+      title: Variable
+      type: object
+      required:
+      - id
+      - name
+      - source_id
+      - values
+      properties:
+        id:
+          type: string
+          description: The unique id of the variable
+        name:
+          type: string
+          description: The name of the variable
+        description:
+          type: string
+          description: The description of the variable
+        source_id:
+          type: string
+          description: Variable's identifier in the design tool
+        values:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariableValue'
+      example:
+        $ref: '#/components/examples/variable'
     VariableCollection:
       title: Variable Collection
       type: object
@@ -276,103 +401,6 @@ components:
           description: Source of the variable collection - either `project` or `styleguide`.
       example:
         $ref: '#/components/examples/variableCollection'
-    EntityReference:
-      title: Object Reference
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Id of the entity
-      example:
-        $ref: '#/components/examples/entityReference'
-    ResourceSource:
-      title: Resource Source
-      type: object
-      description: Source details for resource. It has to be either `project` or `styleguide`.
-      properties:
-        project:
-          $ref: '#/components/schemas/ResourceProjectSource'
-        styleguide:
-          $ref: '#/components/schemas/ResourceStyleguideSource'
-      example:
-        $ref: '#/components/examples/resourceSourceForProject'
-      x-examples:
-        Project:
-          $ref: '#/components/examples/resourceSourceForProject'
-        Styleguide:
-          $ref: '#/components/examples/resourceSourceForStyleguide'
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
-    VariableValueTypeEnum:
-      title: Source
-      type: string
-      description: Variable value types
-      enum:
-      - color
-    ResourceProjectSource:
-      title: Source Project
-      type: object
-      description: The source project of the resource
-      required:
-      - id
-      - name
-      - platform
-      properties:
-        id:
-          type: string
-          description: The unique id of the source project
-        name:
-          type: string
-          description: The name of the source project
-        platform:
-          type: string
-          enum:
-          - web
-          - ios
-          - android
-          - macos
-          description: The target platform of the source project
-        linked_styleguide:
-          $ref: '#/components/schemas/EntityReference'
-          description: Reference of the styleguide which the source project is linked to
-      example:
-        $ref: '#/components/examples/resourceProjectSource'
-    VariableMode:
-      title: Variable Mode
-      type: object
-      required:
-      - id
-      - name
-      - mode_id
-      properties:
-        id:
-          type: string
-          description: Identifier of the mode
-        name:
-          type: string
-          description: Name of the mode
-        mode_id:
-          type: string
-          description: Mode's identifier in the design tool
-      example:
-        $ref: '#/components/examples/variableMode'
     ResourceStyleguideSource:
       title: Source Styleguide
       type: object
@@ -402,89 +430,7 @@ components:
           description: Reference of the parent styleguide of the source styleguide
       example:
         $ref: '#/components/examples/resourceStyleguideSource'
-    Variable:
-      title: Variable
-      type: object
-      required:
-      - id
-      - name
-      - source_id
-      - values
-      properties:
-        id:
-          type: string
-          description: The unique id of the variable
-        name:
-          type: string
-          description: The name of the variable
-        description:
-          type: string
-          description: The description of the variable
-        source_id:
-          type: string
-          description: Variable's identifier in the design tool
-        values:
-          type: array
-          items:
-            $ref: '#/components/schemas/VariableValue'
-      example:
-        $ref: '#/components/examples/variable'
-    VariableGroup:
-      title: Variable Group
-      type: object
-      required:
-      - id
-      - name
-      - variables
-      properties:
-        id:
-          type: string
-          description: Identifier of the color
-        name:
-          type: string
-          description: Name of the color
-        description:
-          type: string
-          description: Description of the color
-        parent:
-          type: string
-          description: Parent group of the group
-        variables:
-          type: array
-          items:
-            $ref: '#/components/schemas/Variable'
-      example:
-        $ref: '#/components/examples/variableGroup'
-    VariableValue:
-      title: Variable value
-      type: object
-      required:
-      - mode_id
-      - type
-      - color
-      properties:
-        mode_id:
-          type: string
-          description: Mode id of the variable value
-        type:
-          $ref: '#/components/schemas/VariableValueTypeEnum'
-          description: Type of the variable value
-        color:
-          $ref: '#/components/schemas/ColorData'
-          description: Color value of the variable
-      example:
-        $ref: '#/components/examples/variableValue'
   responses:
-    styleguideNotFound:
-      description: Styleguide not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide not found response:
-              value:
-                message: Styleguide not found
     projectNotFound:
       description: Project not found response
       content:
@@ -515,6 +461,60 @@ components:
             Styleguide archived response:
               value:
                 message: Styleguide is archived
+    styleguideNotFound:
+      description: Styleguide not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found response:
+              value:
+                message: Styleguide not found
+  parameters:
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    styleguide_id:
+      name: styleguide_id
+      in: path
+      description: Styleguide id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   securitySchemes:
     OAuth2:
       type: oauth2

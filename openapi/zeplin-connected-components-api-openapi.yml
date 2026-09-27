@@ -77,6 +77,24 @@ paths:
           $ref: '#/components/responses/projectArchived'
 components:
   examples:
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    code:
+      summary: Code
+      value:
+        snippet: <div>Hello World</div>
+        language: html
     connectedComponentCustomLink:
       summary: Connected Component Custom Link
       value:
@@ -91,6 +109,11 @@ components:
         platform: web
         linked_styleguide:
           id: 5db981be9df2b3e1bfa19ef2
+    resourceSourceForProject:
+      summary: Source for Project
+      value:
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
     connectedComponentLink:
       summary: Connected Component Link
       value:
@@ -104,29 +127,6 @@ components:
         platform: web
         parent:
           id: 5db981be9df2b3e1bfa19ef2
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-    resourceSourceForStyleguide:
-      summary: Source for Styleguide
-      value:
-        styleguide:
-          $ref: '#/components/examples/resourceStyleguideSource/value'
-    error:
-      summary: Error
-      value:
-        message: Project is not found
-    code:
-      summary: Code
-      value:
-        snippet: <div>Hello World</div>
-        language: html
-    resourceSourceForProject:
-      summary: Source for Project
-      value:
-        project:
-          $ref: '#/components/examples/resourceProjectSource/value'
     connectedComponent:
       summary: Connected Component
       value:
@@ -139,78 +139,56 @@ components:
         links:
         - $ref: '#/components/examples/connectedComponentLink/value'
         - $ref: '#/components/examples/connectedComponentCustomLink/value'
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    linked_project:
-      name: linked_project
-      in: query
-      description: Reference project id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    styleguide_id:
-      name: styleguide_id
-      in: path
-      description: Styleguide id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    include_linked_styleguides:
-      name: include_linked_styleguides
-      in: query
-      description: Whether to include linked styleguides or not
-      required: false
-      schema:
-        type: boolean
-        default: false
-    project_id:
-      name: project_id
-      in: path
-      description: Project id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    linked_styleguide:
-      name: linked_styleguide
-      in: query
-      description: Reference styleguide id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
   schemas:
-    EntityReference:
-      title: Object Reference
+    ConnectedComponent:
+      title: Connected Component
       type: object
       required:
-      - id
+      - components
+      - links
       properties:
-        id:
+        components:
+          description: Components that are connected
+          type: array
+          items:
+            $ref: '#/components/schemas/EntityReference'
+        file_path:
           type: string
-          description: Id of the entity
+          description: File path of the connected component from the source code
+        name:
+          type: string
+          description: Name of the connected component
+        description:
+          type: string
+          description: Description of the connected component
+        code:
+          $ref: '#/components/schemas/Code'
+        links:
+          type: array
+          description: Links of the connected component
+          items:
+            $ref: '#/components/schemas/ConnectedComponentLink'
+        source:
+          $ref: '#/components/schemas/ResourceSource'
       example:
-        $ref: '#/components/examples/entityReference'
+        $ref: '#/components/examples/connectedComponent'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
     ResourceSource:
       title: Resource Source
       type: object
@@ -227,6 +205,75 @@ components:
           $ref: '#/components/examples/resourceSourceForProject'
         Styleguide:
           $ref: '#/components/examples/resourceSourceForStyleguide'
+    ResourceProjectSource:
+      title: Source Project
+      type: object
+      description: The source project of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/resourceProjectSource'
+    ConnectedComponentLink:
+      title: Connected Component Link
+      type: object
+      required:
+      - type
+      - url
+      properties:
+        type:
+          type: string
+          description: Type of the link
+          enum:
+          - custom
+          - github
+          - gitlab
+          - bitbucket
+          - storybook
+          - styleguidist
+        url:
+          type: string
+          description: Url of the link
+        name:
+          type: string
+          description: Name for custom links
+      example:
+        $ref: '#/components/examples/connectedComponentLink'
+      x-examples:
+        Link:
+          $ref: '#/components/examples/connectedComponentLink'
+        Custom Link:
+          $ref: '#/components/examples/connectedComponentCustomLink'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
     LanguageEnum:
       title: Language
       description: Programming language
@@ -270,83 +317,6 @@ components:
       - ts
       - velocity
       - yaml
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
-    ConnectedComponent:
-      title: Connected Component
-      type: object
-      required:
-      - components
-      - links
-      properties:
-        components:
-          description: Components that are connected
-          type: array
-          items:
-            $ref: '#/components/schemas/EntityReference'
-        file_path:
-          type: string
-          description: File path of the connected component from the source code
-        name:
-          type: string
-          description: Name of the connected component
-        description:
-          type: string
-          description: Description of the connected component
-        code:
-          $ref: '#/components/schemas/Code'
-        links:
-          type: array
-          description: Links of the connected component
-          items:
-            $ref: '#/components/schemas/ConnectedComponentLink'
-        source:
-          $ref: '#/components/schemas/ResourceSource'
-      example:
-        $ref: '#/components/examples/connectedComponent'
-    ResourceProjectSource:
-      title: Source Project
-      type: object
-      description: The source project of the resource
-      required:
-      - id
-      - name
-      - platform
-      properties:
-        id:
-          type: string
-          description: The unique id of the source project
-        name:
-          type: string
-          description: The name of the source project
-        platform:
-          type: string
-          enum:
-          - web
-          - ios
-          - android
-          - macos
-          description: The target platform of the source project
-        linked_styleguide:
-          $ref: '#/components/schemas/EntityReference'
-          description: Reference of the styleguide which the source project is linked to
-      example:
-        $ref: '#/components/examples/resourceProjectSource'
     Code:
       title: Code
       type: object
@@ -389,47 +359,67 @@ components:
           description: Reference of the parent styleguide of the source styleguide
       example:
         $ref: '#/components/examples/resourceStyleguideSource'
-    ConnectedComponentLink:
-      title: Connected Component Link
-      type: object
-      required:
-      - type
-      - url
-      properties:
-        type:
-          type: string
-          description: Type of the link
-          enum:
-          - custom
-          - github
-          - gitlab
-          - bitbucket
-          - storybook
-          - styleguidist
-        url:
-          type: string
-          description: Url of the link
-        name:
-          type: string
-          description: Name for custom links
-      example:
-        $ref: '#/components/examples/connectedComponentLink'
-      x-examples:
-        Link:
-          $ref: '#/components/examples/connectedComponentLink'
-        Custom Link:
-          $ref: '#/components/examples/connectedComponentCustomLink'
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+    linked_project:
+      name: linked_project
+      in: query
+      description: Reference project id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    linked_styleguide:
+      name: linked_styleguide
+      in: query
+      description: Reference styleguide id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    styleguide_id:
+      name: styleguide_id
+      in: path
+      description: Styleguide id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
   responses:
-    projectArchived:
-      description: Project archived response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project archived response:
-              value:
-                message: Project is archived
     projectNotFound:
       description: Project not found response
       content:
@@ -440,6 +430,16 @@ components:
             Project not found response:
               value:
                 message: Project not found
+    projectArchived:
+      description: Project archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project archived response:
+              value:
+                message: Project is archived
   securitySchemes:
     OAuth2:
       type: oauth2
