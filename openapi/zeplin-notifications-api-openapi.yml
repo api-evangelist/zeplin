@@ -122,19 +122,17 @@ paths:
           $ref: '#/components/responses/notificationNotFound'
 components:
   examples:
-    error:
-      summary: Error
+    notificationResource:
+      summary: Notification Resource
       value:
-        message: Project is not found
-    user:
-      summary: User
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
+        id: 5dbad85a76ea51c1f35b6f69
+        type: Color
+        extra:
+          name: baby poop green
+          r: 143
+          g: 152
+          b: 5
+          a: 1
     notification:
       summary: Notification
       value:
@@ -154,22 +152,24 @@ components:
               platform: web
         actor:
           $ref: '#/components/examples/notificationActor/value'
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
     notificationActor:
       summary: Notification Actor
       value:
         user:
           $ref: '#/components/examples/user/value'
-    notificationResource:
-      summary: Notification Resource
+    error:
+      summary: Error
       value:
-        id: 5dbad85a76ea51c1f35b6f69
-        type: Color
-        extra:
-          name: baby poop green
-          r: 143
-          g: 152
-          b: 5
-          a: 1
+        message: Project is not found
     me:
       summary: My user
       value:
@@ -180,26 +180,48 @@ components:
         avatar: http://placekitten.com/200/300
         last_seen: 1616739240
   schemas:
-    NotificationResource:
-      title: Notification Resource
+    NotificationTypeEnum:
+      title: Notification Type
+      type: string
+      enum:
+      - workspace.project
+      - workspace.styleguide
+      - project.extension
+      - styleguide.extension
+      - user.project_membership
+      - user.styleguide_membership
+      - project.component
+      - styleguide.component
+      - project.color
+      - styleguide.color
+      - project.screen.note
+      - project.screen.note.comment
+      - project.screen
+      - project.text_style
+      - styleguide.text_style
+      - project.spacing_token
+      - styleguide.spacing_token
+      - project.jira_attachment
+      - project.screen_section.jira_attachment
+      - project.screen.jira_attachment
+      - workspace.organization.member
+      - project.slack_integration
+      - styleguide.slack_integration
+      - project.member
+      - styleguide.member
+      - project.flow_board
+    NotificationActor:
+      title: Notification Actor
       type: object
-      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
+      description: The actor of the change triggering this notification
       required:
-      - id
-      - type
-      - extra
+      - user
       properties:
-        id:
-          type: string
-          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
-        type:
-          type: string
-          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
-        extra:
-          type: object
-          description: Partial data of the resource, whose content changes depending on the `type` field
+        user:
+          $ref: '#/components/schemas/User'
+          description: User object
       example:
-        $ref: '#/components/examples/notificationResource'
+        $ref: '#/components/examples/notificationActor'
     ErrorResponse:
       title: Error Response
       type: object
@@ -217,18 +239,6 @@ components:
           description: The unique code for the error
       example:
         $ref: '#/components/examples/error'
-    NotificationActor:
-      title: Notification Actor
-      type: object
-      description: The actor of the change triggering this notification
-      required:
-      - user
-      properties:
-        user:
-          $ref: '#/components/schemas/User'
-          description: User object
-      example:
-        $ref: '#/components/examples/notificationActor'
     User:
       title: User
       description: 'Basic info about Zeplin users.
@@ -284,36 +294,6 @@ components:
         is_read:
           type: boolean
           description: New is_read status for notifications
-    NotificationTypeEnum:
-      title: Notification Type
-      type: string
-      enum:
-      - workspace.project
-      - workspace.styleguide
-      - project.extension
-      - styleguide.extension
-      - user.project_membership
-      - user.styleguide_membership
-      - project.component
-      - styleguide.component
-      - project.color
-      - styleguide.color
-      - project.screen.note
-      - project.screen.note.comment
-      - project.screen
-      - project.text_style
-      - styleguide.text_style
-      - project.spacing_token
-      - styleguide.spacing_token
-      - project.jira_attachment
-      - project.screen_section.jira_attachment
-      - project.screen.jira_attachment
-      - workspace.organization.member
-      - project.slack_integration
-      - styleguide.slack_integration
-      - project.member
-      - styleguide.member
-      - project.flow_board
     Notification:
       title: Notification
       description: 'Notification objects have a polymorphic structure. They can be of various types and each type has a certain set of actions that describe the notification further.
@@ -420,6 +400,39 @@ components:
           $ref: '#/components/schemas/NotificationActor'
       example:
         $ref: '#/components/examples/notification'
+    NotificationResource:
+      title: Notification Resource
+      type: object
+      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
+      required:
+      - id
+      - type
+      - extra
+      properties:
+        id:
+          type: string
+          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
+        type:
+          type: string
+          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
+        extra:
+          type: object
+          description: Partial data of the resource, whose content changes depending on the `type` field
+      example:
+        $ref: '#/components/examples/notificationResource'
+  responses:
+    notificationNotFound:
+      description: Notification not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Notification not found response:
+              value:
+                message: Notification not found
+    noContent:
+      description: Successful response
   parameters:
     is_read:
       name: is_read
@@ -428,6 +441,15 @@ components:
       required: false
       schema:
         type: boolean
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     notification_type:
       name: type
       in: query
@@ -461,28 +483,6 @@ components:
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-  responses:
-    notificationNotFound:
-      description: Notification not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Notification not found response:
-              value:
-                message: Notification not found
-    noContent:
-      description: Successful response
   securitySchemes:
     OAuth2:
       type: oauth2

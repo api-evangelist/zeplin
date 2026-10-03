@@ -81,256 +81,7 @@ paths:
                   value:
                   - $ref: '#/components/examples/styleguide/value'
 components:
-  examples:
-    project:
-      summary: Project
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        description: UI designs for the onboard computer on the spaceship Discovery 1
-        platform: web
-        thumbnail: http://placekitten.com/200/300
-        status: active
-        scene_url: https://scene.zeplin.io/project/5db81e73e1e36ee19f138c1a
-        created: 1517184000
-        updated: 1572347818
-        number_of_members: 47
-        number_of_screens: 112
-        number_of_components: 46
-        number_of_connected_components: 32
-        number_of_text_styles: 28
-        number_of_colors: 17
-        linked_styleguide:
-          id: 5db81e6e6a4462065f04d932
-    user:
-      summary: User
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    remPreferences:
-      summary: rem Preferences
-      value:
-        status: enabled
-        root_font_size: 16
-        use_for_font_sizes: false
-        use_for_measurements: true
-    workflowStatus:
-      summary: Workflow Status
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: Done
-        color:
-          $ref: '#/components/examples/workflowStatusColor/value'
-    workflowStatusColor:
-      summary: Workflow Status Color
-      value:
-        name: yellow
-        r: 254
-        g: 207
-        b: 51
-        a: 1
-    organizationProject:
-      summary: Organization Project
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        description: UI designs for the onboard computer on the spaceship Discovery 1
-        platform: web
-        thumbnail: http://placekitten.com/200/300
-        status: active
-        created: 1517184000
-        updated: 1572347818
-        organization:
-          $ref: '#/components/examples/organizationSummary/value'
-        workflow_status:
-          $ref: '#/components/examples/workflowStatus/value'
-        number_of_members: 47
-        number_of_screens: 112
-        number_of_components: 46
-        number_of_connected_components: 32
-        number_of_text_styles: 28
-        number_of_colors: 17
-        number_of_spacing_tokens: 63
-        linked_styleguide:
-          id: 5db81e6e6a4462065f04d932
-    me:
-      summary: My user
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: zo@zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-    organizationSummary:
-      summary: Organization Project
-      value:
-        id: 5d9caaecb4a3fa9b972f86ce
-        name: Acme, Inc.
-        logo: http://placekitten.com/200/300
-    organizationStyleguide:
-      summary: Organization Styleguide
-      value:
-        id: 5db981be9df2b3e1bfa19ef2
-        name: Discovery 1
-        description: Global styleguide for all projects of Discovery 1.
-        platform: web
-        thumbnail: http://placekitten.com/200/300
-        status: active
-        created: 1517184000
-        updated: 1572347818
-        organization:
-          $ref: '#/components/examples/organizationSummary/value'
-        number_of_members: 13
-        number_of_components: 241
-        number_of_connected_components: 195
-        number_of_text_styles: 48
-        number_of_colors: 37
-        number_of_spacing_tokens: 21
-        parent:
-          id: 5db981b14ce405d079b376f0
-    styleguide:
-      summary: Styleguide
-      value:
-        id: 5db981be9df2b3e1bfa19ef2
-        name: Discovery 1
-        description: Global styleguide for all projects of Discovery 1.
-        platform: web
-        thumbnail: http://placekitten.com/200/300
-        status: active
-        created: 1517184000
-        updated: 1572347818
-        number_of_members: 13
-        number_of_components: 241
-        number_of_connected_components: 195
-        number_of_text_styles: 48
-        number_of_colors: 37
-        parent:
-          id: 5db981b14ce405d079b376f0
   schemas:
-    OrganizationSummary:
-      title: Organization Summary
-      type: object
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: Organization's unique id
-        name:
-          type: string
-          description: Name of the user
-        logo:
-          type: string
-          description: URL of the organization's logo
-          format: url
-      example:
-        $ref: '#/components/examples/organizationSummary'
-    ProjectStatusEnum:
-      title: Project Status
-      type: string
-      enum:
-      - active
-      - archived
-      description: The status of the project
-    EnabledRemPreferences:
-      title: Enabled rem Preferences
-      type: object
-      required:
-      - status
-      - root_font_size
-      - use_for_font_sizes
-      - use_for_measurements
-      properties:
-        status:
-          type: string
-          description: The status of the preferences
-          enum:
-          - enabled
-        root_font_size:
-          description: Font size of the root element
-          type: number
-        use_for_font_sizes:
-          description: Whether rem unit is used for font sizes
-          type: boolean
-        use_for_measurements:
-          description: Whether rem unit is used for measurements
-          type: boolean
-      example:
-        $ref: '#/components/examples/remPreferences'
-    User:
-      title: User
-      description: 'Basic info about Zeplin users.
-
-
-        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
-
-
-        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
-
-
-        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
-
-        '
-      type: object
-      required:
-      - id
-      - email
-      - username
-      properties:
-        id:
-          type: string
-          description: User's unique id
-        email:
-          type: string
-          description: Zeplin-only alias for the user's email (original)
-        username:
-          type: string
-          description: Username of the user
-        emotar:
-          type: string
-          format: emoji
-          description: Emotar of the user
-        avatar:
-          type: string
-          description: Avatar of the user
-        last_seen:
-          type: number
-          description: The unix timestamp when the user was last seen
-      example:
-        $ref: '#/components/examples/user'
-      x-examples:
-        User:
-          $ref: '#/components/examples/user'
-        My User:
-          $ref: '#/components/examples/me'
-    WorkflowStatus:
-      title: Workflow Status
-      type: object
-      required:
-      - id
-      - name
-      - color
-      properties:
-        id:
-          type: string
-          description: The unique id of the workflow status
-        name:
-          type: string
-          description: The name of the workflow status
-        color:
-          $ref: '#/components/schemas/WorkflowStatusColor'
-      example:
-        $ref: '#/components/examples/workflowStatus'
     Project:
       title: Project
       type: object
@@ -419,6 +170,71 @@ components:
           $ref: '#/components/examples/project'
         Organization Project:
           $ref: '#/components/examples/organizationProject'
+    ProjectStatusEnum:
+      title: Project Status
+      type: string
+      enum:
+      - active
+      - archived
+      description: The status of the project
+    RemPreferences:
+      title: rem Preferences
+      description: rem preferences of project or styleguide. The content of this property varies depending on the value of its status field.
+      discriminator:
+        propertyName: status
+        mapping:
+          enabled: '#/components/schemas/EnabledRemPreferences'
+          disabled: '#/components/schemas/DisabledOrLinkedRemPreferences'
+          linked: '#/components/schemas/DisabledOrLinkedRemPreferences'
+      oneOf:
+      - $ref: '#/components/schemas/EnabledRemPreferences'
+      - $ref: '#/components/schemas/DisabledOrLinkedRemPreferences'
+    User:
+      title: User
+      description: 'Basic info about Zeplin users.
+
+
+        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
+
+
+        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
+
+
+        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
+
+        '
+      type: object
+      required:
+      - id
+      - email
+      - username
+      properties:
+        id:
+          type: string
+          description: User's unique id
+        email:
+          type: string
+          description: Zeplin-only alias for the user's email (original)
+        username:
+          type: string
+          description: Username of the user
+        emotar:
+          type: string
+          format: emoji
+          description: Emotar of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        last_seen:
+          type: number
+          description: The unix timestamp when the user was last seen
+      example:
+        $ref: '#/components/examples/user'
+      x-examples:
+        User:
+          $ref: '#/components/examples/user'
+        My User:
+          $ref: '#/components/examples/me'
     EntityReference:
       title: Object Reference
       type: object
@@ -430,53 +246,6 @@ components:
           description: Id of the entity
       example:
         $ref: '#/components/examples/entityReference'
-    WorkflowStatusColor:
-      title: Workflow Status Color
-      type: object
-      required:
-      - name
-      - r
-      - g
-      - b
-      - a
-      properties:
-        name:
-          type: string
-          description: The name of the color
-        r:
-          type: integer
-          description: red component of the color
-        g:
-          type: integer
-          description: green component of the color
-        b:
-          type: integer
-          description: blue component of the color
-        a:
-          type: number
-          description: alpha component of the color
-      example:
-        $ref: '#/components/examples/workflowStatusColor'
-    StyleguideStatusEnum:
-      title: Styleguide Status
-      type: string
-      enum:
-      - active
-      - archived
-      description: The status of the styleguide
-    DisabledOrLinkedRemPreferences:
-      title: Disabled or Linked rem Preferences
-      type: object
-      description: If `status` is `"linked"`, project or styleguide uses its parent styleguide as the source of preferences.
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          description: The status of the preferences.
-          enum:
-          - disabled
-          - linked
     Styleguide:
       title: Styleguide
       type: object
@@ -556,18 +325,249 @@ components:
           $ref: '#/components/examples/styleguide'
         Organization Styleguide:
           $ref: '#/components/examples/organizationStyleguide'
-    RemPreferences:
-      title: rem Preferences
-      description: rem preferences of project or styleguide. The content of this property varies depending on the value of its status field.
-      discriminator:
-        propertyName: status
-        mapping:
-          enabled: '#/components/schemas/EnabledRemPreferences'
-          disabled: '#/components/schemas/DisabledOrLinkedRemPreferences'
-          linked: '#/components/schemas/DisabledOrLinkedRemPreferences'
-      oneOf:
-      - $ref: '#/components/schemas/EnabledRemPreferences'
-      - $ref: '#/components/schemas/DisabledOrLinkedRemPreferences'
+    StyleguideStatusEnum:
+      title: Styleguide Status
+      type: string
+      enum:
+      - active
+      - archived
+      description: The status of the styleguide
+    OrganizationSummary:
+      title: Organization Summary
+      type: object
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Organization's unique id
+        name:
+          type: string
+          description: Name of the user
+        logo:
+          type: string
+          description: URL of the organization's logo
+          format: url
+      example:
+        $ref: '#/components/examples/organizationSummary'
+    WorkflowStatusColor:
+      title: Workflow Status Color
+      type: object
+      required:
+      - name
+      - r
+      - g
+      - b
+      - a
+      properties:
+        name:
+          type: string
+          description: The name of the color
+        r:
+          type: integer
+          description: red component of the color
+        g:
+          type: integer
+          description: green component of the color
+        b:
+          type: integer
+          description: blue component of the color
+        a:
+          type: number
+          description: alpha component of the color
+      example:
+        $ref: '#/components/examples/workflowStatusColor'
+    DisabledOrLinkedRemPreferences:
+      title: Disabled or Linked rem Preferences
+      type: object
+      description: If `status` is `"linked"`, project or styleguide uses its parent styleguide as the source of preferences.
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The status of the preferences.
+          enum:
+          - disabled
+          - linked
+    EnabledRemPreferences:
+      title: Enabled rem Preferences
+      type: object
+      required:
+      - status
+      - root_font_size
+      - use_for_font_sizes
+      - use_for_measurements
+      properties:
+        status:
+          type: string
+          description: The status of the preferences
+          enum:
+          - enabled
+        root_font_size:
+          description: Font size of the root element
+          type: number
+        use_for_font_sizes:
+          description: Whether rem unit is used for font sizes
+          type: boolean
+        use_for_measurements:
+          description: Whether rem unit is used for measurements
+          type: boolean
+      example:
+        $ref: '#/components/examples/remPreferences'
+    WorkflowStatus:
+      title: Workflow Status
+      type: object
+      required:
+      - id
+      - name
+      - color
+      properties:
+        id:
+          type: string
+          description: The unique id of the workflow status
+        name:
+          type: string
+          description: The name of the workflow status
+        color:
+          $ref: '#/components/schemas/WorkflowStatusColor'
+      example:
+        $ref: '#/components/examples/workflowStatus'
+  examples:
+    organizationStyleguide:
+      summary: Organization Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        description: Global styleguide for all projects of Discovery 1.
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        created: 1517184000
+        updated: 1572347818
+        organization:
+          $ref: '#/components/examples/organizationSummary/value'
+        number_of_members: 13
+        number_of_components: 241
+        number_of_connected_components: 195
+        number_of_text_styles: 48
+        number_of_colors: 37
+        number_of_spacing_tokens: 21
+        parent:
+          id: 5db981b14ce405d079b376f0
+    styleguide:
+      summary: Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        description: Global styleguide for all projects of Discovery 1.
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        created: 1517184000
+        updated: 1572347818
+        number_of_members: 13
+        number_of_components: 241
+        number_of_connected_components: 195
+        number_of_text_styles: 48
+        number_of_colors: 37
+        parent:
+          id: 5db981b14ce405d079b376f0
+    workflowStatusColor:
+      summary: Workflow Status Color
+      value:
+        name: yellow
+        r: 254
+        g: 207
+        b: 51
+        a: 1
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    remPreferences:
+      summary: rem Preferences
+      value:
+        status: enabled
+        root_font_size: 16
+        use_for_font_sizes: false
+        use_for_measurements: true
+    project:
+      summary: Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        description: UI designs for the onboard computer on the spaceship Discovery 1
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        scene_url: https://scene.zeplin.io/project/5db81e73e1e36ee19f138c1a
+        created: 1517184000
+        updated: 1572347818
+        number_of_members: 47
+        number_of_screens: 112
+        number_of_components: 46
+        number_of_connected_components: 32
+        number_of_text_styles: 28
+        number_of_colors: 17
+        linked_styleguide:
+          id: 5db81e6e6a4462065f04d932
+    organizationSummary:
+      summary: Organization Project
+      value:
+        id: 5d9caaecb4a3fa9b972f86ce
+        name: Acme, Inc.
+        logo: http://placekitten.com/200/300
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    workflowStatus:
+      summary: Workflow Status
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Done
+        color:
+          $ref: '#/components/examples/workflowStatusColor/value'
+    organizationProject:
+      summary: Organization Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        description: UI designs for the onboard computer on the spaceship Discovery 1
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        created: 1517184000
+        updated: 1572347818
+        organization:
+          $ref: '#/components/examples/organizationSummary/value'
+        workflow_status:
+          $ref: '#/components/examples/workflowStatus/value'
+        number_of_members: 47
+        number_of_screens: 112
+        number_of_components: 46
+        number_of_connected_components: 32
+        number_of_text_styles: 28
+        number_of_colors: 17
+        number_of_spacing_tokens: 63
+        linked_styleguide:
+          id: 5db81e6e6a4462065f04d932
   parameters:
     project_status:
       name: status
@@ -576,13 +576,15 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/ProjectStatusEnum'
-    styleguide_status:
-      name: status
+    offset:
+      name: offset
       in: query
-      description: Filter by status
+      description: Pagination offset
       required: false
       schema:
-        $ref: '#/components/schemas/StyleguideStatusEnum'
+        type: integer
+        minimum: 0
+        default: 0
     limit:
       name: limit
       in: query
@@ -593,15 +595,13 @@ components:
         minimum: 1
         maximum: 100
         default: 30
-    offset:
-      name: offset
+    styleguide_status:
+      name: status
       in: query
-      description: Pagination offset
+      description: Filter by status
       required: false
       schema:
-        type: integer
-        minimum: 0
-        default: 0
+        $ref: '#/components/schemas/StyleguideStatusEnum'
   securitySchemes:
     OAuth2:
       type: oauth2
