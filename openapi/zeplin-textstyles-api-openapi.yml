@@ -130,32 +130,16 @@ paths:
           $ref: '#/components/responses/notAStyleguideMemberOrArchived'
 components:
   responses:
-    notAProjectMemberOrArchived:
-      description: Not a project member or project archived
+    projectArchived:
+      description: Project archived response
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Not a member:
-              value:
-                message: User is not a member of the project
-            Project is archived:
+            Project archived response:
               value:
                 message: Project is archived
-    styleguideOrTextStyleNotFound:
-      description: Styleguide or text style not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide not found:
-              value:
-                message: Styleguide not found
-            Text style not found:
-              value:
-                message: Text style not found
     cannotUpdateAStyleguideTextStyle:
       description: User cannot update a styleguide text style
       content:
@@ -176,6 +160,42 @@ components:
             User cannot update a project text style:
               value:
                 message: User with role alien in a project cannot update a text style
+    projectOrTextStyleNotFound:
+      description: Project or text style not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Text style not found:
+              value:
+                message: Text style not found
+    styleguideArchived:
+      description: Styleguide archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide archived response:
+              value:
+                message: Styleguide is archived
+    notAProjectMemberOrArchived:
+      description: Not a project member or project archived
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a member:
+              value:
+                message: User is not a member of the project
+            Project is archived:
+              value:
+                message: Project is archived
     styleguideNotFound:
       description: Styleguide not found response
       content:
@@ -199,21 +219,21 @@ components:
             Styleguide is archived:
               value:
                 message: Styleguide is archived
-    noContent:
-      description: Successful response
-    projectOrTextStyleNotFound:
-      description: Project or text style not found
+    styleguideOrTextStyleNotFound:
+      description: Styleguide or text style not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Project not found:
+            Styleguide not found:
               value:
-                message: Project not found
+                message: Styleguide not found
             Text style not found:
               value:
                 message: Text style not found
+    noContent:
+      description: Successful response
     projectNotFound:
       description: Project not found response
       content:
@@ -224,27 +244,77 @@ components:
             Project not found response:
               value:
                 message: Project not found
-    projectArchived:
-      description: Project archived response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project archived response:
-              value:
-                message: Project is archived
-    styleguideArchived:
-      description: Styleguide archived response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide archived response:
-              value:
-                message: Styleguide is archived
+  examples:
+    resourceProjectSource:
+      summary: Source Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    resourceStyleguideSource:
+      summary: Source Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        parent:
+          id: 5db981be9df2b3e1bfa19ef2
+    textStyle:
+      summary: Text Style
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Header - H1
+        created: 1517184000
+        postscript_name: HelveticaNeue-Bold
+        font_family: HelveticaNeue
+        font_size: 24
+        font_weight: 700
+        font_style: normal
+        line_height: 24
+        font_stretch: 1
+        text_align: left
+        color:
+          $ref: '#/components/examples/colorData/value'
+        source:
+          $ref: '#/components/examples/resourceSourceForProject/value'
+    colorData:
+      summary: Color Data
+      value:
+        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
+        r: 143
+        g: 152
+        b: 5
+        a: 1
+    resourceSourceForProject:
+      summary: Source for Project
+      value:
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    error:
+      summary: Error
+      value:
+        message: Project is not found
   parameters:
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
     linked_project:
       name: linked_project
       in: query
@@ -253,6 +323,24 @@ components:
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
+    styleguide_id:
+      name: styleguide_id
+      in: path
+      description: Styleguide id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
     include_linked_styleguides:
       name: include_linked_styleguides
       in: query
@@ -277,23 +365,6 @@ components:
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
-    styleguide_id:
-      name: styleguide_id
-      in: path
-      description: Styleguide id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     linked_styleguide:
       name: linked_styleguide
       in: query
@@ -302,77 +373,6 @@ components:
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-  examples:
-    resourceStyleguideSource:
-      summary: Source Styleguide
-      value:
-        id: 5db981be9df2b3e1bfa19ef2
-        name: Discovery 1
-        platform: web
-        parent:
-          id: 5db981be9df2b3e1bfa19ef2
-    colorData:
-      summary: Color Data
-      value:
-        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
-        r: 143
-        g: 152
-        b: 5
-        a: 1
-    resourceSourceForStyleguide:
-      summary: Source for Styleguide
-      value:
-        styleguide:
-          $ref: '#/components/examples/resourceStyleguideSource/value'
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-    resourceSourceForProject:
-      summary: Source for Project
-      value:
-        project:
-          $ref: '#/components/examples/resourceProjectSource/value'
-    textStyle:
-      summary: Text Style
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: Header - H1
-        created: 1517184000
-        postscript_name: HelveticaNeue-Bold
-        font_family: HelveticaNeue
-        font_size: 24
-        font_weight: 700
-        font_style: normal
-        line_height: 24
-        font_stretch: 1
-        text_align: left
-        color:
-          $ref: '#/components/examples/colorData/value'
-        source:
-          $ref: '#/components/examples/resourceSourceForProject/value'
-    resourceProjectSource:
-      summary: Source Project
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        platform: web
-        linked_styleguide:
-          id: 5db981be9df2b3e1bfa19ef2
-    error:
-      summary: Error
-      value:
-        message: Project is not found
   schemas:
     ErrorResponse:
       title: Error Response
@@ -407,6 +407,34 @@ components:
           $ref: '#/components/examples/resourceSourceForProject'
         Styleguide:
           $ref: '#/components/examples/resourceSourceForStyleguide'
+    ResourceProjectSource:
+      title: Source Project
+      type: object
+      description: The source project of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/resourceProjectSource'
     TextStyleUpdateBody:
       title: Text Style Update Body
       type: object
@@ -417,17 +445,6 @@ components:
         color:
           title: color
           $ref: '#/components/schemas/ColorData'
-    EntityReference:
-      title: Object Reference
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Id of the entity
-      example:
-        $ref: '#/components/examples/entityReference'
     TextStyle:
       title: Text Style
       type: object
@@ -486,60 +503,6 @@ components:
           description: Source of the text style–either `project` or `styleguide`.
       example:
         $ref: '#/components/examples/textStyle'
-    ResourceProjectSource:
-      title: Source Project
-      type: object
-      description: The source project of the resource
-      required:
-      - id
-      - name
-      - platform
-      properties:
-        id:
-          type: string
-          description: The unique id of the source project
-        name:
-          type: string
-          description: The name of the source project
-        platform:
-          type: string
-          enum:
-          - web
-          - ios
-          - android
-          - macos
-          description: The target platform of the source project
-        linked_styleguide:
-          $ref: '#/components/schemas/EntityReference'
-          description: Reference of the styleguide which the source project is linked to
-      example:
-        $ref: '#/components/examples/resourceProjectSource'
-    ColorData:
-      title: Color Data
-      type: object
-      required:
-      - r
-      - g
-      - b
-      - a
-      properties:
-        source_id:
-          type: string
-          description: Color's identifier in the design tool
-        r:
-          type: integer
-          description: Red component of the color
-        g:
-          type: integer
-          description: Green component of the color
-        b:
-          type: integer
-          description: Blue component of the color
-        a:
-          type: number
-          description: Alpha component of the color
-      example:
-        $ref: '#/components/examples/colorData'
     ResourceStyleguideSource:
       title: Source Styleguide
       type: object
@@ -569,6 +532,43 @@ components:
           description: Reference of the parent styleguide of the source styleguide
       example:
         $ref: '#/components/examples/resourceStyleguideSource'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    ColorData:
+      title: Color Data
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        source_id:
+          type: string
+          description: Color's identifier in the design tool
+        r:
+          type: integer
+          description: Red component of the color
+        g:
+          type: integer
+          description: Green component of the color
+        b:
+          type: integer
+          description: Blue component of the color
+        a:
+          type: number
+          description: Alpha component of the color
+      example:
+        $ref: '#/components/examples/colorData'
   securitySchemes:
     OAuth2:
       type: oauth2

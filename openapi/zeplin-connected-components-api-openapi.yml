@@ -76,7 +76,64 @@ paths:
         '422':
           $ref: '#/components/responses/projectArchived'
 components:
+  responses:
+    projectArchived:
+      description: Project archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project archived response:
+              value:
+                message: Project is archived
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
   examples:
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    resourceProjectSource:
+      summary: Source Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    resourceStyleguideSource:
+      summary: Source Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        parent:
+          id: 5db981be9df2b3e1bfa19ef2
+    connectedComponentCustomLink:
+      summary: Connected Component Custom Link
+      value:
+        type: custom
+        name: Confluence
+        url: https://example.atlassian.net/wiki/spaces/DS/pages
+    connectedComponentLink:
+      summary: Connected Component Link
+      value:
+        type: github
+        url: https://github.com/octocat/Hello-World/blob/master/README
+    resourceSourceForProject:
+      summary: Source for Project
+      value:
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
     connectedComponent:
       summary: Connected Component
       value:
@@ -89,130 +146,81 @@ components:
         links:
         - $ref: '#/components/examples/connectedComponentLink/value'
         - $ref: '#/components/examples/connectedComponentCustomLink/value'
-    resourceStyleguideSource:
-      summary: Source Styleguide
-      value:
-        id: 5db981be9df2b3e1bfa19ef2
-        name: Discovery 1
-        platform: web
-        parent:
-          id: 5db981be9df2b3e1bfa19ef2
-    resourceSourceForStyleguide:
-      summary: Source for Styleguide
-      value:
-        styleguide:
-          $ref: '#/components/examples/resourceStyleguideSource/value'
-    connectedComponentLink:
-      summary: Connected Component Link
-      value:
-        type: github
-        url: https://github.com/octocat/Hello-World/blob/master/README
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
     code:
       summary: Code
       value:
         snippet: <div>Hello World</div>
         language: html
-    resourceSourceForProject:
-      summary: Source for Project
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
       value:
-        project:
-          $ref: '#/components/examples/resourceProjectSource/value'
-    connectedComponentCustomLink:
-      summary: Connected Component Custom Link
-      value:
-        type: custom
-        name: Confluence
-        url: https://example.atlassian.net/wiki/spaces/DS/pages
-    resourceProjectSource:
-      summary: Source Project
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        platform: web
-        linked_styleguide:
-          id: 5db981be9df2b3e1bfa19ef2
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
     error:
       summary: Error
       value:
         message: Project is not found
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    linked_project:
+      name: linked_project
+      in: query
+      description: Reference project id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    styleguide_id:
+      name: styleguide_id
+      in: path
+      description: Styleguide id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    linked_styleguide:
+      name: linked_styleguide
+      in: query
+      description: Reference styleguide id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
   schemas:
-    LanguageEnum:
-      title: Language
-      description: Programming language
-      type: string
-      enum:
-      - markup
-      - html
-      - xml
-      - svg
-      - css
-      - clike
-      - javascript
-      - actionscript
-      - c
-      - cs
-      - cpp
-      - coffeescript
-      - dart
-      - ejs
-      - elm
-      - erb
-      - flow
-      - ftl
-      - handlebars
-      - java
-      - kotlin
-      - less
-      - livescript
-      - markdown
-      - objectivec
-      - php
-      - pug
-      - python
-      - r
-      - jsx
-      - tsx
-      - sass
-      - scss
-      - scala
-      - swift
-      - ts
-      - velocity
-      - yaml
-    ConnectedComponentLink:
-      title: Connected Component Link
-      type: object
-      required:
-      - type
-      - url
-      properties:
-        type:
-          type: string
-          description: Type of the link
-          enum:
-          - custom
-          - github
-          - gitlab
-          - bitbucket
-          - storybook
-          - styleguidist
-        url:
-          type: string
-          description: Url of the link
-        name:
-          type: string
-          description: Name for custom links
-      example:
-        $ref: '#/components/examples/connectedComponentLink'
-      x-examples:
-        Link:
-          $ref: '#/components/examples/connectedComponentLink'
-        Custom Link:
-          $ref: '#/components/examples/connectedComponentCustomLink'
     ErrorResponse:
       title: Error Response
       type: object
@@ -246,30 +254,36 @@ components:
           $ref: '#/components/examples/resourceSourceForProject'
         Styleguide:
           $ref: '#/components/examples/resourceSourceForStyleguide'
-    Code:
-      title: Code
+    ConnectedComponentLink:
+      title: Connected Component Link
       type: object
       required:
-      - snippet
+      - type
+      - url
       properties:
-        snippet:
+        type:
           type: string
-          description: The code snippet
-        language:
-          $ref: '#/components/schemas/LanguageEnum'
-      example:
-        $ref: '#/components/examples/code'
-    EntityReference:
-      title: Object Reference
-      type: object
-      required:
-      - id
-      properties:
-        id:
+          description: Type of the link
+          enum:
+          - custom
+          - github
+          - gitlab
+          - bitbucket
+          - storybook
+          - styleguidist
+        url:
           type: string
-          description: Id of the entity
+          description: Url of the link
+        name:
+          type: string
+          description: Name for custom links
       example:
-        $ref: '#/components/examples/entityReference'
+        $ref: '#/components/examples/connectedComponentLink'
+      x-examples:
+        Link:
+          $ref: '#/components/examples/connectedComponentLink'
+        Custom Link:
+          $ref: '#/components/examples/connectedComponentCustomLink'
     ResourceProjectSource:
       title: Source Project
       type: object
@@ -359,87 +373,73 @@ components:
           description: Reference of the parent styleguide of the source styleguide
       example:
         $ref: '#/components/examples/resourceStyleguideSource'
-  parameters:
-    linked_project:
-      name: linked_project
-      in: query
-      description: Reference project id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    include_linked_styleguides:
-      name: include_linked_styleguides
-      in: query
-      description: Whether to include linked styleguides or not
-      required: false
-      schema:
-        type: boolean
-        default: false
-    project_id:
-      name: project_id
-      in: path
-      description: Project id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    styleguide_id:
-      name: styleguide_id
-      in: path
-      description: Styleguide id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    linked_styleguide:
-      name: linked_styleguide
-      in: query
-      description: Reference styleguide id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-  responses:
-    projectNotFound:
-      description: Project not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found response:
-              value:
-                message: Project not found
-    projectArchived:
-      description: Project archived response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project archived response:
-              value:
-                message: Project is archived
+    Code:
+      title: Code
+      type: object
+      required:
+      - snippet
+      properties:
+        snippet:
+          type: string
+          description: The code snippet
+        language:
+          $ref: '#/components/schemas/LanguageEnum'
+      example:
+        $ref: '#/components/examples/code'
+    LanguageEnum:
+      title: Language
+      description: Programming language
+      type: string
+      enum:
+      - markup
+      - html
+      - xml
+      - svg
+      - css
+      - clike
+      - javascript
+      - actionscript
+      - c
+      - cs
+      - cpp
+      - coffeescript
+      - dart
+      - ejs
+      - elm
+      - erb
+      - flow
+      - ftl
+      - handlebars
+      - java
+      - kotlin
+      - less
+      - livescript
+      - markdown
+      - objectivec
+      - php
+      - pug
+      - python
+      - r
+      - jsx
+      - tsx
+      - sass
+      - scss
+      - scala
+      - swift
+      - ts
+      - velocity
+      - yaml
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
   securitySchemes:
     OAuth2:
       type: oauth2

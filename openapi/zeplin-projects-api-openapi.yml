@@ -308,213 +308,6 @@ components:
         platform: web
         linked_styleguide:
           id: 5db981be9df2b3e1bfa19ef2
-    designTokenProject:
-      summary: Design Token Project
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        platform: web
-        linked_styleguide:
-          id: 5db981be9df2b3e1bfa19ef2
-    spacingDesignTokens:
-      summary: Spacing Design Tokens
-      value:
-        xs-spacing:
-          value: 16
-          metadata:
-            source:
-              project:
-                id: 5db81e73e1e36ee19f138c1a
-                name: HAL 9000
-                platform: web
-                linked_styleguide:
-                  id: 5db981be9df2b3e1bfa19ef2
-            resource:
-              id: 605df8fb1e558896ebd801c1
-              type: SpacingToken
-            spacing_section:
-              id: 5db81e6e6a4462065f04d932
-    error:
-      summary: Error
-      value:
-        message: Project is not found
-    project:
-      summary: Project
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        description: UI designs for the onboard computer on the spaceship Discovery 1
-        platform: web
-        thumbnail: http://placekitten.com/200/300
-        status: active
-        scene_url: https://scene.zeplin.io/project/5db81e73e1e36ee19f138c1a
-        created: 1517184000
-        updated: 1572347818
-        number_of_members: 47
-        number_of_screens: 112
-        number_of_components: 46
-        number_of_connected_components: 32
-        number_of_text_styles: 28
-        number_of_colors: 17
-        linked_styleguide:
-          id: 5db81e6e6a4462065f04d932
-    organizationSummary:
-      summary: Organization Project
-      value:
-        id: 5d9caaecb4a3fa9b972f86ce
-        name: Acme, Inc.
-        logo: http://placekitten.com/200/300
-    textStyleDesignTokenValue:
-      summary: Text Style Design Token Value
-      value:
-        line_height: 36
-        alignment: left
-        font:
-          $ref: '#/components/examples/designTokenFont/value'
-        color: rgb(204, 204, 0)
-    colorDesignTokens:
-      summary: Color Design Tokens
-      value:
-        yellow:
-          value: rgb(255, 255, 0)
-          metadata:
-            source:
-              styleguide:
-                id: 5db981be9df2b3e1bfa19ef2
-                name: Discovery 1
-                platform: web
-            resource:
-              id: 605df86a46d1fe50fceb9b49
-              type: Color
-        light-yellow:
-          value: rgb(255, 255, 224)
-          metadata:
-            source:
-              project:
-                id: 5db81e73e1e36ee19f138c1a
-                name: HAL 9000
-                platform: web
-                linked_styleguide:
-                  id: 5db981be9df2b3e1bfa19ef2
-            resource:
-              id: 5dbad85a76ea51c1f35b6f69
-              type: Color
-    me:
-      summary: My user
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: zo@zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    designTokenResource:
-      summary: Design Token Resource
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        type: Color
-    colorDesignToken:
-      summary: Color Design Token
-      value:
-        value: rgb(255, 255, 0)
-        metadata:
-          source:
-            styleguide:
-              id: 5db981be9df2b3e1bfa19ef2
-              name: Discovery 1
-              platform: web
-          resource:
-            id: 605df86a46d1fe50fceb9b49
-            type: Color
-    designTokenFont:
-      summary: Design Token Font
-      value:
-        family: HelveticaNeue
-        size: 36
-        weight: 900
-        stretch: 1
-    designTokenSourceForProject:
-      summary: Design Token Source for Project
-      value:
-        project:
-          $ref: '#/components/examples/designTokenProject/value'
-    colorDesignTokenMetadata:
-      summary: Color Design Token Metadata
-      value:
-        source:
-          styleguide:
-            id: 5db981be9df2b3e1bfa19ef2
-            name: Discovery 1
-            platform: web
-        resource:
-          id: 605df86a46d1fe50fceb9b49
-          type: Color
-    projectMember:
-      summary: Project Member
-      value:
-        user:
-          $ref: '#/components/examples/user/value'
-        role: admin
-    organizationProject:
-      summary: Organization Project
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        description: UI designs for the onboard computer on the spaceship Discovery 1
-        platform: web
-        thumbnail: http://placekitten.com/200/300
-        status: active
-        created: 1517184000
-        updated: 1572347818
-        organization:
-          $ref: '#/components/examples/organizationSummary/value'
-        workflow_status:
-          $ref: '#/components/examples/workflowStatus/value'
-        number_of_members: 47
-        number_of_screens: 112
-        number_of_components: 46
-        number_of_connected_components: 32
-        number_of_text_styles: 28
-        number_of_colors: 17
-        number_of_spacing_tokens: 63
-        linked_styleguide:
-          id: 5db81e6e6a4462065f04d932
-    spacingDesignTokenMetadata:
-      summary: Spacing Design Token Metadata
-      value:
-        source:
-          project:
-            id: 5db81e73e1e36ee19f138c1a
-            name: HAL 9000
-            platform: web
-            linked_styleguide:
-              id: 5db981be9df2b3e1bfa19ef2
-        resource:
-          id: 605df8fb1e558896ebd801c1
-          type: SpacingToken
-        spacing_section:
-          id: 5db81e6e6a4462065f04d932
-    workflowStatus:
-      summary: Workflow Status
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: Done
-        color:
-          $ref: '#/components/examples/workflowStatusColor/value'
-    textStyleDesignToken:
-      summary: Text Style Design Token
-      value:
-        value:
-          $ref: '#/components/examples/textStyleDesignTokenValue/value'
-        metadata:
-          source:
-            styleguide:
-              id: 5db981be9df2b3e1bfa19ef2
-              name: Discovery 1
-              platform: web
-          resource:
-            id: 5dbad85a76ea51c1f35b6f69
-            type: TextStyle
     styleguideDesignTokens:
       summary: Styleguide Design Tokens
       value:
@@ -600,6 +393,158 @@ components:
               resource:
                 id: 5dbad85a76ea51c1f35b6f69
                 type: TextStyle
+    colorDesignTokens:
+      summary: Color Design Tokens
+      value:
+        yellow:
+          value: rgb(255, 255, 0)
+          metadata:
+            source:
+              styleguide:
+                id: 5db981be9df2b3e1bfa19ef2
+                name: Discovery 1
+                platform: web
+            resource:
+              id: 605df86a46d1fe50fceb9b49
+              type: Color
+        light-yellow:
+          value: rgb(255, 255, 224)
+          metadata:
+            source:
+              project:
+                id: 5db81e73e1e36ee19f138c1a
+                name: HAL 9000
+                platform: web
+                linked_styleguide:
+                  id: 5db981be9df2b3e1bfa19ef2
+            resource:
+              id: 5dbad85a76ea51c1f35b6f69
+              type: Color
+    spacingDesignToken:
+      summary: Spacing Design Token
+      value:
+        value: 16
+        metadata:
+          $ref: '#/components/examples/spacingDesignTokenMetadata/value'
+    spacingDesignTokenMetadata:
+      summary: Spacing Design Token Metadata
+      value:
+        source:
+          project:
+            id: 5db81e73e1e36ee19f138c1a
+            name: HAL 9000
+            platform: web
+            linked_styleguide:
+              id: 5db981be9df2b3e1bfa19ef2
+        resource:
+          id: 605df8fb1e558896ebd801c1
+          type: SpacingToken
+        spacing_section:
+          id: 5db81e6e6a4462065f04d932
+    organizationProject:
+      summary: Organization Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        description: UI designs for the onboard computer on the spaceship Discovery 1
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        created: 1517184000
+        updated: 1572347818
+        organization:
+          $ref: '#/components/examples/organizationSummary/value'
+        workflow_status:
+          $ref: '#/components/examples/workflowStatus/value'
+        number_of_members: 47
+        number_of_screens: 112
+        number_of_components: 46
+        number_of_connected_components: 32
+        number_of_text_styles: 28
+        number_of_colors: 17
+        number_of_spacing_tokens: 63
+        linked_styleguide:
+          id: 5db81e6e6a4462065f04d932
+    organizationSummary:
+      summary: Organization Project
+      value:
+        id: 5d9caaecb4a3fa9b972f86ce
+        name: Acme, Inc.
+        logo: http://placekitten.com/200/300
+    projectMember:
+      summary: Project Member
+      value:
+        user:
+          $ref: '#/components/examples/user/value'
+        role: admin
+    textStyleDesignToken:
+      summary: Text Style Design Token
+      value:
+        value:
+          $ref: '#/components/examples/textStyleDesignTokenValue/value'
+        metadata:
+          source:
+            styleguide:
+              id: 5db981be9df2b3e1bfa19ef2
+              name: Discovery 1
+              platform: web
+          resource:
+            id: 5dbad85a76ea51c1f35b6f69
+            type: TextStyle
+    designTokenSourceForStyleguide:
+      summary: Design Token Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/designTokenStyleguide/value'
+    colorDesignTokenMetadata:
+      summary: Color Design Token Metadata
+      value:
+        source:
+          styleguide:
+            id: 5db981be9df2b3e1bfa19ef2
+            name: Discovery 1
+            platform: web
+        resource:
+          id: 605df86a46d1fe50fceb9b49
+          type: Color
+    textStyleDesignTokenMetadata:
+      summary: Text Style Design Token Metadata
+      value:
+        source:
+          styleguide:
+            id: 5db981be9df2b3e1bfa19ef2
+            name: Discovery 1
+            platform: web
+        resource:
+          id: 5dbad85a76ea51c1f35b6f69
+          type: TextStyle
+    project:
+      summary: Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        description: UI designs for the onboard computer on the spaceship Discovery 1
+        platform: web
+        thumbnail: http://placekitten.com/200/300
+        status: active
+        scene_url: https://scene.zeplin.io/project/5db81e73e1e36ee19f138c1a
+        created: 1517184000
+        updated: 1572347818
+        number_of_members: 47
+        number_of_screens: 112
+        number_of_components: 46
+        number_of_connected_components: 32
+        number_of_text_styles: 28
+        number_of_colors: 17
+        linked_styleguide:
+          id: 5db81e6e6a4462065f04d932
+    workflowStatus:
+      summary: Workflow Status
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Done
+        color:
+          $ref: '#/components/examples/workflowStatusColor/value'
     user:
       summary: User
       value:
@@ -609,13 +554,26 @@ components:
         emotar: 🍎
         avatar: http://placekitten.com/200/300
         last_seen: 1616739240
-    remPreferences:
-      summary: rem Preferences
+    designTokenFont:
+      summary: Design Token Font
       value:
-        status: enabled
-        root_font_size: 16
-        use_for_font_sizes: false
-        use_for_measurements: true
+        family: HelveticaNeue
+        size: 36
+        weight: 900
+        stretch: 1
+    textStyleDesignTokenValue:
+      summary: Text Style Design Token Value
+      value:
+        line_height: 36
+        alignment: left
+        font:
+          $ref: '#/components/examples/designTokenFont/value'
+        color: rgb(204, 204, 0)
+    designTokenResource:
+      summary: Design Token Resource
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        type: Color
     workflowStatusColor:
       summary: Workflow Status Color
       value:
@@ -624,16 +582,6 @@ components:
         g: 207
         b: 51
         a: 1
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-    spacingDesignToken:
-      summary: Spacing Design Token
-      value:
-        value: 16
-        metadata:
-          $ref: '#/components/examples/spacingDesignTokenMetadata/value'
     projectDesignTokens:
       summary: Project Design Tokens
       value:
@@ -719,105 +667,149 @@ components:
               resource:
                 id: 5dbad85a76ea51c1f35b6f69
                 type: TextStyle
-    textStyleDesignTokenMetadata:
-      summary: Text Style Design Token Metadata
+    spacingDesignTokens:
+      summary: Spacing Design Tokens
       value:
-        source:
-          styleguide:
-            id: 5db981be9df2b3e1bfa19ef2
-            name: Discovery 1
-            platform: web
-        resource:
-          id: 5dbad85a76ea51c1f35b6f69
-          type: TextStyle
-    designTokenSourceForStyleguide:
-      summary: Design Token Source for Styleguide
+        xs-spacing:
+          value: 16
+          metadata:
+            source:
+              project:
+                id: 5db81e73e1e36ee19f138c1a
+                name: HAL 9000
+                platform: web
+                linked_styleguide:
+                  id: 5db981be9df2b3e1bfa19ef2
+            resource:
+              id: 605df8fb1e558896ebd801c1
+              type: SpacingToken
+            spacing_section:
+              id: 5db81e6e6a4462065f04d932
+    designTokenProject:
+      summary: Design Token Project
       value:
-        styleguide:
-          $ref: '#/components/examples/designTokenStyleguide/value'
-  schemas:
-    RemPreferences:
-      title: rem Preferences
-      description: rem preferences of project or styleguide. The content of this property varies depending on the value of its status field.
-      discriminator:
-        propertyName: status
-        mapping:
-          enabled: '#/components/schemas/EnabledRemPreferences'
-          disabled: '#/components/schemas/DisabledOrLinkedRemPreferences'
-          linked: '#/components/schemas/DisabledOrLinkedRemPreferences'
-      oneOf:
-      - $ref: '#/components/schemas/EnabledRemPreferences'
-      - $ref: '#/components/schemas/DisabledOrLinkedRemPreferences'
-    DesignTokenSource:
-      title: Design Token Source
-      type: object
-      description: Source details for design token. It has to be either `project` or `styleguide`.
-      properties:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    colorDesignToken:
+      summary: Color Design Token
+      value:
+        value: rgb(255, 255, 0)
+        metadata:
+          source:
+            styleguide:
+              id: 5db981be9df2b3e1bfa19ef2
+              name: Discovery 1
+              platform: web
+          resource:
+            id: 605df86a46d1fe50fceb9b49
+            type: Color
+    remPreferences:
+      summary: rem Preferences
+      value:
+        status: enabled
+        root_font_size: 16
+        use_for_font_sizes: false
+        use_for_measurements: true
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    designTokenSourceForProject:
+      summary: Design Token Source for Project
+      value:
         project:
-          $ref: '#/components/schemas/DesignTokenProject'
-        styleguide:
-          $ref: '#/components/schemas/DesignTokenStyleguide'
-      example:
-        $ref: '#/components/examples/designTokenSourceForProject'
-      x-examples:
-        Project:
-          $ref: '#/components/examples/designTokenSourceForProject'
-        Styleguide:
-          $ref: '#/components/examples/designTokenSourceForStyleguide'
-    WorkflowStatusColor:
-      title: Workflow Status Color
-      type: object
-      required:
-      - name
-      - r
-      - g
-      - b
-      - a
-      properties:
-        name:
-          type: string
-          description: The name of the color
-        r:
-          type: integer
-          description: red component of the color
-        g:
-          type: integer
-          description: green component of the color
-        b:
-          type: integer
-          description: blue component of the color
-        a:
-          type: number
-          description: alpha component of the color
-      example:
-        $ref: '#/components/examples/workflowStatusColor'
-    ColorDesignTokens:
-      title: Color Design Tokens
-      type: object
-      description: Color tokens
-      additionalProperties:
-        description: Color tokens
-        $ref: '#/components/schemas/ColorDesignToken'
-      example:
-        $ref: '#/components/examples/colorDesignTokens'
-    WorkflowStatus:
-      title: Workflow Status
-      type: object
-      required:
-      - id
-      - name
-      - color
-      properties:
-        id:
-          type: string
-          description: The unique id of the workflow status
-        name:
-          type: string
-          description: The name of the workflow status
-        color:
-          $ref: '#/components/schemas/WorkflowStatusColor'
-      example:
-        $ref: '#/components/examples/workflowStatus'
+          $ref: '#/components/examples/designTokenProject/value'
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+  parameters:
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    project_workspace:
+      name: workspace
+      in: query
+      description: Workspace of the project, it can be `personal` or the id of organization
+      required: false
+      schema:
+        type: string
+        pattern: /^([0-9a-f]{24}|personal)$/i
+    token_name_case:
+      name: token_name_case
+      in: query
+      description: Case for token names
+      required: false
+      schema:
+        type: string
+        enum:
+        - kebab
+        - snake
+        - camel
+        - pascal
+        - constant
+        - original
+        default: kebab
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    member_id:
+      name: member_id
+      in: path
+      description: Member id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    project_status:
+      name: status
+      in: query
+      description: Filter by status
+      required: false
+      schema:
+        $ref: '#/components/schemas/ProjectStatusEnum'
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+  schemas:
     TextStyleDesignTokens:
       title: Text Style Design Tokens
       type: object
@@ -827,178 +819,6 @@ components:
         $ref: '#/components/schemas/TextStyleDesignToken'
       example:
         $ref: '#/components/examples/textStyleDesignToken'
-    TextStyleDesignTokenValue:
-      title: Text Style Design Token Value
-      type: object
-      description: Value of the token
-      required:
-      - font
-      properties:
-        letter_spacing:
-          type: number
-          description: Spacing between letters
-        line_height:
-          type: number
-          description: Minimum height of a line for the text style
-        alignment:
-          type: string
-          description: Horizontal alignment of the text style, `left`, `right`, `center`, or `justify`
-        font:
-          $ref: '#/components/schemas/DesignTokenFont'
-        color:
-          type: string
-          description: 'The value of color in `rgb(r, g, b)` or `rgba(r, g, b, a)` format for the text style.
-
-
-            ☝️*If there''s a matching color token for the text style''s color, the color token''s value is returned as a reference, e.g. `{$colors.light-yellow.value}`.*
-
-            '
-      example:
-        $ref: '#/components/examples/textStyleDesignTokenValue'
-    EntityReference:
-      title: Object Reference
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Id of the entity
-      example:
-        $ref: '#/components/examples/entityReference'
-    SpacingDesignTokens:
-      title: Spacing Design Tokens
-      type: object
-      description: Spacing tokens
-      additionalProperties:
-        description: Spacing tokens
-        $ref: '#/components/schemas/SpacingDesignToken'
-      example:
-        $ref: '#/components/examples/spacingDesignTokens'
-    DesignTokens:
-      title: Design Tokens
-      type: object
-      required:
-      - colors
-      - text_styles
-      - spacing
-      properties:
-        colors:
-          $ref: '#/components/schemas/ColorDesignTokens'
-        spacing:
-          $ref: '#/components/schemas/SpacingDesignTokens'
-        text_styles:
-          $ref: '#/components/schemas/TextStyleDesignTokens'
-      example:
-        $ref: '#/components/examples/projectDesignTokens'
-      x-examples:
-        Project Design Tokens:
-          $ref: '#/components/examples/projectDesignTokens'
-        Styleguide Design Tokens:
-          $ref: '#/components/examples/styleguideDesignTokens'
-    DesignTokenProject:
-      title: Design Token Project
-      type: object
-      description: The source project of the token
-      required:
-      - id
-      - name
-      - platform
-      properties:
-        id:
-          type: string
-          description: The unique id of the source project
-        name:
-          type: string
-          description: The name of the source project
-        platform:
-          type: string
-          enum:
-          - web
-          - ios
-          - android
-          - macos
-          description: The target platform of the source project
-        linked_styleguide:
-          $ref: '#/components/schemas/EntityReference'
-          description: Reference of the styleguide which the source project is linked to
-      example:
-        $ref: '#/components/examples/designTokenProject'
-    EnabledRemPreferences:
-      title: Enabled rem Preferences
-      type: object
-      required:
-      - status
-      - root_font_size
-      - use_for_font_sizes
-      - use_for_measurements
-      properties:
-        status:
-          type: string
-          description: The status of the preferences
-          enum:
-          - enabled
-        root_font_size:
-          description: Font size of the root element
-          type: number
-        use_for_font_sizes:
-          description: Whether rem unit is used for font sizes
-          type: boolean
-        use_for_measurements:
-          description: Whether rem unit is used for measurements
-          type: boolean
-      example:
-        $ref: '#/components/examples/remPreferences'
-    ProjectMember:
-      title: Project Member
-      type: object
-      required:
-      - user
-      - role
-      properties:
-        user:
-          $ref: '#/components/schemas/User'
-        role:
-          type: string
-          enum:
-          - owner
-          - admin
-          - user
-          - editor
-          - member
-          - alien
-          description: The role of the user in the project
-      example:
-        $ref: '#/components/examples/projectMember'
-    DesignTokenStyleguide:
-      title: Design Token Styleguide
-      type: object
-      description: The source styleguide of the token
-      required:
-      - id
-      - name
-      - platform
-      properties:
-        id:
-          type: string
-          description: The unique id of the source styleguide
-        name:
-          type: string
-          description: The name of the source styleguide
-        platform:
-          type: string
-          enum:
-          - base
-          - web
-          - ios
-          - android
-          - macos
-          description: The target platform of the source styleguide
-        parent:
-          $ref: '#/components/schemas/EntityReference'
-          description: Reference of the parent styleguide of the source styleguide
-      example:
-        $ref: '#/components/examples/designTokenStyleguide'
     ErrorResponse:
       title: Error Response
       type: object
@@ -1016,20 +836,44 @@ components:
           description: The unique code for the error
       example:
         $ref: '#/components/examples/error'
-    ColorDesignToken:
+    ProjectUpdateBody:
+      title: Project Update Body
       type: object
-      title: Color Design Token
-      required:
-      - value
-      - metadata
       properties:
-        value:
+        name:
           type: string
-          description: The value of color token in `rgb(r, g, b)` or `rgba(r, g, b, a)` format.
-        metadata:
-          $ref: '#/components/schemas/ColorDesignTokenMetadata'
+          description: New name for the project
+        description:
+          type: string
+          description: New description for the project
+        workflow_status_id:
+          type: string
+          description: Id of the new workflow status for the project
+        linked_styleguide_id:
+          type:
+          - string
+          - 'null'
+          description: The unique id of the styleguide to be linked. Set null to unlink the linked styleguide.
+    SpacingDesignTokenMetadata:
+      title: Spacing Design Token Metadata
+      description: Additional information about the spacing token
+      type: object
+      required:
+      - source
+      - resource
+      - spacing_section
+      properties:
+        source:
+          $ref: '#/components/schemas/DesignTokenSource'
+          description: Source of the design token–either `project` or `styleguide`.
+        resource:
+          $ref: '#/components/schemas/DesignTokenResource'
+          description: Details of the `SpacingToken` object that the design token is generated from.
+        spacing_section:
+          $ref: '#/components/schemas/EntityReference'
+          description: The reference of the spacing section the spacing token belongs to.
       example:
-        $ref: '#/components/examples/colorDesignToken'
+        $ref: '#/components/examples/spacingDesignTokenMetadata'
     User:
       title: User
       description: 'Basic info about Zeplin users.
@@ -1076,86 +920,163 @@ components:
           $ref: '#/components/examples/user'
         My User:
           $ref: '#/components/examples/me'
-    DesignTokenResource:
-      title: Design Token Resouce
+    DesignTokens:
+      title: Design Tokens
       type: object
-      description: Details of the resource that the design token is generated from.
+      required:
+      - colors
+      - text_styles
+      - spacing
+      properties:
+        colors:
+          $ref: '#/components/schemas/ColorDesignTokens'
+        spacing:
+          $ref: '#/components/schemas/SpacingDesignTokens'
+        text_styles:
+          $ref: '#/components/schemas/TextStyleDesignTokens'
+      example:
+        $ref: '#/components/examples/projectDesignTokens'
+      x-examples:
+        Project Design Tokens:
+          $ref: '#/components/examples/projectDesignTokens'
+        Styleguide Design Tokens:
+          $ref: '#/components/examples/styleguideDesignTokens'
+    ColorDesignToken:
+      type: object
+      title: Color Design Token
+      required:
+      - value
+      - metadata
+      properties:
+        value:
+          type: string
+          description: The value of color token in `rgb(r, g, b)` or `rgba(r, g, b, a)` format.
+        metadata:
+          $ref: '#/components/schemas/ColorDesignTokenMetadata'
+      example:
+        $ref: '#/components/examples/colorDesignToken'
+    ProjectMemberInviteBody:
+      title: Project Member Invite Body
+      type: object
+      properties:
+        handle:
+          type: string
+          description: 'Email, username or unique identifier of the user
+
+
+            Can also be `"me"` for joining the project as the current user
+
+            '
+      required:
+      - handle
+    EntityReference:
+      title: Object Reference
+      type: object
       required:
       - id
-      - type
       properties:
         id:
           type: string
-          description: The unique id of the resource
-        type:
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    EnabledRemPreferences:
+      title: Enabled rem Preferences
+      type: object
+      required:
+      - status
+      - root_font_size
+      - use_for_font_sizes
+      - use_for_measurements
+      properties:
+        status:
+          type: string
+          description: The status of the preferences
+          enum:
+          - enabled
+        root_font_size:
+          description: Font size of the root element
+          type: number
+        use_for_font_sizes:
+          description: Whether rem unit is used for font sizes
+          type: boolean
+        use_for_measurements:
+          description: Whether rem unit is used for measurements
+          type: boolean
+      example:
+        $ref: '#/components/examples/remPreferences'
+    ProjectMember:
+      title: Project Member
+      type: object
+      required:
+      - user
+      - role
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        role:
           type: string
           enum:
-          - Color
-          - TextStyle
-          - SpacingToken
-          description: The type of the resource
+          - owner
+          - admin
+          - user
+          - editor
+          - member
+          - alien
+          description: The role of the user in the project
       example:
-        $ref: '#/components/examples/designTokenResource'
-    SpacingDesignTokenMetadata:
-      title: Spacing Design Token Metadata
-      description: Additional information about the spacing token
+        $ref: '#/components/examples/projectMember'
+    ProjectStatusEnum:
+      title: Project Status
+      type: string
+      enum:
+      - active
+      - archived
+      description: The status of the project
+    DesignTokenSource:
+      title: Design Token Source
       type: object
-      required:
-      - source
-      - resource
-      - spacing_section
+      description: Source details for design token. It has to be either `project` or `styleguide`.
       properties:
-        source:
-          $ref: '#/components/schemas/DesignTokenSource'
-          description: Source of the design token–either `project` or `styleguide`.
-        resource:
-          $ref: '#/components/schemas/DesignTokenResource'
-          description: Details of the `SpacingToken` object that the design token is generated from.
-        spacing_section:
-          $ref: '#/components/schemas/EntityReference'
-          description: The reference of the spacing section the spacing token belongs to.
+        project:
+          $ref: '#/components/schemas/DesignTokenProject'
+        styleguide:
+          $ref: '#/components/schemas/DesignTokenStyleguide'
       example:
-        $ref: '#/components/examples/spacingDesignTokenMetadata'
-    ColorDesignTokenMetadata:
+        $ref: '#/components/examples/designTokenSourceForProject'
+      x-examples:
+        Project:
+          $ref: '#/components/examples/designTokenSourceForProject'
+        Styleguide:
+          $ref: '#/components/examples/designTokenSourceForStyleguide'
+    TextStyleDesignTokenValue:
+      title: Text Style Design Token Value
       type: object
-      title: Color Design Token Metadata
+      description: Value of the token
       required:
-      - source
-      - resource
+      - font
       properties:
-        source:
-          $ref: '#/components/schemas/DesignTokenSource'
-          description: Source of the design token–either `project` or `styleguide`.
-        resource:
-          $ref: '#/components/schemas/DesignTokenResource'
-          description: Details of the `Color` object that the design token is generated from.
-      description: Additional information about the color token
-      example:
-        $ref: '#/components/examples/colorDesignTokenMetadata'
-    DesignTokenFont:
-      title: Design Token Font
-      type: object
-      description: Font information for the text style
-      required:
-      - family
-      - size
-      - weight
-      - stretch
-      properties:
-        family:
+        letter_spacing:
+          type: number
+          description: Spacing between letters
+        line_height:
+          type: number
+          description: Minimum height of a line for the text style
+        alignment:
           type: string
-          description: Font family of the text style, e.g. `Roboto`, `Arial`
-        size:
-          type: number
-          description: Font size of the text style
-        weight:
-          type: number
-          description: Font weight of the text style, e.g. `500`, `700`
-        stretch:
-          type: number
-          description: Font stretch form of the text style, e.g. `0.75`, `1.00`
+          description: Horizontal alignment of the text style, `left`, `right`, `center`, or `justify`
+        font:
+          $ref: '#/components/schemas/DesignTokenFont'
+        color:
+          type: string
+          description: 'The value of color in `rgb(r, g, b)` or `rgba(r, g, b, a)` format for the text style.
+
+
+            ☝️*If there''s a matching color token for the text style''s color, the color token''s value is returned as a reference, e.g. `{$colors.light-yellow.value}`.*
+
+            '
       example:
-        $ref: '#/components/examples/designTokenFont'
+        $ref: '#/components/examples/textStyleDesignTokenValue'
     Project:
       title: Project
       type: object
@@ -1244,43 +1165,6 @@ components:
           $ref: '#/components/examples/project'
         Organization Project:
           $ref: '#/components/examples/organizationProject'
-    ProjectStatusEnum:
-      title: Project Status
-      type: string
-      enum:
-      - active
-      - archived
-      description: The status of the project
-    ProjectMemberInviteBody:
-      title: Project Member Invite Body
-      type: object
-      properties:
-        handle:
-          type: string
-          description: 'Email, username or unique identifier of the user
-
-
-            Can also be `"me"` for joining the project as the current user
-
-            '
-      required:
-      - handle
-    TextStyleDesignTokenMetadata:
-      title: Text Style Design Token Metadata
-      type: object
-      description: Additional information about the text style token
-      required:
-      - source
-      - resource
-      properties:
-        source:
-          $ref: '#/components/schemas/DesignTokenSource'
-          description: Source of the design token–either `project` or `styleguide`.
-        resource:
-          $ref: '#/components/schemas/DesignTokenResource'
-          description: Details of the `TextStyle` object that the design token is generated from.
-      example:
-        $ref: '#/components/examples/textStyleDesignTokenMetadata'
     TextStyleDesignToken:
       type: object
       title: Text Style Design Token
@@ -1294,20 +1178,153 @@ components:
           $ref: '#/components/schemas/TextStyleDesignTokenMetadata'
       example:
         $ref: '#/components/examples/textStyleDesignToken'
-    SpacingDesignToken:
+    WorkflowStatus:
+      title: Workflow Status
       type: object
-      title: Spacing Design Token
       required:
-      - value
-      - metadata
+      - id
+      - name
+      - color
       properties:
-        value:
-          type: number
-          description: The value of the token
-        metadata:
-          $ref: '#/components/schemas/SpacingDesignTokenMetadata'
+        id:
+          type: string
+          description: The unique id of the workflow status
+        name:
+          type: string
+          description: The name of the workflow status
+        color:
+          $ref: '#/components/schemas/WorkflowStatusColor'
       example:
-        $ref: '#/components/examples/spacingDesignToken'
+        $ref: '#/components/examples/workflowStatus'
+    DesignTokenProject:
+      title: Design Token Project
+      type: object
+      description: The source project of the token
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/designTokenProject'
+    SpacingDesignTokens:
+      title: Spacing Design Tokens
+      type: object
+      description: Spacing tokens
+      additionalProperties:
+        description: Spacing tokens
+        $ref: '#/components/schemas/SpacingDesignToken'
+      example:
+        $ref: '#/components/examples/spacingDesignTokens'
+    RemPreferences:
+      title: rem Preferences
+      description: rem preferences of project or styleguide. The content of this property varies depending on the value of its status field.
+      discriminator:
+        propertyName: status
+        mapping:
+          enabled: '#/components/schemas/EnabledRemPreferences'
+          disabled: '#/components/schemas/DisabledOrLinkedRemPreferences'
+          linked: '#/components/schemas/DisabledOrLinkedRemPreferences'
+      oneOf:
+      - $ref: '#/components/schemas/EnabledRemPreferences'
+      - $ref: '#/components/schemas/DisabledOrLinkedRemPreferences'
+    DisabledOrLinkedRemPreferences:
+      title: Disabled or Linked rem Preferences
+      type: object
+      description: If `status` is `"linked"`, project or styleguide uses its parent styleguide as the source of preferences.
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          description: The status of the preferences.
+          enum:
+          - disabled
+          - linked
+    ColorDesignTokenMetadata:
+      type: object
+      title: Color Design Token Metadata
+      required:
+      - source
+      - resource
+      properties:
+        source:
+          $ref: '#/components/schemas/DesignTokenSource'
+          description: Source of the design token–either `project` or `styleguide`.
+        resource:
+          $ref: '#/components/schemas/DesignTokenResource'
+          description: Details of the `Color` object that the design token is generated from.
+      description: Additional information about the color token
+      example:
+        $ref: '#/components/examples/colorDesignTokenMetadata'
+    WorkflowStatusColor:
+      title: Workflow Status Color
+      type: object
+      required:
+      - name
+      - r
+      - g
+      - b
+      - a
+      properties:
+        name:
+          type: string
+          description: The name of the color
+        r:
+          type: integer
+          description: red component of the color
+        g:
+          type: integer
+          description: green component of the color
+        b:
+          type: integer
+          description: blue component of the color
+        a:
+          type: number
+          description: alpha component of the color
+      example:
+        $ref: '#/components/examples/workflowStatusColor'
+    DesignTokenFont:
+      title: Design Token Font
+      type: object
+      description: Font information for the text style
+      required:
+      - family
+      - size
+      - weight
+      - stretch
+      properties:
+        family:
+          type: string
+          description: Font family of the text style, e.g. `Roboto`, `Arial`
+        size:
+          type: number
+          description: Font size of the text style
+        weight:
+          type: number
+          description: Font weight of the text style, e.g. `500`, `700`
+        stretch:
+          type: number
+          description: Font stretch form of the text style, e.g. `0.75`, `1.00`
+      example:
+        $ref: '#/components/examples/designTokenFont'
     OrganizationSummary:
       title: Organization Summary
       type: object
@@ -1327,122 +1344,97 @@ components:
           format: url
       example:
         $ref: '#/components/examples/organizationSummary'
-    DisabledOrLinkedRemPreferences:
-      title: Disabled or Linked rem Preferences
+    TextStyleDesignTokenMetadata:
+      title: Text Style Design Token Metadata
       type: object
-      description: If `status` is `"linked"`, project or styleguide uses its parent styleguide as the source of preferences.
+      description: Additional information about the text style token
       required:
-      - status
+      - source
+      - resource
       properties:
-        status:
-          type: string
-          description: The status of the preferences.
-          enum:
-          - disabled
-          - linked
-    ProjectUpdateBody:
-      title: Project Update Body
+        source:
+          $ref: '#/components/schemas/DesignTokenSource'
+          description: Source of the design token–either `project` or `styleguide`.
+        resource:
+          $ref: '#/components/schemas/DesignTokenResource'
+          description: Details of the `TextStyle` object that the design token is generated from.
+      example:
+        $ref: '#/components/examples/textStyleDesignTokenMetadata'
+    DesignTokenResource:
+      title: Design Token Resouce
       type: object
+      description: Details of the resource that the design token is generated from.
+      required:
+      - id
+      - type
       properties:
+        id:
+          type: string
+          description: The unique id of the resource
+        type:
+          type: string
+          enum:
+          - Color
+          - TextStyle
+          - SpacingToken
+          description: The type of the resource
+      example:
+        $ref: '#/components/examples/designTokenResource'
+    SpacingDesignToken:
+      type: object
+      title: Spacing Design Token
+      required:
+      - value
+      - metadata
+      properties:
+        value:
+          type: number
+          description: The value of the token
+        metadata:
+          $ref: '#/components/schemas/SpacingDesignTokenMetadata'
+      example:
+        $ref: '#/components/examples/spacingDesignToken'
+    ColorDesignTokens:
+      title: Color Design Tokens
+      type: object
+      description: Color tokens
+      additionalProperties:
+        description: Color tokens
+        $ref: '#/components/schemas/ColorDesignToken'
+      example:
+        $ref: '#/components/examples/colorDesignTokens'
+    DesignTokenStyleguide:
+      title: Design Token Styleguide
+      type: object
+      description: The source styleguide of the token
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source styleguide
         name:
           type: string
-          description: New name for the project
-        description:
+          description: The name of the source styleguide
+        platform:
           type: string
-          description: New description for the project
-        workflow_status_id:
-          type: string
-          description: Id of the new workflow status for the project
-        linked_styleguide_id:
-          type:
-          - string
-          - 'null'
-          description: The unique id of the styleguide to be linked. Set null to unlink the linked styleguide.
-  parameters:
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    member_id:
-      name: member_id
-      in: path
-      description: Member id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    project_workspace:
-      name: workspace
-      in: query
-      description: Workspace of the project, it can be `personal` or the id of organization
-      required: false
-      schema:
-        type: string
-        pattern: /^([0-9a-f]{24}|personal)$/i
-    project_status:
-      name: status
-      in: query
-      description: Filter by status
-      required: false
-      schema:
-        $ref: '#/components/schemas/ProjectStatusEnum'
-    project_id:
-      name: project_id
-      in: path
-      description: Project id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    include_linked_styleguides:
-      name: include_linked_styleguides
-      in: query
-      description: Whether to include linked styleguides or not
-      required: false
-      schema:
-        type: boolean
-        default: false
-    token_name_case:
-      name: token_name_case
-      in: query
-      description: Case for token names
-      required: false
-      schema:
-        type: string
-        enum:
-        - kebab
-        - snake
-        - camel
-        - pascal
-        - constant
-        - original
-        default: kebab
+          enum:
+          - base
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source styleguide
+        parent:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the parent styleguide of the source styleguide
+      example:
+        $ref: '#/components/examples/designTokenStyleguide'
   responses:
-    projectNotFound:
-      description: Project not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found response:
-              value:
-                message: Project not found
+    noContent:
+      description: Successful response
     projectArchived:
       description: Project archived response
       content:
@@ -1453,8 +1445,16 @@ components:
             Project archived response:
               value:
                 message: Project is archived
-    noContent:
-      description: Successful response
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
     cannotUpdateProject:
       description: User cannot update the project
       content:

@@ -122,17 +122,6 @@ paths:
           $ref: '#/components/responses/notificationNotFound'
 components:
   examples:
-    notificationResource:
-      summary: Notification Resource
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        type: Color
-        extra:
-          name: baby poop green
-          r: 143
-          g: 152
-          b: 5
-          a: 1
     notification:
       summary: Notification
       value:
@@ -161,6 +150,17 @@ components:
         emotar: 🍎
         avatar: http://placekitten.com/200/300
         last_seen: 1616739240
+    notificationResource:
+      summary: Notification Resource
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        type: Color
+        extra:
+          name: baby poop green
+          r: 143
+          g: 152
+          b: 5
+          a: 1
     notificationActor:
       summary: Notification Actor
       value:
@@ -179,49 +179,57 @@ components:
         emotar: 🍎
         avatar: http://placekitten.com/200/300
         last_seen: 1616739240
+  parameters:
+    notification_id:
+      name: notification_id
+      in: path
+      description: Notification id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    is_read:
+      name: is_read
+      in: query
+      description: Whether the notification is read or not
+      required: false
+      schema:
+        type: boolean
+    notification_type:
+      name: type
+      in: query
+      description: 'Filter by type
+
+
+        Example: `?type=project.extension&type=styleguide.extension`
+
+        '
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: '#/components/schemas/NotificationTypeEnum'
   schemas:
-    NotificationTypeEnum:
-      title: Notification Type
-      type: string
-      enum:
-      - workspace.project
-      - workspace.styleguide
-      - project.extension
-      - styleguide.extension
-      - user.project_membership
-      - user.styleguide_membership
-      - project.component
-      - styleguide.component
-      - project.color
-      - styleguide.color
-      - project.screen.note
-      - project.screen.note.comment
-      - project.screen
-      - project.text_style
-      - styleguide.text_style
-      - project.spacing_token
-      - styleguide.spacing_token
-      - project.jira_attachment
-      - project.screen_section.jira_attachment
-      - project.screen.jira_attachment
-      - workspace.organization.member
-      - project.slack_integration
-      - styleguide.slack_integration
-      - project.member
-      - styleguide.member
-      - project.flow_board
-    NotificationActor:
-      title: Notification Actor
-      type: object
-      description: The actor of the change triggering this notification
-      required:
-      - user
-      properties:
-        user:
-          $ref: '#/components/schemas/User'
-          description: User object
-      example:
-        $ref: '#/components/examples/notificationActor'
     ErrorResponse:
       title: Error Response
       type: object
@@ -400,6 +408,18 @@ components:
           $ref: '#/components/schemas/NotificationActor'
       example:
         $ref: '#/components/examples/notification'
+    NotificationActor:
+      title: Notification Actor
+      type: object
+      description: The actor of the change triggering this notification
+      required:
+      - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+          description: User object
+      example:
+        $ref: '#/components/examples/notificationActor'
     NotificationResource:
       title: Notification Resource
       type: object
@@ -420,6 +440,36 @@ components:
           description: Partial data of the resource, whose content changes depending on the `type` field
       example:
         $ref: '#/components/examples/notificationResource'
+    NotificationTypeEnum:
+      title: Notification Type
+      type: string
+      enum:
+      - workspace.project
+      - workspace.styleguide
+      - project.extension
+      - styleguide.extension
+      - user.project_membership
+      - user.styleguide_membership
+      - project.component
+      - styleguide.component
+      - project.color
+      - styleguide.color
+      - project.screen.note
+      - project.screen.note.comment
+      - project.screen
+      - project.text_style
+      - styleguide.text_style
+      - project.spacing_token
+      - styleguide.spacing_token
+      - project.jira_attachment
+      - project.screen_section.jira_attachment
+      - project.screen.jira_attachment
+      - workspace.organization.member
+      - project.slack_integration
+      - styleguide.slack_integration
+      - project.member
+      - styleguide.member
+      - project.flow_board
   responses:
     notificationNotFound:
       description: Notification not found response
@@ -433,56 +483,6 @@ components:
                 message: Notification not found
     noContent:
       description: Successful response
-  parameters:
-    is_read:
-      name: is_read
-      in: query
-      description: Whether the notification is read or not
-      required: false
-      schema:
-        type: boolean
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    notification_type:
-      name: type
-      in: query
-      description: 'Filter by type
-
-
-        Example: `?type=project.extension&type=styleguide.extension`
-
-        '
-      required: false
-      schema:
-        type: array
-        uniqueItems: true
-        items:
-          $ref: '#/components/schemas/NotificationTypeEnum'
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    notification_id:
-      name: notification_id
-      in: path
-      description: Notification id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
   securitySchemes:
     OAuth2:
       type: oauth2

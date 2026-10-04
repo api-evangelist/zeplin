@@ -163,51 +163,6 @@ paths:
                     detail: Provided `code_verifier` is incorrect
 components:
   schemas:
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
-    TokenCreateAuthorizationCodeBody:
-      title: Authorization code flow
-      type: object
-      required:
-      - grant_type
-      - code
-      - redirect_uri
-      - client_id
-      properties:
-        grant_type:
-          type: string
-          enum:
-          - authorization_code
-        code:
-          type: string
-          description: Applies when `grant_type` is `authorization_code`. The `code` obtained after `authorization` request
-        redirect_uri:
-          type: string
-          description: The URL where users will be redirected after authorization
-        client_id:
-          type: string
-          description: The `client_id` of your Zeplin app
-        client_secret:
-          type: string
-          description: "The `client_secret` of your Zeplin app\n\n**Note**: `client_secret` is required for `code` values obtained without using a PKCE `code_challenge` value.\n\n**Warning**: `client_secret` property should only be used in a server-side application. \nIf your Zeplin app is a public client, you should use PKCE authorization flow.\n"
-        code_verifier:
-          type: string
-          description: A cryptographically random string that is used to correlate the authorization request to the token request
     TokenResponse:
       title: Token Response
       type: object
@@ -259,6 +214,23 @@ components:
         code_verifier:
           type: string
           description: A cryptographically random string that is used to correlate the authorization request to the token request
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
     TokenCreateBody:
       title: Token Create Body
       discriminator:
@@ -269,7 +241,39 @@ components:
       oneOf:
       - $ref: '#/components/schemas/TokenCreateAuthorizationCodeBody'
       - $ref: '#/components/schemas/TokenCreateRefreshTokenBody'
+    TokenCreateAuthorizationCodeBody:
+      title: Authorization code flow
+      type: object
+      required:
+      - grant_type
+      - code
+      - redirect_uri
+      - client_id
+      properties:
+        grant_type:
+          type: string
+          enum:
+          - authorization_code
+        code:
+          type: string
+          description: Applies when `grant_type` is `authorization_code`. The `code` obtained after `authorization` request
+        redirect_uri:
+          type: string
+          description: The URL where users will be redirected after authorization
+        client_id:
+          type: string
+          description: The `client_id` of your Zeplin app
+        client_secret:
+          type: string
+          description: "The `client_secret` of your Zeplin app\n\n**Note**: `client_secret` is required for `code` values obtained without using a PKCE `code_challenge` value.\n\n**Warning**: `client_secret` property should only be used in a server-side application. \nIf your Zeplin app is a public client, you should use PKCE authorization flow.\n"
+        code_verifier:
+          type: string
+          description: A cryptographically random string that is used to correlate the authorization request to the token request
   examples:
+    error:
+      summary: Error
+      value:
+        message: Project is not found
     tokenResponse:
       summary: Token Response
       value:
@@ -278,10 +282,6 @@ components:
         refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDkyMDQ4ZTdkNjFlYjVkODYzNGY0OWUiLCJzY29wZSI6IiIsImlhdCI6MTU2OTg1MDUxMSwiZXhwIjo4NjU1Njk4NTA1MTEsInN1YiI6IjVkOTIwNDhlN2Q2MWViNWQ4NjM0ZjQ5ZiIsImp0aSI6ImQ2NWI5NDI1LTkxMTUtNDhmYy1hODg2LTJjYTczNmZmNjg0ZSJ9.AFd8Zn8-sl1SVvNIzAruMnTFlrohSrz2BQClNBPSLlY
         refresh_expires_in: 864000000
         token_type: bearer
-    error:
-      summary: Error
-      value:
-        message: Project is not found
   securitySchemes:
     OAuth2:
       type: oauth2
