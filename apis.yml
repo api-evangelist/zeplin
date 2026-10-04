@@ -430,6 +430,9 @@ apis:
   - type: CLI
     url: https://github.com/zeplin/cli
 common:
+- type: CapabilityMap
+  url: capabilities/zeplin-capability-edges.yml
+  name: Zeplin Business Capability Map
 - type: AgenticAccess
   url: agentic-access/zeplin-agentic-access.yml
 - type: DomainSecurity

@@ -1,0 +1,105 @@
+slug: zeplin
+provider: Zeplin
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 9
+edges:
+- tag: Components
+  spec_file: zeplin-components-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.85
+  evidence: 'GET /v1/styleguides/{styleguide_id}/components  GetStyleguideComponents; schemas: ComponentVariantProperty,
+    LayerTextStyle, Thumbnails'
+  reason: Components here are UI design-system components with layers, variants and thumbnails exported
+    from Figma/Sketch — design system stewardship for software products, not product BOM or hardware components.
+- tag: Design Tokens
+  spec_file: zeplin-design-tokens-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.85
+  evidence: 'GetStyleguideDesignTokens  Get styleguide design tokens; schemas: ColorDesignToken, TextStyleDesignToken,
+    SpacingDesignToken'
+  reason: Design tokens are the canonical shared design-system primitives for software UI; directly realises
+    Software Design Management.
+- tag: Styleguides
+  spec_file: zeplin-styleguides-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.85
+  evidence: GET /v1/styleguides/{styleguide_id}/design_tokens  GetStyleguideDesignTokens  Get styleguide
+    design tokens
+  reason: Style guides are the shared design-system repository for the product's UI, with linked projects
+    and design tokens — squarely Software Design Management.
+- tag: Spacing
+  spec_file: zeplin-spacing-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.82
+  evidence: 'GetStyleguideSpacingTokens  Get spacing tokens of the styleguide; schemas: SpacingToken,
+    SpacingSection'
+  reason: Spacing tokens and sections are design-system layout primitives in style guides; realises Software
+    Design Management.
+- tag: TextStyles
+  spec_file: zeplin-textstyles-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.82
+  evidence: 'GetStyleguideTextStyles  Get styleguide text styles; schemas: TextStyle, TextStyleUpdateBody'
+  reason: Typography styles maintained in design projects and style guides — design-system artefacts for
+    software UI design.
+- tag: Colors
+  spec_file: zeplin-colors-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.8
+  evidence: 'GET /v1/styleguides/{styleguide_id}/colors  GetStyleguideColors  Get styleguide colors; schemas:
+    ColorDesignToken, VariableInfo'
+  reason: Operations manage colour definitions inside design projects and style guides — design-system
+    artefacts for software product UI, i.e. Software Design Management anchored in shared design systems.
+    Not a business 'colour' concept of any other kind.
+- tag: Screens
+  spec_file: zeplin-screens-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.8
+  evidence: 'GetScreenNotes  Get screen notes; CreateScreenComment  Create a comment; schemas: ScreenAnnotationNoteType,
+    Layer, ComponentSectionReference'
+  reason: Screens are design artefacts with layers, versions, annotations and review comments used for
+    design-to-development handoff — software/UX design management and design review.
+- tag: Connected Components
+  spec_file: zeplin-connected-components-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.78
+  evidence: 'GetProjectConnectedComponents  Get project connected components; schemas: ConnectedComponentLink,
+    Code, LanguageEnum'
+  reason: Links design-system components to their code implementations (Code, LanguageEnum), which is
+    the design-to-code handoff aspect of software design management.
+- tag: Flows
+  spec_file: zeplin-flows-api-openapi.yml
+  capability_id: BC-4200.30
+  capability_id_l1: BC-4200
+  capability_name: Software Design Management
+  confidence: 0.75
+  evidence: 'GetProjectFlowBoardNodes  Get project flow board nodes; schemas: FlowBoardScreenNode, FlowBoardConnector,
+    ScreenAnnotationNote'
+  reason: Flow boards connect screens and annotations to describe UX flows of the designed product — user-experience
+    design artefacts, not business process models (nodes are screens, not process steps).
