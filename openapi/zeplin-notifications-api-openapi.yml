@@ -122,6 +122,44 @@ paths:
           $ref: '#/components/responses/notificationNotFound'
 components:
   examples:
+    notificationActor:
+      summary: Notification Actor
+      value:
+        user:
+          $ref: '#/components/examples/user/value'
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    notificationResource:
+      summary: Notification Resource
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        type: Color
+        extra:
+          name: baby poop green
+          r: 143
+          g: 152
+          b: 5
+          a: 1
+    error:
+      summary: Error
+      value:
+        message: Project is not found
     notification:
       summary: Notification
       value:
@@ -141,112 +179,7 @@ components:
               platform: web
         actor:
           $ref: '#/components/examples/notificationActor/value'
-    user:
-      summary: User
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    notificationResource:
-      summary: Notification Resource
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        type: Color
-        extra:
-          name: baby poop green
-          r: 143
-          g: 152
-          b: 5
-          a: 1
-    notificationActor:
-      summary: Notification Actor
-      value:
-        user:
-          $ref: '#/components/examples/user/value'
-    error:
-      summary: Error
-      value:
-        message: Project is not found
-    me:
-      summary: My user
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: zo@zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-  parameters:
-    notification_id:
-      name: notification_id
-      in: path
-      description: Notification id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    is_read:
-      name: is_read
-      in: query
-      description: Whether the notification is read or not
-      required: false
-      schema:
-        type: boolean
-    notification_type:
-      name: type
-      in: query
-      description: 'Filter by type
-
-
-        Example: `?type=project.extension&type=styleguide.extension`
-
-        '
-      required: false
-      schema:
-        type: array
-        uniqueItems: true
-        items:
-          $ref: '#/components/schemas/NotificationTypeEnum'
   schemas:
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
     User:
       title: User
       description: 'Basic info about Zeplin users.
@@ -293,6 +226,18 @@ components:
           $ref: '#/components/examples/user'
         My User:
           $ref: '#/components/examples/me'
+    NotificationActor:
+      title: Notification Actor
+      type: object
+      description: The actor of the change triggering this notification
+      required:
+      - user
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+          description: User object
+      example:
+        $ref: '#/components/examples/notificationActor'
     NotificationUpdateBody:
       title: Notifications Update Body
       type: object
@@ -302,6 +247,23 @@ components:
         is_read:
           type: boolean
           description: New is_read status for notifications
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
     Notification:
       title: Notification
       description: 'Notification objects have a polymorphic structure. They can be of various types and each type has a certain set of actions that describe the notification further.
@@ -408,38 +370,6 @@ components:
           $ref: '#/components/schemas/NotificationActor'
       example:
         $ref: '#/components/examples/notification'
-    NotificationActor:
-      title: Notification Actor
-      type: object
-      description: The actor of the change triggering this notification
-      required:
-      - user
-      properties:
-        user:
-          $ref: '#/components/schemas/User'
-          description: User object
-      example:
-        $ref: '#/components/examples/notificationActor'
-    NotificationResource:
-      title: Notification Resource
-      type: object
-      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
-      required:
-      - id
-      - type
-      - extra
-      properties:
-        id:
-          type: string
-          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
-        type:
-          type: string
-          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
-        extra:
-          type: object
-          description: Partial data of the resource, whose content changes depending on the `type` field
-      example:
-        $ref: '#/components/examples/notificationResource'
     NotificationTypeEnum:
       title: Notification Type
       type: string
@@ -470,6 +400,76 @@ components:
       - project.member
       - styleguide.member
       - project.flow_board
+    NotificationResource:
+      title: Notification Resource
+      type: object
+      description: The main object that this notification is related. It contains the ID of the object along with its type and partial data. The content of this object varies between notification types.
+      required:
+      - id
+      - type
+      - extra
+      properties:
+        id:
+          type: string
+          description: The unique id of the resource (e.g. `"5ed05ecf3356a7967b21f12b"`)
+        type:
+          type: string
+          description: Type of the object, which is one of the API models (e.g. `"ScreenVersion"`)
+        extra:
+          type: object
+          description: Partial data of the resource, whose content changes depending on the `type` field
+      example:
+        $ref: '#/components/examples/notificationResource'
+  parameters:
+    notification_id:
+      name: notification_id
+      in: path
+      description: Notification id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    is_read:
+      name: is_read
+      in: query
+      description: Whether the notification is read or not
+      required: false
+      schema:
+        type: boolean
+    notification_type:
+      name: type
+      in: query
+      description: 'Filter by type
+
+
+        Example: `?type=project.extension&type=styleguide.extension`
+
+        '
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: '#/components/schemas/NotificationTypeEnum'
   responses:
     notificationNotFound:
       description: Notification not found response

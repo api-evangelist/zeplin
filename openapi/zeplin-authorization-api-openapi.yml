@@ -163,33 +163,16 @@ paths:
                     detail: Provided `code_verifier` is incorrect
 components:
   schemas:
-    TokenResponse:
-      title: Token Response
-      type: object
-      required:
-      - access_token
-      - expires_in
-      - refresh_token
-      - refresh_expires_in
-      - token_type
-      properties:
-        access_token:
-          type: string
-          description: Access token that allows you to make requests to the API on behalf of a user
-        expires_in:
-          type: number
-          description: Access token's lifetime in seconds
-        refresh_token:
-          type: string
-          description: Refresh token that allows you to obtain access tokens
-        refresh_expires_in:
-          type: number
-          description: Refresh token's lifetime in seconds
-        token_type:
-          type: string
-          description: Type of the token returned
-      example:
-        $ref: '#/components/examples/tokenResponse'
+    TokenCreateBody:
+      title: Token Create Body
+      discriminator:
+        propertyName: grant_type
+        mapping:
+          authorization_code: '#/components/schemas/TokenCreateAuthorizationCodeBody'
+          refresh_token: '#/components/schemas/TokenCreateRefreshTokenBody'
+      oneOf:
+      - $ref: '#/components/schemas/TokenCreateAuthorizationCodeBody'
+      - $ref: '#/components/schemas/TokenCreateRefreshTokenBody'
     TokenCreateRefreshTokenBody:
       title: Refresh token flow
       type: object
@@ -231,16 +214,6 @@ components:
           description: The unique code for the error
       example:
         $ref: '#/components/examples/error'
-    TokenCreateBody:
-      title: Token Create Body
-      discriminator:
-        propertyName: grant_type
-        mapping:
-          authorization_code: '#/components/schemas/TokenCreateAuthorizationCodeBody'
-          refresh_token: '#/components/schemas/TokenCreateRefreshTokenBody'
-      oneOf:
-      - $ref: '#/components/schemas/TokenCreateAuthorizationCodeBody'
-      - $ref: '#/components/schemas/TokenCreateRefreshTokenBody'
     TokenCreateAuthorizationCodeBody:
       title: Authorization code flow
       type: object
@@ -269,11 +242,34 @@ components:
         code_verifier:
           type: string
           description: A cryptographically random string that is used to correlate the authorization request to the token request
+    TokenResponse:
+      title: Token Response
+      type: object
+      required:
+      - access_token
+      - expires_in
+      - refresh_token
+      - refresh_expires_in
+      - token_type
+      properties:
+        access_token:
+          type: string
+          description: Access token that allows you to make requests to the API on behalf of a user
+        expires_in:
+          type: number
+          description: Access token's lifetime in seconds
+        refresh_token:
+          type: string
+          description: Refresh token that allows you to obtain access tokens
+        refresh_expires_in:
+          type: number
+          description: Refresh token's lifetime in seconds
+        token_type:
+          type: string
+          description: Type of the token returned
+      example:
+        $ref: '#/components/examples/tokenResponse'
   examples:
-    error:
-      summary: Error
-      value:
-        message: Project is not found
     tokenResponse:
       summary: Token Response
       value:
@@ -282,6 +278,10 @@ components:
         refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRfaWQiOiI1ZDkyMDQ4ZTdkNjFlYjVkODYzNGY0OWUiLCJzY29wZSI6IiIsImlhdCI6MTU2OTg1MDUxMSwiZXhwIjo4NjU1Njk4NTA1MTEsInN1YiI6IjVkOTIwNDhlN2Q2MWViNWQ4NjM0ZjQ5ZiIsImp0aSI6ImQ2NWI5NDI1LTkxMTUtNDhmYy1hODg2LTJjYTczNmZmNjg0ZSJ9.AFd8Zn8-sl1SVvNIzAruMnTFlrohSrz2BQClNBPSLlY
         refresh_expires_in: 864000000
         token_type: bearer
+    error:
+      summary: Error
+      value:
+        message: Project is not found
   securitySchemes:
     OAuth2:
       type: oauth2

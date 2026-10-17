@@ -204,273 +204,7 @@ paths:
         '422':
           $ref: '#/components/responses/projectArchived'
 components:
-  responses:
-    projectArchived:
-      description: Project archived response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project archived response:
-              value:
-                message: Project is archived
-    projectOrFlowBoardNotFound:
-      description: Project or flow board not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found:
-              value:
-                message: Project not found
-            Flow Board not found:
-              value:
-                message: Flow Board not found
-    projectOrFlowBoardNodeNotFound:
-      description: Project or flow board node not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found:
-              value:
-                message: Project not found
-            Flow Board node not found:
-              value:
-                message: Flow Board node not found
-    projectOrFlowBoardConnectorNotFound:
-      description: Project or flow board connector not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found:
-              value:
-                message: Project not found
-            Flow Board connector not found:
-              value:
-                message: Flow Board connector not found
-    projectNotFound:
-      description: Project not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found response:
-              value:
-                message: Project not found
   schemas:
-    FlowBoardScreenNode:
-      title: Flow Board Screen Node
-      type: object
-      required:
-      - id
-      - type
-      - position
-      - screen
-      properties:
-        id:
-          type: string
-          description: The unique id of the screen node
-        type:
-          type: string
-          enum:
-          - ScreenNode
-        position:
-          $ref: '#/components/schemas/FlowBoardPosition'
-        screen:
-          $ref: '#/components/schemas/EntityReference'
-      example:
-        $ref: '#/components/examples/flowBoardScreenNode'
-    FlowBoardConnectorLabel:
-      title: Flow Board Connector Label
-      type: object
-      required:
-      - text
-      properties:
-        text:
-          type: string
-          description: Text for the connector label
-        position:
-          type: number
-          description: Percentage based position of the connector label
-        width:
-          type: number
-          description: Width of the connector label
-      example:
-        $ref: '#/components/examples/flowBoardConnectorLabel'
-    FlowBoardGroup:
-      title: Flow Board Group
-      type: object
-      required:
-      - id
-      - created
-      - name
-      - color
-      properties:
-        id:
-          type: string
-          description: Identifier of the flow board group
-        created:
-          type: integer
-          format: timestamp
-          description: The unix timestamp when the color was created
-        name:
-          type: string
-          description: Name of the flow board
-        color:
-          $ref: '#/components/schemas/ColorData'
-      example:
-        $ref: '#/components/examples/flowBoardGroup'
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
-    FlowBoardConnection:
-      title: Flow Board Connection
-      type: object
-      required:
-      - node
-      properties:
-        node:
-          $ref: '#/components/schemas/EntityReference'
-        style:
-          type: string
-          enum:
-          - arrow
-          - point
-        layer_source_id:
-          type: string
-          description: Layer's identifier in the design tool
-        connection_position:
-          $ref: '#/components/schemas/FlowBoardConnectionPosition'
-      example:
-        $ref: '#/components/examples/flowBoardConnection'
-    FlowBoardNodeColor:
-      title: Flow Board Node Color
-      type: object
-      required:
-      - r
-      - g
-      - b
-      - a
-      properties:
-        r:
-          type: integer
-          description: Red component of the color
-        g:
-          type: integer
-          description: Green component of the color
-        b:
-          type: integer
-          description: Blue component of the color
-        a:
-          type: number
-          description: Alpha component of the color
-      example:
-        $ref: '#/components/examples/flowBoardNodeColor'
-    FlowBoardConnector:
-      title: Flow Board Connector
-      type: object
-      required:
-      - id
-      - type
-      - start
-      - end
-      properties:
-        id:
-          type: string
-          description: The unique id of the connector
-        type:
-          type: string
-          enum:
-          - SolidLine
-          - DashedLine
-        start:
-          $ref: '#/components/schemas/FlowBoardConnection'
-        end:
-          $ref: '#/components/schemas/FlowBoardConnection'
-        label:
-          $ref: '#/components/schemas/FlowBoardConnectorLabel'
-        color:
-          type: string
-          enum:
-          - yellow
-          - orange
-          - peach
-          - green
-          - turquoise
-          description: Color for the connector
-      example:
-        $ref: '#/components/examples/flowBoardConnector'
-    FlowBoardTextNode:
-      title: Flow Board Text Node
-      type: object
-      required:
-      - id
-      - type
-      - position
-      - text
-      - width
-      properties:
-        id:
-          type: string
-          description: The unique id of the text node
-        type:
-          type: string
-          enum:
-          - TextLabelNode
-        position:
-          $ref: '#/components/schemas/FlowBoardPosition'
-        text:
-          type: string
-        width:
-          type: number
-      example:
-        $ref: '#/components/examples/flowBoardTextNode'
-    FlowBoardVariantGroupNode:
-      title: Flow Board Variant Group Node
-      type: object
-      required:
-      - id
-      - type
-      - position
-      - variant_group
-      - default_variant
-      properties:
-        id:
-          type: string
-          description: The unique id of the variant group node
-        type:
-          type: string
-          enum:
-          - VariantGroupNode
-        position:
-          $ref: '#/components/schemas/FlowBoardPosition'
-        variant_group:
-          $ref: '#/components/schemas/EntityReference'
-        default_variant:
-          $ref: '#/components/schemas/EntityReference'
-      example:
-        $ref: '#/components/examples/flowBoardVariantGroupNode'
     FlowBoardAnnotationNode:
       title: Flow Board Annotation Node
       type: object
@@ -521,6 +255,117 @@ components:
           $ref: '#/components/schemas/ScreenAnnotationNoteType'
       example:
         $ref: '#/components/examples/flowBoardAnnotationNode'
+    FlowBoardNodeColor:
+      title: Flow Board Node Color
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        r:
+          type: integer
+          description: Red component of the color
+        g:
+          type: integer
+          description: Green component of the color
+        b:
+          type: integer
+          description: Blue component of the color
+        a:
+          type: number
+          description: Alpha component of the color
+      example:
+        $ref: '#/components/examples/flowBoardNodeColor'
+    FlowBoardConnectorLabel:
+      title: Flow Board Connector Label
+      type: object
+      required:
+      - text
+      properties:
+        text:
+          type: string
+          description: Text for the connector label
+        position:
+          type: number
+          description: Percentage based position of the connector label
+        width:
+          type: number
+          description: Width of the connector label
+      example:
+        $ref: '#/components/examples/flowBoardConnectorLabel'
+    FlowBoardVariantGroupNode:
+      title: Flow Board Variant Group Node
+      type: object
+      required:
+      - id
+      - type
+      - position
+      - variant_group
+      - default_variant
+      properties:
+        id:
+          type: string
+          description: The unique id of the variant group node
+        type:
+          type: string
+          enum:
+          - VariantGroupNode
+        position:
+          $ref: '#/components/schemas/FlowBoardPosition'
+        variant_group:
+          $ref: '#/components/schemas/EntityReference'
+        default_variant:
+          $ref: '#/components/schemas/EntityReference'
+      example:
+        $ref: '#/components/examples/flowBoardVariantGroupNode'
+    FlowBoardConnection:
+      title: Flow Board Connection
+      type: object
+      required:
+      - node
+      properties:
+        node:
+          $ref: '#/components/schemas/EntityReference'
+        style:
+          type: string
+          enum:
+          - arrow
+          - point
+        layer_source_id:
+          type: string
+          description: Layer's identifier in the design tool
+        connection_position:
+          $ref: '#/components/schemas/FlowBoardConnectionPosition'
+      example:
+        $ref: '#/components/examples/flowBoardConnection'
+    ColorData:
+      title: Color Data
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        source_id:
+          type: string
+          description: Color's identifier in the design tool
+        r:
+          type: integer
+          description: Red component of the color
+        g:
+          type: integer
+          description: Green component of the color
+        b:
+          type: integer
+          description: Blue component of the color
+        a:
+          type: number
+          description: Alpha component of the color
+      example:
+        $ref: '#/components/examples/colorData'
     FlowBoard:
       title: Flow Board
       type: object
@@ -548,6 +393,29 @@ components:
           description: Number of groups in the board
       example:
         $ref: '#/components/examples/flowBoard'
+    FlowBoardGroup:
+      title: Flow Board Group
+      type: object
+      required:
+      - id
+      - created
+      - name
+      - color
+      properties:
+        id:
+          type: string
+          description: Identifier of the flow board group
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the color was created
+        name:
+          type: string
+          description: Name of the flow board
+        color:
+          $ref: '#/components/schemas/ColorData'
+      example:
+        $ref: '#/components/examples/flowBoardGroup'
     FlowBoardConnectionPosition:
       title: Flow Board Connection Position
       type: object
@@ -566,44 +434,6 @@ components:
           - top
       example:
         $ref: '#/components/examples/flowBoardConnectionPosition'
-    FlowBoardNode:
-      title: Flow Board Node
-      discriminator:
-        propertyName: type
-        mapping:
-          ScreenNode: '#/components/schemas/FlowBoardScreenNode'
-          TextLabelNode: '#/components/schemas/FlowBoardTextNode'
-          VariantGroupNode: '#/components/schemas/FlowBoardVariantGroupNode'
-          ShapeNode: '#/components/schemas/FlowBoardShapeNode'
-          AnnotationNode: '#/components/schemas/FlowBoardAnnotationNode'
-      oneOf:
-      - $ref: '#/components/schemas/FlowBoardScreenNode'
-      - $ref: '#/components/schemas/FlowBoardTextNode'
-      - $ref: '#/components/schemas/FlowBoardVariantGroupNode'
-      - $ref: '#/components/schemas/FlowBoardShapeNode'
-      - $ref: '#/components/schemas/FlowBoardAnnotationNode'
-      x-examples:
-        Board Screen Node:
-          $ref: '#/components/examples/flowBoardScreenNode'
-        Board Text Node:
-          $ref: '#/components/examples/flowBoardTextNode'
-        Board Variant Group Node:
-          $ref: '#/components/examples/flowBoardVariantGroupNode'
-        Board Shape Node:
-          $ref: '#/components/examples/flowBoardShapeNode'
-        Board Annotation Node:
-          $ref: '#/components/examples/flowBoardAnnotationNode'
-    ScreenAnnotationNoteTypeEnum:
-      title: Note Types
-      type: string
-      enum:
-      - Behavior
-      - Requirement
-      - Animation
-      - Accessibility
-      - API
-      - Tracking
-      description: Type of the annotation note
     EntityReference:
       title: Object Reference
       type: object
@@ -615,23 +445,19 @@ components:
           description: Id of the entity
       example:
         $ref: '#/components/examples/entityReference'
-    ScreenAnnotationNoteType:
-      title: Screen Annotation Note Type
+    FlowBoardPosition:
+      title: Flow Board Position
       type: object
       required:
-      - id
-      - name
-      - color
+      - x
+      - y
       properties:
-        id:
-          type: string
-          description: The unique id of the annotation
-        name:
-          $ref: '#/components/schemas/ScreenAnnotationNoteTypeEnum'
-          description: Name of the note type
-        color:
-          $ref: '#/components/schemas/ScreenAnnotationColor'
-          description: Color of the note type
+        x:
+          type: number
+        y:
+          type: number
+      example:
+        $ref: '#/components/examples/flowBoardPosition'
     FlowBoardShapeNode:
       title: Flow Board Shape Node
       type: object
@@ -670,6 +496,137 @@ components:
           $ref: '#/components/schemas/FlowBoardNodeColor'
       example:
         $ref: '#/components/examples/flowBoardShapeNode'
+    ScreenAnnotationNoteType:
+      title: Screen Annotation Note Type
+      type: object
+      required:
+      - id
+      - name
+      - color
+      properties:
+        id:
+          type: string
+          description: The unique id of the annotation
+        name:
+          $ref: '#/components/schemas/ScreenAnnotationNoteTypeEnum'
+          description: Name of the note type
+        color:
+          $ref: '#/components/schemas/ScreenAnnotationColor'
+          description: Color of the note type
+    ScreenAnnotationNoteTypeEnum:
+      title: Note Types
+      type: string
+      enum:
+      - Behavior
+      - Requirement
+      - Animation
+      - Accessibility
+      - API
+      - Tracking
+      description: Type of the annotation note
+    FlowBoardTextNode:
+      title: Flow Board Text Node
+      type: object
+      required:
+      - id
+      - type
+      - position
+      - text
+      - width
+      properties:
+        id:
+          type: string
+          description: The unique id of the text node
+        type:
+          type: string
+          enum:
+          - TextLabelNode
+        position:
+          $ref: '#/components/schemas/FlowBoardPosition'
+        text:
+          type: string
+        width:
+          type: number
+      example:
+        $ref: '#/components/examples/flowBoardTextNode'
+    ErrorResponse:
+      title: Error Response
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: A user readable descriptive message for the error
+        detail:
+          type: string
+          description: A detailed message describing the error
+        code:
+          type: string
+          description: The unique code for the error
+      example:
+        $ref: '#/components/examples/error'
+    FlowBoardNode:
+      title: Flow Board Node
+      discriminator:
+        propertyName: type
+        mapping:
+          ScreenNode: '#/components/schemas/FlowBoardScreenNode'
+          TextLabelNode: '#/components/schemas/FlowBoardTextNode'
+          VariantGroupNode: '#/components/schemas/FlowBoardVariantGroupNode'
+          ShapeNode: '#/components/schemas/FlowBoardShapeNode'
+          AnnotationNode: '#/components/schemas/FlowBoardAnnotationNode'
+      oneOf:
+      - $ref: '#/components/schemas/FlowBoardScreenNode'
+      - $ref: '#/components/schemas/FlowBoardTextNode'
+      - $ref: '#/components/schemas/FlowBoardVariantGroupNode'
+      - $ref: '#/components/schemas/FlowBoardShapeNode'
+      - $ref: '#/components/schemas/FlowBoardAnnotationNode'
+      x-examples:
+        Board Screen Node:
+          $ref: '#/components/examples/flowBoardScreenNode'
+        Board Text Node:
+          $ref: '#/components/examples/flowBoardTextNode'
+        Board Variant Group Node:
+          $ref: '#/components/examples/flowBoardVariantGroupNode'
+        Board Shape Node:
+          $ref: '#/components/examples/flowBoardShapeNode'
+        Board Annotation Node:
+          $ref: '#/components/examples/flowBoardAnnotationNode'
+    FlowBoardConnector:
+      title: Flow Board Connector
+      type: object
+      required:
+      - id
+      - type
+      - start
+      - end
+      properties:
+        id:
+          type: string
+          description: The unique id of the connector
+        type:
+          type: string
+          enum:
+          - SolidLine
+          - DashedLine
+        start:
+          $ref: '#/components/schemas/FlowBoardConnection'
+        end:
+          $ref: '#/components/schemas/FlowBoardConnection'
+        label:
+          $ref: '#/components/schemas/FlowBoardConnectorLabel'
+        color:
+          type: string
+          enum:
+          - yellow
+          - orange
+          - peach
+          - green
+          - turquoise
+          description: Color for the connector
+      example:
+        $ref: '#/components/examples/flowBoardConnector'
     ScreenAnnotationColor:
       title: Screen Annotation Color
       type: object
@@ -696,188 +653,29 @@ components:
           description: Alpha component of the color
       example:
         $ref: '#/components/examples/screenAnnotationColor'
-    FlowBoardPosition:
-      title: Flow Board Position
+    FlowBoardScreenNode:
+      title: Flow Board Screen Node
       type: object
       required:
-      - x
-      - y
+      - id
+      - type
+      - position
+      - screen
       properties:
-        x:
-          type: number
-        y:
-          type: number
-      example:
-        $ref: '#/components/examples/flowBoardPosition'
-    ColorData:
-      title: Color Data
-      type: object
-      required:
-      - r
-      - g
-      - b
-      - a
-      properties:
-        source_id:
+        id:
           type: string
-          description: Color's identifier in the design tool
-        r:
-          type: integer
-          description: Red component of the color
-        g:
-          type: integer
-          description: Green component of the color
-        b:
-          type: integer
-          description: Blue component of the color
-        a:
-          type: number
-          description: Alpha component of the color
-      example:
-        $ref: '#/components/examples/colorData'
-  parameters:
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    flow_board_id:
-      name: flow_board_id
-      in: path
-      description: Flow Board id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    starting_node_id:
-      name: starting_node_id
-      in: query
-      description: Starting node id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    group_id:
-      name: group_id
-      in: query
-      description: Group id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    ending_node_id:
-      name: ending_node_id
-      in: query
-      description: Ending node id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    node_id:
-      name: node_id
-      in: path
-      description: Board node id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    project_id:
-      name: project_id
-      in: path
-      description: Project id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    connector_id:
-      name: connector_id
-      in: path
-      description: Board connector id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-  examples:
-    screenAnnotationNoteType:
-      summary: Screen Annotation Note Type
-      value:
-        id: 6436877c182345f62e94ab8e
-        name: Requirements
-        color:
-          $ref: '#/components/examples/screenAnnotationColor/value'
-    flowBoard:
-      summary: Flow Board
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: Example Flow Board Name
-        number_of_connectors: 5
-        number_of_nodes: 4
-        number_of_groups: 1
-    colorData:
-      summary: Color Data
-      value:
-        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
-        r: 143
-        g: 152
-        b: 5
-        a: 1
-    flowBoardNode:
-      summary: Flow Board Node
-      value:
-        id: 610cd30ff252160033aa5ab9
-        type: ScreenNode
+          description: The unique id of the screen node
+        type:
+          type: string
+          enum:
+          - ScreenNode
+        position:
+          $ref: '#/components/schemas/FlowBoardPosition'
         screen:
-          id: 60019c81b51d170c91de7623
-        position:
-          $ref: '#/components/examples/flowBoardPosition/value'
-    flowBoardNodeColor:
-      summary: Flow Board Node Color
-      value:
-        r: 255
-        g: 255
-        b: 0
-        a: 1
-    flowBoardGroup:
-      summary: Flow Board Group
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        created: 1517184000
-        name: example board group name
-        color:
-          $ref: '#/components/examples/colorData/value'
-    flowBoardTextNode:
-      summary: Flow Board Text Node
-      value:
-        id: 610cd30ff252160033aa5ab9
-        type: TextLabelNode
-        text: Authentication check
-        width: 10
-        position:
-          x: 23
-          y: 45
-    flowBoardConnection:
-      summary: Flow Board Connection
-      value:
-        node:
-          id: 60019c81b51d170c91de7623
-        style: arrow
-        board_connector_position:
-          dotIndex: 23
-          side: left
+          $ref: '#/components/schemas/EntityReference'
+      example:
+        $ref: '#/components/examples/flowBoardScreenNode'
+  examples:
     flowBoardVariantGroupNode:
       summary: Flow Board Variant Group Node
       value:
@@ -890,6 +688,34 @@ components:
         position:
           x: 23
           y: 45
+    flowBoardPosition:
+      summary: Flow Board Position
+      value:
+        x: 23
+        y: 45
+    flowBoardNodeColor:
+      summary: Flow Board Node Color
+      value:
+        r: 255
+        g: 255
+        b: 0
+        a: 1
+    flowBoard:
+      summary: Flow Board
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Example Flow Board Name
+        number_of_connectors: 5
+        number_of_nodes: 4
+        number_of_groups: 1
+    flowBoardGroup:
+      summary: Flow Board Group
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        created: 1517184000
+        name: example board group name
+        color:
+          $ref: '#/components/examples/colorData/value'
     screenAnnotationColor:
       summary: Screen Annotation Color
       value:
@@ -898,34 +724,36 @@ components:
         g: 207
         b: 51
         a: 1
-    flowBoardPosition:
-      summary: Flow Board Position
-      value:
-        x: 23
-        y: 45
-    flowBoardConnectorLabel:
-      summary: Flow Board Connector Label
-      value:
-        text: If sucessful
-        position: 0.5
-        width: 50
-    flowBoardAnnotationNode:
-      summary: Flow Board Annotation Node
+    flowBoardTextNode:
+      summary: Flow Board Text Node
       value:
         id: 610cd30ff252160033aa5ab9
-        type: AnnotationNode
-        text: Example Annotation
-        width: 100
-        height: 100
-        color:
-          $ref: '#/components/examples/flowBoardNodeColor/value'
+        type: TextLabelNode
+        text: Authentication check
+        width: 10
         position:
           x: 23
           y: 45
-        font_size: small
-        font_type: simple
-        note_type:
-          $ref: '#/components/examples/screenAnnotationNoteType/value'
+    screenAnnotationNoteType:
+      summary: Screen Annotation Note Type
+      value:
+        id: 6436877c182345f62e94ab8e
+        name: Requirements
+        color:
+          $ref: '#/components/examples/screenAnnotationColor/value'
+    flowBoardConnectionPosition:
+      summary: Flow Board Connection Position
+      value:
+        dot_index: 10
+        side: left
+    colorData:
+      summary: Color Data
+      value:
+        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
+        r: 143
+        g: 152
+        b: 5
+        a: 1
     flowBoardConnector:
       summary: Flow Board Connector
       value:
@@ -948,28 +776,6 @@ components:
             position: 0.5
             width: 50
             color: orange
-    flowBoardScreenNode:
-      summary: Flow Board Screen Node
-      value:
-        id: 610cd30ff252160033aa5ab9
-        type: ScreenNode
-        screen:
-          id: 60019c81b51d170c91de7623
-        position:
-          $ref: '#/components/examples/flowBoardPosition/value'
-    flowBoardConnectionPosition:
-      summary: Flow Board Connection Position
-      value:
-        dot_index: 10
-        side: left
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-    error:
-      summary: Error
-      value:
-        message: Project is not found
     flowBoardShapeNode:
       summary: Flow Board Shape Node
       value:
@@ -984,6 +790,200 @@ components:
         position:
           x: 23
           y: 45
+    flowBoardAnnotationNode:
+      summary: Flow Board Annotation Node
+      value:
+        id: 610cd30ff252160033aa5ab9
+        type: AnnotationNode
+        text: Example Annotation
+        width: 100
+        height: 100
+        color:
+          $ref: '#/components/examples/flowBoardNodeColor/value'
+        position:
+          x: 23
+          y: 45
+        font_size: small
+        font_type: simple
+        note_type:
+          $ref: '#/components/examples/screenAnnotationNoteType/value'
+    flowBoardScreenNode:
+      summary: Flow Board Screen Node
+      value:
+        id: 610cd30ff252160033aa5ab9
+        type: ScreenNode
+        screen:
+          id: 60019c81b51d170c91de7623
+        position:
+          $ref: '#/components/examples/flowBoardPosition/value'
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    flowBoardNode:
+      summary: Flow Board Node
+      value:
+        id: 610cd30ff252160033aa5ab9
+        type: ScreenNode
+        screen:
+          id: 60019c81b51d170c91de7623
+        position:
+          $ref: '#/components/examples/flowBoardPosition/value'
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    flowBoardConnectorLabel:
+      summary: Flow Board Connector Label
+      value:
+        text: If sucessful
+        position: 0.5
+        width: 50
+    flowBoardConnection:
+      summary: Flow Board Connection
+      value:
+        node:
+          id: 60019c81b51d170c91de7623
+        style: arrow
+        board_connector_position:
+          dotIndex: 23
+          side: left
+  responses:
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
+    projectOrFlowBoardNotFound:
+      description: Project or flow board not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Flow Board not found:
+              value:
+                message: Flow Board not found
+    projectArchived:
+      description: Project archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project archived response:
+              value:
+                message: Project is archived
+    projectOrFlowBoardConnectorNotFound:
+      description: Project or flow board connector not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Flow Board connector not found:
+              value:
+                message: Flow Board connector not found
+    projectOrFlowBoardNodeNotFound:
+      description: Project or flow board node not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Flow Board node not found:
+              value:
+                message: Flow Board node not found
+  parameters:
+    group_id:
+      name: group_id
+      in: query
+      description: Group id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    starting_node_id:
+      name: starting_node_id
+      in: query
+      description: Starting node id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    node_id:
+      name: node_id
+      in: path
+      description: Board node id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    flow_board_id:
+      name: flow_board_id
+      in: path
+      description: Flow Board id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    ending_node_id:
+      name: ending_node_id
+      in: query
+      description: Ending node id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    connector_id:
+      name: connector_id
+      in: path
+      description: Board connector id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
   securitySchemes:
     OAuth2:
       type: oauth2

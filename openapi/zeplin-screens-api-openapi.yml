@@ -715,155 +715,39 @@ paths:
           $ref: '#/components/responses/projectArchived'
 components:
   examples:
-    layerFill:
-      summary: Layer Fill
+    gradient:
+      summary: Gradient
       value:
-        type: color
-        color:
-          $ref: '#/components/examples/colorData/value'
-    resourceStyleguideSource:
-      summary: Source Styleguide
-      value:
-        id: 5db981be9df2b3e1bfa19ef2
-        name: Discovery 1
-        platform: web
-        parent:
-          id: 5db981be9df2b3e1bfa19ef2
-    screen:
-      summary: Screen
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: Login
-        description: Login screen for HAL 9000
-        tags:
-        - mobile
-        - login
-        image:
-          $ref: '#/components/examples/snapshotImage/value'
-        created: 1517184000
-        updated: 1572347818
-        number_of_notes: 7
-        number_of_versions: 4
-        number_of_annotations: 2
-        section:
-          id: 5db81e6e6a4462065f04d932
-        variant:
-          value: Default
-          group:
-            id: 607437cd62d37a0bc869fc63
-            name: Login
+        type: linear
+        color_stops:
+        - position: 0
+          color:
+            r: 227
+            g: 9
+            b: 9
+            a: 1
+        - position: 1
+          color:
+            r: 65
+            g: 65
+            b: 65
+            a: 1
     linkDestination:
       summary: Link Destination
       value:
         name: Artboard
         type: screen
-    versionCommitColor:
-      summary: Version Commit Color
+    componentVariantProperty:
+      summary: Component Variant Property
       value:
-        r: 145
-        g: 223
-        b: 33
-        a: 1
-    component:
-      summary: Component
+        id: 60422281c96b47c3be1a912f
+        name: Type
+        value: Primary
+    resourceSourceForProject:
+      summary: Source for Project
       value:
-        id: 5dbad85a76ea51c1f35b6f69
-        name: Button
-        description: Generic button for HAL 9000
-        image:
-          $ref: '#/components/examples/snapshotImage/value'
-        created: 1517184000
-        updated: 1572347818
-        section:
-          $ref: '#/components/examples/componentSectionReference/value'
-        source:
-          $ref: '#/components/examples/resourceSourceForProject/value'
-        variant_properties:
-        - $ref: '#/components/examples/componentVariantProperty/value'
-    hotspotBoundingRectangle:
-      summary: Hotspot Bounding Rectangle
-      value:
-        x: 0
-        y: 0
-        width: 40
-        height: 40
-    link:
-      summary: Link
-      value:
-        rect:
-          x: 0
-          y: 0
-          width: 40
-          height: 40
-        destination:
-          $ref: '#/components/examples/linkDestination/value'
-    screenAnnotationColor:
-      summary: Screen Annotation Color
-      value:
-        name: yellow
-        r: 254
-        g: 207
-        b: 51
-        a: 1
-    screenNotePosition:
-      value:
-        x: 0.93
-        y: 0.1
-        x_start: 0.9
-        y_start: 0.05
-    screenVariantGroup:
-      summary: Screen Variant Group
-      value:
-        id: 607437cd62d37a0bc869fc63
-        name: Login
-        variants:
-        - screen_id: 5dbad85a76ea51c1f35b6f69
-          value: Default
-        - screen_id: 6074389b7bf31ebf66c8f09d
-          value: Loading
-        - screen_id: 607438a0351a38c53598671c
-          value: Error
-    verticalGrid:
-      summary: Vertical Grid
-      value:
-        column_width: 60
-        number_of_cols: 12
-        gutters_on_outside: true
-        gutter_width: 20
-    screenVersion:
-      summary: Screen Version
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        creator:
-          $ref: '#/components/examples/user/value'
-        commit:
-          $ref: '#/components/examples/versionCommit/value'
-        image_url: http://placekitten.com/2560/1920
-        thumbnails:
-          $ref: '#/components/examples/thumbnails/value'
-        width: 2560
-        height: 1920
-        density_scale: 2
-        source: figma/value
-        source_file_url: https://www.figma.com/file/fileId/session?node-id=nodeId
-        background_color:
-          $ref: '#/components/examples/colorData/value'
-        links:
-        - $ref: '#/components/examples/link/value'
-        layers:
-        - $ref: '#/components/examples/layer/value'
-        assets:
-        - $ref: '#/components/examples/asset/value'
-    layerShadow:
-      summary: Layer Shadow
-      value:
-        type: outer
-        offset_x: 0
-        offset_y: 2
-        blur_radius: 4
-        spread: 0
-        color:
-          $ref: '#/components/examples/colorData/value'
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
     versionCommit:
       summary: Version Commit
       value:
@@ -872,19 +756,12 @@ components:
           $ref: '#/components/examples/user/value'
         color:
           $ref: '#/components/examples/versionCommitColor/value'
-    asset:
-      summary: Asset
+    screenNotePosition:
       value:
-        layer_source_id: 55CC0025-C3C1-429E-92B2-610D56368473
-        display_name: rectangle
-        layer_name: Rectangle
-        contents:
-        - $ref: '#/components/examples/assetContent/value'
-    layerTextStyleRange:
-      summary: Layer Text Style Range
-      value:
-        location: 0
-        length: 14
+        x: 0.93
+        y: 0.1
+        x_start: 0.9
+        y_start: 0.05
     layer:
       summary: Layer
       value:
@@ -912,100 +789,19 @@ components:
         border_radius: 0
         rotation: 0
         exportable: false
-    assetContent:
-      summary: Asset Content
+    layerTextStyleRange:
+      summary: Layer Text Style Range
       value:
-        url: http://placekitten.com/100/200
-        format: png
-        density: 1
-    layerBorder:
-      summary: Layer Border
+        location: 0
+        length: 14
+    screenNoteColor:
+      summary: Screen Note Color
       value:
-        thickness: 1
-        position: inside
-        fill:
-          $ref: '#/components/examples/layerFill/value'
-    componentVariantProperty:
-      summary: Component Variant Property
-      value:
-        id: 60422281c96b47c3be1a912f
-        name: Type
-        value: Primary
-    user:
-      summary: User
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
-    screenAnnotationNoteType:
-      summary: Screen Annotation Note Type
-      value:
-        id: 6436877c182345f62e94ab8e
-        name: Requirements
-        color:
-          $ref: '#/components/examples/screenAnnotationColor/value'
-    screenAnnotation:
-      summary: Screen Annotation
-      value:
-        id: 642dbd0527586e8ea06dc2d7
-        content: The button should be red.
-        type:
-          $ref: '#/components/examples/screenAnnotationNoteType/value'
-        position:
-          $ref: '#/components/examples/screenAnnotationPosition/value'
-        creator:
-          $ref: '#/components/examples/user/value'
-        updated_by:
-          $ref: '#/components/examples/user/value'
-        updated: 1680719128
-        created: 1680719128
-    boundingRectangle:
-      summary: Bounding Rectangle
-      value:
-        x: 0
-        y: 0
-        width: 40
-        height: 40
-        absolute:
-          $ref: '#/components/examples/layerPosition/value'
-    layerTextStyle:
-      summary: Layer
-      value:
-        range:
-          $ref: '#/components/examples/layerTextStyleRange/value'
-        style:
-          $ref: '#/components/examples/textStyleData/value'
-    horizontalGrid:
-      summary: Horizontal Grid
-      value:
-        number_of_rows: 6
-        gutter_height: 12
-        row_height: 60
-    colorData:
-      summary: Color Data
-      value:
-        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
-        r: 143
-        g: 152
-        b: 5
+        name: yellow
+        r: 254
+        g: 207
+        b: 51
         a: 1
-    resourceSourceForStyleguide:
-      summary: Source for Styleguide
-      value:
-        styleguide:
-          $ref: '#/components/examples/resourceStyleguideSource/value'
-    grid:
-      summary: Grid
-      value:
-        horizontal_offset: 0
-        vertical_offset: 0
-        vertical:
-          $ref: '#/components/examples/verticalGrid/value'
-        horizontal:
-          $ref: '#/components/examples/horizontalGrid/value'
     reaction:
       summary: Reaction
       value:
@@ -1014,35 +810,48 @@ components:
         unicode: 👍
         users:
         - $ref: '#/components/examples/user/value'
-    layerBlur:
-      summary: Layer Blur
+    component:
+      summary: Component
       value:
-        type: gaussian
-        radius: 10
-    resourceSourceForProject:
-      summary: Source for Project
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Button
+        description: Generic button for HAL 9000
+        image:
+          $ref: '#/components/examples/snapshotImage/value'
+        created: 1517184000
+        updated: 1572347818
+        section:
+          $ref: '#/components/examples/componentSectionReference/value'
+        source:
+          $ref: '#/components/examples/resourceSourceForProject/value'
+        variant_properties:
+        - $ref: '#/components/examples/componentVariantProperty/value'
+    hotspotBoundingRectangle:
+      summary: Hotspot Bounding Rectangle
       value:
-        project:
-          $ref: '#/components/examples/resourceProjectSource/value'
-    textStyleData:
-      summary: Layer Text Style
-      value:
-        postscript_name: HelveticaNeue-Bold
-        font_family: HelveticaNeue
-        font_size: 24
-        font_weight: 700
-        font_style: normal
-        line_height: 24
-        font_stretch: 1
-        text_align: left
-        color:
-          $ref: '#/components/examples/colorData/value'
+        x: 0
+        y: 0
+        width: 40
+        height: 40
     colorStop:
       summary: Color Stop
       value:
         position: 0
         color:
           $ref: '#/components/examples/colorData/value'
+    thumbnails:
+      summary: Thumbnails
+      value:
+        small: http://placekitten.com/256/256
+        medium: http://placekitten.com/512/512
+        large: http://placekitten.com/1024/1024
+    screenAnnotationNoteType:
+      summary: Screen Annotation Note Type
+      value:
+        id: 6436877c182345f62e94ab8e
+        name: Requirements
+        color:
+          $ref: '#/components/examples/screenAnnotationColor/value'
     snapshotImage:
       summary: Snapshot Image
       value:
@@ -1051,31 +860,61 @@ components:
         original_url: http://placekitten.com/2560/1920
         thumbnails:
           $ref: '#/components/examples/thumbnails/value'
-    resourceProjectSource:
-      summary: Source Project
+    screenSection:
+      summary: Screen Section
       value:
         id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        platform: web
-        linked_styleguide:
-          id: 5db981be9df2b3e1bfa19ef2
-    gradient:
-      summary: Gradient
+        created: 1517184000
+        name: Radar
+        parent:
+          id: 5db81e73e1e36ee19f138c1b
+    entityReference:
+      summary: Object Reference
       value:
-        type: linear
-        color_stops:
-        - position: 0
-          color:
-            r: 227
-            g: 9
-            b: 9
-            a: 1
-        - position: 1
-          color:
-            r: 65
-            g: 65
-            b: 65
-            a: 1
+        id: 5dbad85a76ea51c1f35b6f69
+    screenVersion:
+      summary: Screen Version
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        creator:
+          $ref: '#/components/examples/user/value'
+        commit:
+          $ref: '#/components/examples/versionCommit/value'
+        image_url: http://placekitten.com/2560/1920
+        thumbnails:
+          $ref: '#/components/examples/thumbnails/value'
+        width: 2560
+        height: 1920
+        density_scale: 2
+        source: figma/value
+        source_file_url: https://www.figma.com/file/fileId/session?node-id=nodeId
+        background_color:
+          $ref: '#/components/examples/colorData/value'
+        links:
+        - $ref: '#/components/examples/link/value'
+        layers:
+        - $ref: '#/components/examples/layer/value'
+        assets:
+        - $ref: '#/components/examples/asset/value'
+    screenVariantGroup:
+      summary: Screen Variant Group
+      value:
+        id: 607437cd62d37a0bc869fc63
+        name: Login
+        variants:
+        - screen_id: 5dbad85a76ea51c1f35b6f69
+          value: Default
+        - screen_id: 6074389b7bf31ebf66c8f09d
+          value: Loading
+        - screen_id: 607438a0351a38c53598671c
+          value: Error
+    verticalGrid:
+      summary: Vertical Grid
+      value:
+        column_width: 60
+        number_of_cols: 12
+        gutters_on_outside: true
+        gutter_width: 20
     screenVersionSummary:
       summary: Screen Version Summary
       value:
@@ -1096,23 +935,6 @@ components:
           $ref: '#/components/examples/colorData/value'
         links:
         - $ref: '#/components/examples/link/value'
-    thumbnails:
-      summary: Thumbnails
-      value:
-        small: http://placekitten.com/256/256
-        medium: http://placekitten.com/512/512
-        large: http://placekitten.com/1024/1024
-    screenAnnotationPosition:
-      summary: Screen Annotation Position
-      value:
-        x: 0.93
-        y: 0.1
-    componentSectionReference:
-      summary: Component
-      value:
-        id: 5db81e6e6a4462065f04d932
-        group:
-          id: 507f1f77bcf86cd799439011
     screenNoteComment:
       summary: Screen Note Comment
       value:
@@ -1124,6 +946,241 @@ components:
         reactions:
         - $ref: '#/components/examples/reaction/value'
         screen_version_id: 5dbad85a89ea51c1f35bcfff
+    layerFill:
+      summary: Layer Fill
+      value:
+        type: color
+        color:
+          $ref: '#/components/examples/colorData/value'
+    assetContent:
+      summary: Asset Content
+      value:
+        url: http://placekitten.com/100/200
+        format: png
+        density: 1
+    horizontalGrid:
+      summary: Horizontal Grid
+      value:
+        number_of_rows: 6
+        gutter_height: 12
+        row_height: 60
+    link:
+      summary: Link
+      value:
+        rect:
+          x: 0
+          y: 0
+          width: 40
+          height: 40
+        destination:
+          $ref: '#/components/examples/linkDestination/value'
+    resourceProjectSource:
+      summary: Source Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    user:
+      summary: User
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: 5d9caaecb4a3fa9bc9718686@user.zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    screenNote:
+      summary: Screen Note
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        created: 1572347818
+        order: 1
+        status: open
+        position:
+          $ref: '#/components/examples/screenNotePosition/value'
+        color:
+          name: yellow
+          r: 254
+          g: 207
+          b: 51
+          a: 1
+        creator:
+          $ref: '#/components/examples/user/value'
+        comments:
+        - $ref: '#/components/examples/screenNoteComment/value'
+    me:
+      summary: My user
+      value:
+        id: 5d9caaecb4a3fa9bc9718686
+        email: zo@zeplin.io
+        username: zozo
+        emotar: 🍎
+        avatar: http://placekitten.com/200/300
+        last_seen: 1616739240
+    textStyleData:
+      summary: Layer Text Style
+      value:
+        postscript_name: HelveticaNeue-Bold
+        font_family: HelveticaNeue
+        font_size: 24
+        font_weight: 700
+        font_style: normal
+        line_height: 24
+        font_stretch: 1
+        text_align: left
+        color:
+          $ref: '#/components/examples/colorData/value'
+    screenAnnotation:
+      summary: Screen Annotation
+      value:
+        id: 642dbd0527586e8ea06dc2d7
+        content: The button should be red.
+        type:
+          $ref: '#/components/examples/screenAnnotationNoteType/value'
+        position:
+          $ref: '#/components/examples/screenAnnotationPosition/value'
+        creator:
+          $ref: '#/components/examples/user/value'
+        updated_by:
+          $ref: '#/components/examples/user/value'
+        updated: 1680719128
+        created: 1680719128
+    resourceStyleguideSource:
+      summary: Source Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        parent:
+          id: 5db981be9df2b3e1bfa19ef2
+    layerBlur:
+      summary: Layer Blur
+      value:
+        type: gaussian
+        radius: 10
+    asset:
+      summary: Asset
+      value:
+        layer_source_id: 55CC0025-C3C1-429E-92B2-610D56368473
+        display_name: rectangle
+        layer_name: Rectangle
+        contents:
+        - $ref: '#/components/examples/assetContent/value'
+    screenAnnotationColor:
+      summary: Screen Annotation Color
+      value:
+        name: yellow
+        r: 254
+        g: 207
+        b: 51
+        a: 1
+    colorData:
+      summary: Color Data
+      value:
+        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
+        r: 143
+        g: 152
+        b: 5
+        a: 1
+    layerPosition:
+      summary: Position
+      value:
+        x: 0
+        y: 0
+    componentSectionReference:
+      summary: Component
+      value:
+        id: 5db81e6e6a4462065f04d932
+        group:
+          id: 507f1f77bcf86cd799439011
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    versionCommitColor:
+      summary: Version Commit Color
+      value:
+        r: 145
+        g: 223
+        b: 33
+        a: 1
+    layerBorder:
+      summary: Layer Border
+      value:
+        thickness: 1
+        position: inside
+        fill:
+          $ref: '#/components/examples/layerFill/value'
+    screenAnnotationPosition:
+      summary: Screen Annotation Position
+      value:
+        x: 0.93
+        y: 0.1
+    boundingRectangle:
+      summary: Bounding Rectangle
+      value:
+        x: 0
+        y: 0
+        width: 40
+        height: 40
+        absolute:
+          $ref: '#/components/examples/layerPosition/value'
+    grid:
+      summary: Grid
+      value:
+        horizontal_offset: 0
+        vertical_offset: 0
+        vertical:
+          $ref: '#/components/examples/verticalGrid/value'
+        horizontal:
+          $ref: '#/components/examples/horizontalGrid/value'
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
+    layerShadow:
+      summary: Layer Shadow
+      value:
+        type: outer
+        offset_x: 0
+        offset_y: 2
+        blur_radius: 4
+        spread: 0
+        color:
+          $ref: '#/components/examples/colorData/value'
+    screen:
+      summary: Screen
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+        name: Login
+        description: Login screen for HAL 9000
+        tags:
+        - mobile
+        - login
+        image:
+          $ref: '#/components/examples/snapshotImage/value'
+        created: 1517184000
+        updated: 1572347818
+        number_of_notes: 7
+        number_of_versions: 4
+        number_of_annotations: 2
+        section:
+          id: 5db81e6e6a4462065f04d932
+        variant:
+          value: Default
+          group:
+            id: 607437cd62d37a0bc869fc63
+            name: Login
+    layerTextStyle:
+      summary: Layer
+      value:
+        range:
+          $ref: '#/components/examples/layerTextStyleRange/value'
+        style:
+          $ref: '#/components/examples/textStyleData/value'
     componentVersion:
       summary: Component Version
       value:
@@ -1147,77 +1204,65 @@ components:
         - $ref: '#/components/examples/layer/value'
         assets:
         - $ref: '#/components/examples/asset/value'
-    screenNoteColor:
-      summary: Screen Note Color
-      value:
-        name: yellow
-        r: 254
-        g: 207
-        b: 51
-        a: 1
-    screenSection:
-      summary: Screen Section
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        created: 1517184000
-        name: Radar
-        parent:
-          id: 5db81e73e1e36ee19f138c1b
-    layerPosition:
-      summary: Position
-      value:
-        x: 0
-        y: 0
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-    screenNote:
-      summary: Screen Note
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-        created: 1572347818
-        order: 1
-        status: open
-        position:
-          $ref: '#/components/examples/screenNotePosition/value'
-        color:
-          name: yellow
-          r: 254
-          g: 207
-          b: 51
-          a: 1
-        creator:
-          $ref: '#/components/examples/user/value'
-        comments:
-        - $ref: '#/components/examples/screenNoteComment/value'
-    error:
-      summary: Error
-      value:
-        message: Project is not found
-    me:
-      summary: My user
-      value:
-        id: 5d9caaecb4a3fa9bc9718686
-        email: zo@zeplin.io
-        username: zozo
-        emotar: 🍎
-        avatar: http://placekitten.com/200/300
-        last_seen: 1616739240
   responses:
-    notCommentAuthorOrProjectArchived:
-      description: Not the author of the comment or project archived
+    notAProjectMemberOrArchivedOrScreenExists:
+      description: Not a project member or project archived or screen with name already exists
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Not the author of the comment:
+            Not a member:
               value:
-                message: User is not the author of the comment
+                message: User is not a member of the project
             Project is archived:
               value:
                 message: Project is archived
+            Screen with name already exists:
+              value:
+                message: Screen with name "My Screen" already exists in the project. You can create a new version for this screen instead.
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
+    projectScreenOrVersionNotFound:
+      description: Project, screen or version not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Screen not found:
+              value:
+                message: Screen not found
+            Version not found:
+              value:
+                message: Version not found
+    notAProjectMemberOrArchivedOrTagIsLocked:
+      description: Not a project member or project archived or tag is locked
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a member:
+              value:
+                message: User is not a member of the project
+            Project is archived:
+              value:
+                message: Project is archived
+            Tag is locked:
+              value:
+                message: Tag is locked
     projectScreenNoteOrCommentNotFound:
       description: Project, screen, note or comment not found
       content:
@@ -1237,95 +1282,16 @@ components:
             Comment not found:
               value:
                 message: Comment not found
-    notAProjectMemberOrArchivedOrTagIsLocked:
-      description: Not a project member or project archived or tag is locked
+    cannotGetVersionInProject:
+      description: Cannot get version in project
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Not a member:
+            Cannot get version in project:
               value:
-                message: User is not a member of the project
-            Project is archived:
-              value:
-                message: Project is archived
-            Tag is locked:
-              value:
-                message: Tag is locked
-    projectScreenOrVersionNotFound:
-      description: Project, screen or version not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found:
-              value:
-                message: Project not found
-            Screen not found:
-              value:
-                message: Screen not found
-            Version not found:
-              value:
-                message: Version not found
-    noContent:
-      description: Successful response
-    notAProjectMemberOrArchivedOrScreenExists:
-      description: Not a project member or project archived or screen with name already exists
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Not a member:
-              value:
-                message: User is not a member of the project
-            Project is archived:
-              value:
-                message: Project is archived
-            Screen with name already exists:
-              value:
-                message: Screen with name "My Screen" already exists in the project. You can create a new version for this screen instead.
-    projectOrScreenVariantNotFound:
-      description: Project or screen variant not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found:
-              value:
-                message: Project not found
-            Screen variant not found:
-              value:
-                message: Screen variant not found
-    cannotUpdateScreen:
-      description: User cannot update the screen
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            User cannot update the screen:
-              value:
-                message: User with role alien in a project cannot update the screen
-    unproccessableEntityUpdateComment:
-      description: Not a project member, project archived or comment author is not the same errors
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Not a project member:
-              value:
-                message: User is not a member of the project
-            Project archived:
-              value:
-                message: Project is archived
-            Comment author is not the same:
-              value:
-                message: User is not the author of the comment
+                message: User with role alien in a project cannot get version
     notAnnotationCreatorOrProjectArchived:
       description: Not the creator of the annotation or project archived
       content:
@@ -1339,19 +1305,16 @@ components:
             Project is archived:
               value:
                 message: Project is archived
-    notNoteCreatorOrProjectArchived:
-      description: Not the creator of the note or project archived
+    cannotCreateAScreenVersion:
+      description: User cannot create a screen version
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Not the creator of the note:
+            User cannot create a screen version:
               value:
-                message: User is not the creator of the note
-            Project is archived:
-              value:
-                message: Project is archived
+                message: Only editors (or higher) can create a screen version in a project
     notAProjectMemberOrArchived:
       description: Not a project member or project archived
       content:
@@ -1391,6 +1354,86 @@ components:
             Annotation not found:
               value:
                 message: Annotation not found
+    unproccessableEntityUpdateComment:
+      description: Not a project member, project archived or comment author is not the same errors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not a project member:
+              value:
+                message: User is not a member of the project
+            Project archived:
+              value:
+                message: Project is archived
+            Comment author is not the same:
+              value:
+                message: User is not the author of the comment
+    projectOrScreenVariantNotFound:
+      description: Project or screen variant not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Screen variant not found:
+              value:
+                message: Screen variant not found
+    projectOrScreenNotFound:
+      description: Project or screen not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Screen not found:
+              value:
+                message: Screen not found
+    noContent:
+      description: Successful response
+    cannotUpdateScreen:
+      description: User cannot update the screen
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            User cannot update the screen:
+              value:
+                message: User with role alien in a project cannot update the screen
+    notCommentAuthorOrProjectArchived:
+      description: Not the author of the comment or project archived
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Not the author of the comment:
+              value:
+                message: User is not the author of the comment
+            Project is archived:
+              value:
+                message: Project is archived
+    projectOrScreenSectionNotFound:
+      description: Project or screen section not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found:
+              value:
+                message: Project not found
+            Screen section not found:
+              value:
+                message: Screen section not found
     cannotCreateAScreen:
       description: User cannot create a screen
       content:
@@ -1417,80 +1460,20 @@ components:
             Note not found:
               value:
                 message: Note not found
-    projectOrScreenSectionNotFound:
-      description: Project or screen section not found
+    notNoteCreatorOrProjectArchived:
+      description: Not the creator of the note or project archived
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
           examples:
-            Project not found:
+            Not the creator of the note:
               value:
-                message: Project not found
-            Screen section not found:
+                message: User is not the creator of the note
+            Project is archived:
               value:
-                message: Screen section not found
-    projectNotFound:
-      description: Project not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found response:
-              value:
-                message: Project not found
-    cannotGetVersionInProject:
-      description: Cannot get version in project
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Cannot get version in project:
-              value:
-                message: User with role alien in a project cannot get version
-    projectOrScreenNotFound:
-      description: Project or screen not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found:
-              value:
-                message: Project not found
-            Screen not found:
-              value:
-                message: Screen not found
-    cannotCreateAScreenVersion:
-      description: User cannot create a screen version
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            User cannot create a screen version:
-              value:
-                message: Only editors (or higher) can create a screen version in a project
+                message: Project is archived
   parameters:
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    filter_by_section_id:
-      name: section_id
-      in: query
-      description: Filter by section id
-      required: false
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
     include_latest_version:
       name: include_latest_version
       in: query
@@ -1499,21 +1482,10 @@ components:
       schema:
         type: boolean
         default: false
-    sort_screens:
-      name: sort
-      in: query
-      description: Sort screens by their `section` or their `created` date
-      required: false
-      schema:
-        type: string
-        default: created
-        enum:
-        - section
-        - created
-    screen_annotation_id:
-      name: annotation_id
+    screen_id:
+      name: screen_id
       in: path
-      description: Screen annotation id
+      description: Screen id
       required: true
       schema:
         type: string
@@ -1526,40 +1498,6 @@ components:
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
-    screen_note_id:
-      name: note_id
-      in: path
-      description: Screen note id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    screen_section_id:
-      name: section_id
-      in: path
-      description: Screen section id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    screen_variant_id:
-      name: variant_id
-      in: path
-      description: Screen variant id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
     screen_comment_id:
       name: comment_id
       in: path
@@ -1568,10 +1506,10 @@ components:
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
-    screen_id:
-      name: screen_id
+    project_id:
+      name: project_id
       in: path
-      description: Screen id
+      description: Project id
       required: true
       schema:
         type: string
@@ -1584,60 +1522,700 @@ components:
       schema:
         type: boolean
         default: false
-    project_id:
-      name: project_id
+    filter_by_section_id:
+      name: section_id
+      in: query
+      description: Filter by section id
+      required: false
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    screen_variant_id:
+      name: variant_id
       in: path
-      description: Project id
+      description: Screen variant id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    screen_section_id:
+      name: section_id
+      in: path
+      description: Screen section id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    screen_annotation_id:
+      name: annotation_id
+      in: path
+      description: Screen annotation id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    sort_screens:
+      name: sort
+      in: query
+      description: Sort screens by their `section` or their `created` date
+      required: false
+      schema:
+        type: string
+        default: created
+        enum:
+        - section
+        - created
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    screen_note_id:
+      name: note_id
+      in: path
+      description: Screen note id
       required: true
       schema:
         type: string
         pattern: /^[0-9a-f]{24}$/i
   schemas:
-    ScreenCreateBody:
-      title: Screen Create Body
+    LayerPosition:
+      title: Layer Position
       type: object
+      required:
+      - x
+      - y
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+      example:
+        $ref: '#/components/examples/layerPosition'
+    LayerBlur:
+      title: Layer Blur
+      type: object
+      description: Blur applied to the layer
+      properties:
+        type:
+          type: string
+          enum:
+          - gaussian
+          - background
+          description: Type of the blur
+        radius:
+          type: number
+          description: Radius of the blur
+      example:
+        $ref: '#/components/examples/layerBlur'
+    LayerBorder:
+      title: Layer Border
+      type: object
+      properties:
+        position:
+          type: string
+          enum:
+          - center
+          - inside
+          - outside
+          description: Position of the border
+        thickness:
+          type: number
+          description: Thickness of the border
+        fill:
+          $ref: '#/components/schemas/LayerFill'
+      example:
+        $ref: '#/components/examples/layerBorder'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
+    LayerShadow:
+      title: Layer Shadow
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - outer
+          - inner
+          description: Type of the shadow
+        offset_x:
+          type: number
+          description: Horizontal offset of the shadow
+        offset_y:
+          type: number
+          description: Vertical offset of the shadow
+        blur_radius:
+          type: number
+          description: Blur radius of the shadow
+        spread:
+          type: number
+          description: Spread of the shadow
+        color:
+          $ref: '#/components/schemas/ColorData'
+      example:
+        $ref: '#/components/examples/layerShadow'
+    Gradient:
+      title: Gradient
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+          - linear
+          - radial
+          - angular
+          description: Type of the gradient
+        angle:
+          type: number
+          description: Angle of the gradient
+        scale:
+          type: number
+          description: Scale of the gradient
+        color_stops:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColorStop'
+        opacity:
+          type: number
+          description: Opacity of the gradient
+      example:
+        $ref: '#/components/examples/gradient'
+    TextStyleData:
+      title: Text Style Data
+      type: object
+      required:
+      - postscript_name
+      - font_family
+      - font_size
+      - font_weight
+      - font_style
+      - font_stretch
+      properties:
+        postscript_name:
+          type: string
+          description: PostScript name of the text style, e.g. Roboto-Regular
+        font_family:
+          type: string
+          description: Font family of the text style, e.g. Roboto, Arial
+        font_size:
+          type: number
+          description: Font size of the text style
+        font_weight:
+          type: number
+          description: Font weight of the text style, e.g. 500, 700
+        font_style:
+          type: string
+          description: Font style of the text style, e.g. italic, oblique
+        font_stretch:
+          type: number
+          description: Font stretch form of the text style, e.g. 0.75, 1.00
+        line_height:
+          type: number
+          description: Minimum height of a line for the text style
+        letter_spacing:
+          type: number
+          description: Spacing between letters
+        text_align:
+          type: string
+          description: Horizontal alignment of the text style, left, right, center, or justify
+        color:
+          $ref: '#/components/schemas/ColorData'
+      example:
+        $ref: '#/components/examples/textStyleData'
+    ScreenAnnotationUpdateBody:
+      title: Screen Annotation Update Body
+      type: object
+      properties:
+        content:
+          type: string
+          description: Content of the annotation
+        position:
+          $ref: '#/components/schemas/ScreenAnnotationPosition'
+        type:
+          type: string
+          description: The unique id of the annotation type
+    LinkDestination:
+      title: Link Destination
+      type: object
+      required:
+      - name
+      - type
       properties:
         name:
           type: string
-          description: Name of the screen
-        image:
-          type: string
-          format: binary
-          description: 'Binary data of the screen image.
-
-
-            The image has to be in JPEG or PNG format, and its size cannot exceed 5MB.
-
-            '
-          x-valid-types:
-          - jpeg
-          - png
-        description:
-          type: string
-          description: Description for the screen
-        commit_message:
-          type: string
-          description: Commit message for the screen version
-        commit_color:
+        type:
           type: string
           enum:
-          - yellow
-          - orange
-          - peach
-          - green
-          - turquoise
-          description: Commit color for the screen version
-        tags:
+          - component
+          - previous
+          description: Type of the link (`component` or `previous`)
+      example:
+        $ref: '#/components/examples/linkDestination'
+    BoundingRectangle:
+      title: Bounding Rectangle
+      type: object
+      required:
+      - width
+      - height
+      - x
+      - y
+      - absolute
+      properties:
+        width:
+          type: integer
+        height:
+          type: integer
+        x:
+          type: number
+        y:
+          type: number
+        absolute:
+          $ref: '#/components/schemas/LayerPosition'
+          description: Absolute position of the bounding rectangle
+      example:
+        $ref: '#/components/examples/boundingRectangle'
+    ScreenAnnotationPosition:
+      title: Screen Annotation Position
+      description: Position of the annotation with respect to top left corner. Values are normalized in [0, 1]
+      type: object
+      required:
+      - x
+      - y
+      properties:
+        x:
+          type: number
+        y:
+          type: number
+      example:
+        $ref: '#/components/examples/screenAnnotationPosition'
+    ScreenNoteCreateBody:
+      title: Screen Note Create Body
+      type: object
+      properties:
+        content:
+          type: string
+          description: Content of the first comment of the note
+        position:
+          title: position
+          $ref: '#/components/schemas/ScreenNotePosition'
+        color:
+          $ref: '#/components/schemas/ScreenNoteColorNameEnum'
+      required:
+      - content
+      - position
+      - color
+    ScreenVariant:
+      title: Screen Variant
+      type: object
+      required:
+      - value
+      - group
+      properties:
+        value:
+          type: string
+          description: Value for this variant of the screen
+        group:
+          $ref: '#/components/schemas/ScreenVariantGroupReference'
+    ScreenVersionSummary:
+      title: Screen Version Summary
+      type: object
+      required:
+      - id
+      - created
+      - source
+      - width
+      - height
+      - density_scale
+      - links
+      - image_url
+      - thumbnails
+      properties:
+        id:
+          type: string
+          description: The unique id of the version
+        creator:
+          $ref: '#/components/schemas/User'
+        commit:
+          $ref: '#/components/schemas/VersionCommit'
+        image_url:
+          type: string
+          format: url
+          description: URL of the image for the version
+        thumbnails:
+          $ref: '#/components/schemas/Thumbnails'
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          - description: Source application of the version
+        source_file_url:
+          type: string
+          format: url
+          description: Source file url of the version
+        width:
+          type: integer
+          description: Width of the version
+        height:
+          type: integer
+          description: Height of the version
+        background_color:
+          $ref: '#/components/schemas/ColorData'
+        density_scale:
+          type: number
+          description: Pixel density
+        links:
           type: array
           items:
-            type: string
-          description: Tags for the screen
-        section_id:
-          type: string
-          description: Unique id of the screen section
+            $ref: '#/components/schemas/Link'
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the screen version was created
+      example:
+        $ref: '#/components/examples/screenVersionSummary'
+    Reaction:
+      title: Reaction
+      type: object
       required:
+      - id
+      - short_code
+      - users
+      properties:
+        id:
+          type: string
+          description: Unique id of the reaction
+        short_code:
+          type: string
+          description: Type of the reaction (e.g., thumbsup, eyes, etc.)
+        unicode:
+          type: string
+          description: Unicode representation of the reaction
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+      example:
+        $ref: '#/components/examples/reaction'
+    Asset:
+      title: Asset
+      type: object
+      description: 'Assets are automatically generated while exporting designs based on the platform the design is exported. Asset formats and densities change according to these platforms.
+
+
+        Platform | Formats
+
+        ---|---|---
+
+        Base | PNG (1.0, 1.5, 2.0, 3.0, 4.0), and PDF
+
+        Web | PNG (1.0, 2.0, 3.0), SVG, and JPG (bitmap image)
+
+        iOS | PNG (1.0, 2.0, 3.0), and PDF
+
+        Android | PNG (1.0, 1.5, 2.0, 3.0, 4.0), and SVG
+
+        '
+      required:
+      - display_name
+      - contents
+      properties:
+        layer_source_id:
+          type: string
+          description: Layer's identifier in the design tool
+        display_name:
+          type: string
+          description: Display name of the asset
+        layer_name:
+          type: string
+          description: Name of the layer containing the asset
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/AssetContent'
+      example:
+        $ref: '#/components/examples/asset'
+    VersionCommitColor:
+      title: Version Commit Color
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        r:
+          type: integer
+          description: red component of the color
+        g:
+          type: integer
+          description: green component of the color
+        b:
+          type: integer
+          description: blue component of the color
+        a:
+          type: number
+          description: alpha component of the color
+      example:
+        $ref: '#/components/examples/versionCommitColor'
+    AssetContent:
+      title: Asset Content
+      type: object
+      required:
+      - url
+      - format
+      properties:
+        url:
+          type: string
+          description: URL of the asset content
+        format:
+          type: string
+          description: Format of the asset content
+          enum:
+          - png
+          - jpg
+          - svg
+          - pdf
+        density:
+          type: number
+          description: Density of the asset content
+          enum:
+          - 1
+          - 1.5
+          - 2
+          - 3
+          - 4
+      example:
+        $ref: '#/components/examples/assetContent'
+    ScreenNoteComment:
+      title: Screen Note Comment
+      type: object
+      required:
+      - id
+      - content
+      - author
+      - updated
+      - reactions
+      properties:
+        id:
+          type: string
+          description: Unique id of the comment
+        content:
+          type: string
+          description: Content of the comment
+        author:
+          $ref: '#/components/schemas/User'
+        updated:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the comment was updated
+        reactions:
+          type: array
+          description: Reactions to the comment
+          items:
+            $ref: '#/components/schemas/Reaction'
+        screen_version_id:
+          type: string
+          description: The version of the screen this comment is associated with
+      example:
+        $ref: '#/components/examples/screenNoteComment'
+    Thumbnails:
+      title: Thumbnails
+      description: Thumbnail image URLs in various sizes. The aspect ratio of the original image is preserved. If the width of original image is lower than the desired width then the original width is used.
+      type: object
+      required:
+      - small
+      - medium
+      - large
+      properties:
+        small:
+          type: string
+          description: URL of the thumbnail image with a width of at most 256 pixels
+        medium:
+          type: string
+          description: URL of the thumbnail image with a width of at most 512 pixels
+        large:
+          type: string
+          description: URL of the thumbnail image with a width of at most 1024 pixels
+      example:
+        $ref: '#/components/examples/thumbnails'
+    ScreenSection:
+      title: Screen Section
+      type: object
+      required:
+      - id
+      - created
       - name
-      - image
+      properties:
+        id:
+          type: string
+          description: The unique id of the screen section
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the screen section was created
+        name:
+          type: string
+          description: The name of the screen section
+        description:
+          type: string
+          description: The description of the screen section
+        parent:
+          $ref: '#/components/schemas/EntityReference'
+      example:
+        $ref: '#/components/examples/screenSection'
+    ScreenAnnotationColor:
+      title: Screen Annotation Color
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        name:
+          type: string
+          description: Name of the color
+        r:
+          type: integer
+          description: Red component of the color
+        g:
+          type: integer
+          description: Green component of the color
+        b:
+          type: integer
+          description: Blue component of the color
+        a:
+          type: number
+          description: Alpha component of the color
+      example:
+        $ref: '#/components/examples/screenAnnotationColor'
+    ColorStop:
+      title: Color Stop
+      type: object
+      required:
+      - color
+      - position
+      properties:
+        color:
+          $ref: '#/components/schemas/ColorData'
+        position:
+          type: number
+      example:
+        $ref: '#/components/examples/colorStop'
+    ScreenVariantGroupReference:
+      title: Screen Variant Group Reference
+      type: object
+      description: Variant group that contains the screen
+      required:
+      - id
+      - name
+      properties:
+        id:
+          type: string
+          description: Unique id of the screen variant
+        name:
+          type: string
+          description: Name of the screen variant
+    SourceEnum:
+      title: Source
+      type: string
+      description: Source application of the design
+      enum:
+      - sketch
+      - xd
+      - figma
+      - psd
+      - bitmap
+    ColorData:
+      title: Color Data
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        source_id:
+          type: string
+          description: Color's identifier in the design tool
+        r:
+          type: integer
+          description: Red component of the color
+        g:
+          type: integer
+          description: Green component of the color
+        b:
+          type: integer
+          description: Blue component of the color
+        a:
+          type: number
+          description: Alpha component of the color
+      example:
+        $ref: '#/components/examples/colorData'
+    ResourceSource:
+      title: Resource Source
+      type: object
+      description: Source details for resource. It has to be either `project` or `styleguide`.
+      properties:
+        project:
+          $ref: '#/components/schemas/ResourceProjectSource'
+        styleguide:
+          $ref: '#/components/schemas/ResourceStyleguideSource'
+      example:
+        $ref: '#/components/examples/resourceSourceForProject'
+      x-examples:
+        Project:
+          $ref: '#/components/examples/resourceSourceForProject'
+        Styleguide:
+          $ref: '#/components/examples/resourceSourceForStyleguide'
+    ScreenAnnotationNoteTypeEnum:
+      title: Note Types
+      type: string
+      enum:
+      - Behavior
+      - Requirement
+      - Animation
+      - Accessibility
+      - API
+      - Tracking
+      description: Type of the annotation note
+    VersionCommit:
+      title: Version Commit
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: Commit message for the version
+        author:
+          $ref: '#/components/schemas/User'
+        color:
+          $ref: '#/components/schemas/VersionCommitColor'
+      example:
+        $ref: '#/components/examples/versionCommit'
     ErrorResponse:
       title: Error Response
       type: object
@@ -1655,188 +2233,94 @@ components:
           description: The unique code for the error
       example:
         $ref: '#/components/examples/error'
-    ScreenVersionCreateBody:
-      title: Screen Version Create Body
-      type: object
-      properties:
-        image:
-          type: string
-          format: binary
-          description: 'Binary data of the screen image.
-
-
-            The image has to be in JPEG or PNG format, and its size cannot exceed 5MB.
-
-            '
-          x-valid-types:
-          - jpeg
-          - png
-        commit_message:
-          type: string
-          description: Commit message for the screen version
-        commit_color:
-          type: string
-          enum:
-          - yellow
-          - orange
-          - peach
-          - green
-          - turquoise
-          description: Commit color for the screen version
-      required:
-      - image
-    ScreenAnnotationCreateBody:
-      title: Screen Annotation Create Body
-      type: object
-      properties:
-        content:
-          type: string
-          description: Content of the annotation
-        position:
-          $ref: '#/components/schemas/ScreenAnnotationPosition'
-        type:
-          type: string
-          description: The unique id of the annotation type
-      required:
-      - content
-      - position
-    User:
-      title: User
-      description: 'Basic info about Zeplin users.
-
-
-        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
-
-
-        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
-
-
-        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
-
-        '
+    ScreenVersion:
+      title: Screen Version
       type: object
       required:
       - id
-      - email
-      - username
-      properties:
-        id:
-          type: string
-          description: User's unique id
-        email:
-          type: string
-          description: Zeplin-only alias for the user's email (original)
-        username:
-          type: string
-          description: Username of the user
-        emotar:
-          type: string
-          format: emoji
-          description: Emotar of the user
-        avatar:
-          type: string
-          description: Avatar of the user
-        last_seen:
-          type: number
-          description: The unix timestamp when the user was last seen
-      example:
-        $ref: '#/components/examples/user'
-      x-examples:
-        User:
-          $ref: '#/components/examples/user'
-        My User:
-          $ref: '#/components/examples/me'
-    ResourceProjectSource:
-      title: Source Project
-      type: object
-      description: The source project of the resource
-      required:
-      - id
-      - name
-      - platform
-      properties:
-        id:
-          type: string
-          description: The unique id of the source project
-        name:
-          type: string
-          description: The name of the source project
-        platform:
-          type: string
-          enum:
-          - web
-          - ios
-          - android
-          - macos
-          description: The target platform of the source project
-        linked_styleguide:
-          $ref: '#/components/schemas/EntityReference'
-          description: Reference of the styleguide which the source project is linked to
-      example:
-        $ref: '#/components/examples/resourceProjectSource'
-    HotspotBoundingRectangle:
-      title: Hotspot Bounding Rectangle
-      type: object
-      required:
+      - created
+      - source
       - width
       - height
-      - x
-      - y
-      properties:
-        width:
-          type: integer
-        height:
-          type: integer
-        x:
-          type: number
-        y:
-          type: number
-      example:
-        $ref: '#/components/examples/hotspotBoundingRectangle'
-    LayerTextStyle:
-      title: Layer Text Style
-      type: object
-      properties:
-        range:
-          $ref: '#/components/schemas/LayerTextStyleRange'
-        style:
-          $ref: '#/components/schemas/TextStyleData'
-      example:
-        $ref: '#/components/examples/layerTextStyle'
-    ScreenVariantGroup:
-      title: Screen Variant Group
-      type: object
-      required:
-      - id
-      - name
-      - variants
+      - density_scale
+      - links
+      - layers
+      - assets
       properties:
         id:
           type: string
-          description: The unique id of the screen variant
-        name:
+          description: The unique id of the version
+        creator:
+          $ref: '#/components/schemas/User'
+        commit:
+          $ref: '#/components/schemas/VersionCommit'
+        image_url:
           type: string
-          description: The name of the screen variant
-        variants:
+          format: url
+          description: URL of the image for the version
+        thumbnails:
+          $ref: '#/components/schemas/Thumbnails'
+        source:
+          allOf:
+          - $ref: '#/components/schemas/SourceEnum'
+          - description: Source application of the version
+        source_file_url:
+          type: string
+          format: url
+          description: Source file url of the version
+        width:
+          type: integer
+          description: Width of the version
+        height:
+          type: integer
+          description: Height of the version
+        background_color:
+          $ref: '#/components/schemas/ColorData'
+        density_scale:
+          type: number
+          description: Pixel density
+        links:
           type: array
           items:
-            $ref: '#/components/schemas/ScreenVariantGroupValue'
+            $ref: '#/components/schemas/Link'
+        grid:
+          $ref: '#/components/schemas/Grid'
+        layers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Layer'
+          description: Layers of the screen version
+        assets:
+          type: array
+          description: Assets of the screen version
+          items:
+            $ref: '#/components/schemas/Asset'
+        created:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the screen version was created
       example:
-        $ref: '#/components/examples/screenVariantGroup'
-    Grid:
-      title: Grid
+        $ref: '#/components/examples/screenVersion'
+    LayerFill:
+      title: Layer Fill
       type: object
+      required:
+      - type
       properties:
-        horizontal_offset:
-          type: number
-        vertical_offset:
-          type: number
-        vertical:
-          $ref: '#/components/schemas/VerticalGrid'
-        horizontal:
-          $ref: '#/components/schemas/HorizontalGrid'
+        type:
+          type: string
+          enum:
+          - color
+          - gradient
+          description: Type of the fill
+        color:
+          $ref: '#/components/schemas/ColorData'
+        gradient:
+          $ref: '#/components/schemas/Gradient'
+        blend_mode:
+          $ref: '#/components/schemas/BlendModeEnum'
       example:
-        $ref: '#/components/examples/grid'
+        $ref: '#/components/examples/layerFill'
     Screen:
       title: Screen
       type: object
@@ -1890,346 +2374,34 @@ components:
           $ref: '#/components/schemas/ScreenVariant'
       example:
         $ref: '#/components/examples/screen'
-    EntityReference:
-      title: Object Reference
+    HorizontalGrid:
+      title: Horizontal Grid
       type: object
       required:
-      - id
+      - gutter_height
+      - row_height
       properties:
-        id:
-          type: string
-          description: Id of the entity
-      example:
-        $ref: '#/components/examples/entityReference'
-    ScreenNotePosition:
-      title: Screen Note Position
-      description: Position of the note with respect to top left corner. Values are normalized in [0, 1]
-      type: object
-      required:
-      - x
-      - y
-      properties:
-        x:
+        gutter_height:
           type: number
-          description: The X-coordinate of the note's position. For area notes, this represents the X-coordinate of the end point.
-        y:
+        row_height:
           type: number
-          description: The Y-coordinate of the note's position. For area notes, this represents the Y-coordinate of the end point.
-        x_start:
-          type: number
-          description: The X-coordinate of the start point for area notes. Ignored for point notes.
-        y_start:
-          type: number
-          description: The Y-coordinate of the start point for area notes. Ignored for point notes.
-      example:
-        $ref: '#/components/examples/screenNotePosition'
-    ScreenVariantGroupValue:
-      title: Screen Variant Group Value
-      type: object
-      required:
-      - screen_id
-      - value
-      properties:
-        screen_id:
-          type: string
-          description: Unique id of the variant screen
-        value:
-          type: string
-          description: Value for the variant
-    SourceEnum:
-      title: Source
-      type: string
-      description: Source application of the design
-      enum:
-      - sketch
-      - xd
-      - figma
-      - psd
-      - bitmap
-    ComponentVersion:
-      title: Component Version
-      type: object
-      required:
-      - id
-      - source
-      - width
-      - height
-      - density_scale
-      - links
-      - layers
-      - assets
-      - created
-      properties:
-        id:
-          type: string
-          description: The unique id of the version
-        creator:
-          $ref: '#/components/schemas/User'
-        image_url:
-          type: string
-          format: url
-          description: URL of the image for the version
-        thumbnails:
-          $ref: '#/components/schemas/Thumbnails'
-        source:
-          allOf:
-          - $ref: '#/components/schemas/SourceEnum'
-          - description: Source application of the version
-        source_file_url:
-          type: string
-          format: url
-          description: Source file url of the version
-        width:
-          type: integer
-          description: Width of the version
-        height:
-          type: integer
-          description: Height of the version
-        background_color:
-          $ref: '#/components/schemas/ColorData'
-        density_scale:
-          type: number
-          description: Pixel density
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-        grid:
-          $ref: '#/components/schemas/Grid'
-        layers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Layer'
-          description: Layers of the component version
-        assets:
-          type: array
-          description: Assets of the component version
-          items:
-            $ref: '#/components/schemas/Asset'
-        created:
-          type: integer
-          format: timestamp
-          description: The unix timestamp when the component version was created
-      example:
-        $ref: '#/components/examples/componentVersion'
-    ScreenAnnotationPosition:
-      title: Screen Annotation Position
-      description: Position of the annotation with respect to top left corner. Values are normalized in [0, 1]
-      type: object
-      required:
-      - x
-      - y
-      properties:
-        x:
-          type: number
-        y:
+        number_of_rows:
           type: number
       example:
-        $ref: '#/components/examples/screenAnnotationPosition'
-    VersionCommitColor:
-      title: Version Commit Color
-      type: object
-      required:
-      - r
-      - g
-      - b
-      - a
-      properties:
-        r:
-          type: integer
-          description: red component of the color
-        g:
-          type: integer
-          description: green component of the color
-        b:
-          type: integer
-          description: blue component of the color
-        a:
-          type: number
-          description: alpha component of the color
-      example:
-        $ref: '#/components/examples/versionCommitColor'
-    ScreenNoteComment:
-      title: Screen Note Comment
-      type: object
-      required:
-      - id
-      - content
-      - author
-      - updated
-      - reactions
-      properties:
-        id:
-          type: string
-          description: Unique id of the comment
-        content:
-          type: string
-          description: Content of the comment
-        author:
-          $ref: '#/components/schemas/User'
-        updated:
-          type: integer
-          format: timestamp
-          description: The unix timestamp when the comment was updated
-        reactions:
-          type: array
-          description: Reactions to the comment
-          items:
-            $ref: '#/components/schemas/Reaction'
-        screen_version_id:
-          type: string
-          description: The version of the screen this comment is associated with
-      example:
-        $ref: '#/components/examples/screenNoteComment'
-    LayerFill:
-      title: Layer Fill
-      type: object
-      required:
-      - type
-      properties:
-        type:
-          type: string
-          enum:
-          - color
-          - gradient
-          description: Type of the fill
-        color:
-          $ref: '#/components/schemas/ColorData'
-        gradient:
-          $ref: '#/components/schemas/Gradient'
-        blend_mode:
-          $ref: '#/components/schemas/BlendModeEnum'
-      example:
-        $ref: '#/components/examples/layerFill'
-    LayerShadow:
-      title: Layer Shadow
+        $ref: '#/components/examples/horizontalGrid'
+    ScreenNoteUpdateBody:
+      title: Screen Note Update Body
       type: object
       properties:
-        type:
-          type: string
-          enum:
-          - outer
-          - inner
-          description: Type of the shadow
-        offset_x:
-          type: number
-          description: Horizontal offset of the shadow
-        offset_y:
-          type: number
-          description: Vertical offset of the shadow
-        blur_radius:
-          type: number
-          description: Blur radius of the shadow
-        spread:
-          type: number
-          description: Spread of the shadow
-        color:
-          $ref: '#/components/schemas/ColorData'
-      example:
-        $ref: '#/components/examples/layerShadow'
-    Asset:
-      title: Asset
-      type: object
-      description: 'Assets are automatically generated while exporting designs based on the platform the design is exported. Asset formats and densities change according to these platforms.
-
-
-        Platform | Formats
-
-        ---|---|---
-
-        Base | PNG (1.0, 1.5, 2.0, 3.0, 4.0), and PDF
-
-        Web | PNG (1.0, 2.0, 3.0), SVG, and JPG (bitmap image)
-
-        iOS | PNG (1.0, 2.0, 3.0), and PDF
-
-        Android | PNG (1.0, 1.5, 2.0, 3.0, 4.0), and SVG
-
-        '
-      required:
-      - display_name
-      - contents
-      properties:
-        layer_source_id:
-          type: string
-          description: Layer's identifier in the design tool
-        display_name:
-          type: string
-          description: Display name of the asset
-        layer_name:
-          type: string
-          description: Name of the layer containing the asset
-        contents:
-          type: array
-          items:
-            $ref: '#/components/schemas/AssetContent'
-      example:
-        $ref: '#/components/examples/asset'
-    ScreenNoteCreateBody:
-      title: Screen Note Create Body
-      type: object
-      properties:
-        content:
-          type: string
-          description: Content of the first comment of the note
+        status:
+          title: status
+          $ref: '#/components/schemas/ScreenNoteStatusEnum'
         position:
           title: position
           $ref: '#/components/schemas/ScreenNotePosition'
         color:
+          title: color
           $ref: '#/components/schemas/ScreenNoteColorNameEnum'
-      required:
-      - content
-      - position
-      - color
-    ScreenAnnotation:
-      title: Screen Annotation
-      type: object
-      required:
-      - id
-      - content
-      - type
-      - position
-      - creator
-      - updated
-      - created
-      properties:
-        id:
-          type: string
-          description: The unique id of the annotation
-        content:
-          type: string
-          description: The text of the annotation
-        type:
-          $ref: '#/components/schemas/ScreenAnnotationNoteType'
-        position:
-          $ref: '#/components/schemas/ScreenAnnotationPosition'
-        creator:
-          $ref: '#/components/schemas/User'
-        updated_by:
-          $ref: '#/components/schemas/User'
-          description: The user who last updated the content of the annotation
-        updated:
-          type: integer
-          format: timestamp
-          description: The unix timestamp when the annotation was last updated
-        created:
-          type: integer
-          format: timestamp
-          description: The unix timestamp when the annotation was created
-      example:
-        $ref: '#/components/examples/screenAnnotation'
-    ScreenVariant:
-      title: Screen Variant
-      type: object
-      required:
-      - value
-      - group
-      properties:
-        value:
-          type: string
-          description: Value for this variant of the screen
-        group:
-          $ref: '#/components/schemas/ScreenVariantGroupReference'
     Layer:
       title: Layer
       type: object
@@ -2305,120 +2477,6 @@ components:
           description: Name of the component the group layer is referencing
       example:
         $ref: '#/components/examples/layer'
-    ComponentVariantProperty:
-      title: Component Variant Property
-      type: object
-      required:
-      - id
-      - name
-      - value
-      properties:
-        id:
-          type: string
-          description: Unique id of the variant property
-        name:
-          type: string
-          description: Name of the variant property (e.g. `“type”`, `“state”`, etc.)
-        value:
-          type: string
-          description: Value for this property of the component (e.g. `"primary"`)
-      example:
-        $ref: '#/components/examples/componentVariantProperty'
-    LayerBlur:
-      title: Layer Blur
-      type: object
-      description: Blur applied to the layer
-      properties:
-        type:
-          type: string
-          enum:
-          - gaussian
-          - background
-          description: Type of the blur
-        radius:
-          type: number
-          description: Radius of the blur
-      example:
-        $ref: '#/components/examples/layerBlur'
-    SnapshotImage:
-      title: Snapshot Image
-      type: object
-      required:
-      - width
-      - height
-      - original_url
-      - thumbnails
-      properties:
-        width:
-          type: number
-          description: Width of the component image
-        height:
-          type: number
-          description: Height of the component image
-        thumbnails:
-          $ref: '#/components/schemas/Thumbnails'
-        original_url:
-          type: string
-          description: URL of the original image for the component (from the latest version)
-      example:
-        $ref: '#/components/examples/snapshotImage'
-    ResourceStyleguideSource:
-      title: Source Styleguide
-      type: object
-      description: The source styleguide of the resource
-      required:
-      - id
-      - name
-      - platform
-      properties:
-        id:
-          type: string
-          description: The unique id of the source styleguide
-        name:
-          type: string
-          description: The name of the source styleguide
-        platform:
-          type: string
-          enum:
-          - base
-          - web
-          - ios
-          - android
-          - macos
-          description: The target platform of the source styleguide
-        parent:
-          $ref: '#/components/schemas/EntityReference'
-          description: Reference of the parent styleguide of the source styleguide
-      example:
-        $ref: '#/components/examples/resourceStyleguideSource'
-    ComponentSectionReference:
-      title: Component Section Reference
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Unique id of the section that contains the component
-        group:
-          allOf:
-          - $ref: '#/components/schemas/EntityReference'
-          - description: Unique id of the group that contains the component
-      example:
-        $ref: '#/components/examples/componentSectionReference'
-    LayerPosition:
-      title: Layer Position
-      type: object
-      required:
-      - x
-      - y
-      properties:
-        x:
-          type: number
-        y:
-          type: number
-      example:
-        $ref: '#/components/examples/layerPosition'
     ScreenNote:
       title: Screen Note
       type: object
@@ -2459,156 +2517,146 @@ components:
           description: The unix timestamp when the note was created
       example:
         $ref: '#/components/examples/screenNote'
-    AssetContent:
-      title: Asset Content
-      type: object
-      required:
-      - url
-      - format
-      properties:
-        url:
-          type: string
-          description: URL of the asset content
-        format:
-          type: string
-          description: Format of the asset content
-          enum:
-          - png
-          - jpg
-          - svg
-          - pdf
-        density:
-          type: number
-          description: Density of the asset content
-          enum:
-          - 1
-          - 1.5
-          - 2
-          - 3
-          - 4
-      example:
-        $ref: '#/components/examples/assetContent'
-    Gradient:
-      title: Gradient
-      type: object
-      properties:
-        type:
-          type: string
-          enum:
-          - linear
-          - radial
-          - angular
-          description: Type of the gradient
-        angle:
-          type: number
-          description: Angle of the gradient
-        scale:
-          type: number
-          description: Scale of the gradient
-        color_stops:
-          type: array
-          items:
-            $ref: '#/components/schemas/ColorStop'
-        opacity:
-          type: number
-          description: Opacity of the gradient
-      example:
-        $ref: '#/components/examples/gradient'
-    Link:
-      title: Link
-      type: object
-      required:
-      - rect
-      - destination
-      properties:
-        rect:
-          $ref: '#/components/schemas/HotspotBoundingRectangle'
-          description: Bounding rectangle of the link's hotspot
-        destination:
-          $ref: '#/components/schemas/LinkDestination'
-      example:
-        $ref: '#/components/examples/link'
-    ScreenAnnotationColor:
-      title: Screen Annotation Color
-      type: object
-      required:
-      - r
-      - g
-      - b
-      - a
-      properties:
-        name:
-          type: string
-          description: Name of the color
-        r:
-          type: integer
-          description: Red component of the color
-        g:
-          type: integer
-          description: Green component of the color
-        b:
-          type: integer
-          description: Blue component of the color
-        a:
-          type: number
-          description: Alpha component of the color
-      example:
-        $ref: '#/components/examples/screenAnnotationColor'
-    VersionCommit:
-      title: Version Commit
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: Commit message for the version
-        author:
-          $ref: '#/components/schemas/User'
-        color:
-          $ref: '#/components/schemas/VersionCommitColor'
-      example:
-        $ref: '#/components/examples/versionCommit'
-    HorizontalGrid:
-      title: Horizontal Grid
-      type: object
-      required:
-      - gutter_height
-      - row_height
-      properties:
-        gutter_height:
-          type: number
-        row_height:
-          type: number
-        number_of_rows:
-          type: number
-      example:
-        $ref: '#/components/examples/horizontalGrid'
-    ScreenSection:
-      title: Screen Section
+    User:
+      title: User
+      description: 'Basic info about Zeplin users.
+
+
+        Zeplin API does not expose any personal information to third-party clients. For this reason, the `email` field is a Zeplin-only alias by default.
+
+
+        You can get the original email addresses of members of your workspace by using a personal access token created with admin rights. Third-party (OAuth) applications are not allowed to access this information.
+
+
+        ☝️*Only organization admins (or higher) can retrieve the original email addresses using an admin token.*
+
+        '
       type: object
       required:
       - id
-      - created
-      - name
+      - email
+      - username
       properties:
         id:
           type: string
-          description: The unique id of the screen section
+          description: User's unique id
+        email:
+          type: string
+          description: Zeplin-only alias for the user's email (original)
+        username:
+          type: string
+          description: Username of the user
+        emotar:
+          type: string
+          format: emoji
+          description: Emotar of the user
+        avatar:
+          type: string
+          description: Avatar of the user
+        last_seen:
+          type: number
+          description: The unix timestamp when the user was last seen
+      example:
+        $ref: '#/components/examples/user'
+      x-examples:
+        User:
+          $ref: '#/components/examples/user'
+        My User:
+          $ref: '#/components/examples/me'
+    ResourceProjectSource:
+      title: Source Project
+      type: object
+      description: The source project of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source project
+        name:
+          type: string
+          description: The name of the source project
+        platform:
+          type: string
+          enum:
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source project
+        linked_styleguide:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the styleguide which the source project is linked to
+      example:
+        $ref: '#/components/examples/resourceProjectSource'
+    ComponentSectionReference:
+      title: Component Section Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Unique id of the section that contains the component
+        group:
+          allOf:
+          - $ref: '#/components/schemas/EntityReference'
+          - description: Unique id of the group that contains the component
+      example:
+        $ref: '#/components/examples/componentSectionReference'
+    Grid:
+      title: Grid
+      type: object
+      properties:
+        horizontal_offset:
+          type: number
+        vertical_offset:
+          type: number
+        vertical:
+          $ref: '#/components/schemas/VerticalGrid'
+        horizontal:
+          $ref: '#/components/schemas/HorizontalGrid'
+      example:
+        $ref: '#/components/examples/grid'
+    ScreenAnnotation:
+      title: Screen Annotation
+      type: object
+      required:
+      - id
+      - content
+      - type
+      - position
+      - creator
+      - updated
+      - created
+      properties:
+        id:
+          type: string
+          description: The unique id of the annotation
+        content:
+          type: string
+          description: The text of the annotation
+        type:
+          $ref: '#/components/schemas/ScreenAnnotationNoteType'
+        position:
+          $ref: '#/components/schemas/ScreenAnnotationPosition'
+        creator:
+          $ref: '#/components/schemas/User'
+        updated_by:
+          $ref: '#/components/schemas/User'
+          description: The user who last updated the content of the annotation
+        updated:
+          type: integer
+          format: timestamp
+          description: The unix timestamp when the annotation was last updated
         created:
           type: integer
           format: timestamp
-          description: The unix timestamp when the screen section was created
-        name:
-          type: string
-          description: The name of the screen section
-        description:
-          type: string
-          description: The description of the screen section
-        parent:
-          $ref: '#/components/schemas/EntityReference'
+          description: The unix timestamp when the annotation was created
       example:
-        $ref: '#/components/examples/screenSection'
+        $ref: '#/components/examples/screenAnnotation'
     CommentCreateBody:
       title: Comment Create Body
       type: object
@@ -2618,63 +2666,6 @@ components:
           description: Content of the comment
       required:
       - content
-    VerticalGrid:
-      title: Vertical Grid
-      type: object
-      required:
-      - gutter_width
-      - column_width
-      - number_of_cols
-      - gutters_on_outside
-      properties:
-        gutter_width:
-          type: number
-        column_width:
-          type: number
-        number_of_cols:
-          type: number
-        gutters_on_outside:
-          type: boolean
-      example:
-        $ref: '#/components/examples/verticalGrid'
-    LayerTextStyleRange:
-      title: Layer Text Style Range
-      type: object
-      properties:
-        location:
-          type: number
-          description: Start of the range
-        length:
-          type: number
-          description: Length of the range
-      example:
-        $ref: '#/components/examples/layerTextStyle'
-    ScreenNoteUpdateBody:
-      title: Screen Note Update Body
-      type: object
-      properties:
-        status:
-          title: status
-          $ref: '#/components/schemas/ScreenNoteStatusEnum'
-        position:
-          title: position
-          $ref: '#/components/schemas/ScreenNotePosition'
-        color:
-          title: color
-          $ref: '#/components/schemas/ScreenNoteColorNameEnum'
-    ColorStop:
-      title: Color Stop
-      type: object
-      required:
-      - color
-      - position
-      properties:
-        color:
-          $ref: '#/components/schemas/ColorData'
-        position:
-          type: number
-      example:
-        $ref: '#/components/examples/colorStop'
     ScreenUpdateBody:
       title: Screen Update Body
       type: object
@@ -2688,6 +2679,80 @@ components:
           items:
             type: string
           description: New tags for the screen
+    ResourceStyleguideSource:
+      title: Source Styleguide
+      type: object
+      description: The source styleguide of the resource
+      required:
+      - id
+      - name
+      - platform
+      properties:
+        id:
+          type: string
+          description: The unique id of the source styleguide
+        name:
+          type: string
+          description: The name of the source styleguide
+        platform:
+          type: string
+          enum:
+          - base
+          - web
+          - ios
+          - android
+          - macos
+          description: The target platform of the source styleguide
+        parent:
+          $ref: '#/components/schemas/EntityReference'
+          description: Reference of the parent styleguide of the source styleguide
+      example:
+        $ref: '#/components/examples/resourceStyleguideSource'
+    ScreenCreateBody:
+      title: Screen Create Body
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the screen
+        image:
+          type: string
+          format: binary
+          description: 'Binary data of the screen image.
+
+
+            The image has to be in JPEG or PNG format, and its size cannot exceed 5MB.
+
+            '
+          x-valid-types:
+          - jpeg
+          - png
+        description:
+          type: string
+          description: Description for the screen
+        commit_message:
+          type: string
+          description: Commit message for the screen version
+        commit_color:
+          type: string
+          enum:
+          - yellow
+          - orange
+          - peach
+          - green
+          - turquoise
+          description: Commit color for the screen version
+        tags:
+          type: array
+          items:
+            type: string
+          description: Tags for the screen
+        section_id:
+          type: string
+          description: Unique id of the screen section
+      required:
+      - name
+      - image
     ScreenNoteColor:
       title: Screen Note Color
       type: object
@@ -2714,27 +2779,111 @@ components:
           description: Alpha component of the color
       example:
         $ref: '#/components/examples/screenNoteColor'
-    ScreenVersionSummary:
-      title: Screen Version Summary
+    ScreenVariantGroupValue:
+      title: Screen Variant Group Value
+      type: object
+      required:
+      - screen_id
+      - value
+      properties:
+        screen_id:
+          type: string
+          description: Unique id of the variant screen
+        value:
+          type: string
+          description: Value for the variant
+    ScreenNotePosition:
+      title: Screen Note Position
+      description: Position of the note with respect to top left corner. Values are normalized in [0, 1]
+      type: object
+      required:
+      - x
+      - y
+      properties:
+        x:
+          type: number
+          description: The X-coordinate of the note's position. For area notes, this represents the X-coordinate of the end point.
+        y:
+          type: number
+          description: The Y-coordinate of the note's position. For area notes, this represents the Y-coordinate of the end point.
+        x_start:
+          type: number
+          description: The X-coordinate of the start point for area notes. Ignored for point notes.
+        y_start:
+          type: number
+          description: The Y-coordinate of the start point for area notes. Ignored for point notes.
+      example:
+        $ref: '#/components/examples/screenNotePosition'
+    ScreenNoteColorNameEnum:
+      title: Screen Note Color Name
+      type: string
+      enum:
+      - yellow
+      - orange
+      - peach
+      - green
+      - turquoise
+      - cornflower_blue
+      - deep_purple
+    Link:
+      title: Link
+      type: object
+      required:
+      - rect
+      - destination
+      properties:
+        rect:
+          $ref: '#/components/schemas/HotspotBoundingRectangle'
+          description: Bounding rectangle of the link's hotspot
+        destination:
+          $ref: '#/components/schemas/LinkDestination'
+      example:
+        $ref: '#/components/examples/link'
+    ComponentVariantProperty:
+      title: Component Variant Property
       type: object
       required:
       - id
-      - created
+      - name
+      - value
+      properties:
+        id:
+          type: string
+          description: Unique id of the variant property
+        name:
+          type: string
+          description: Name of the variant property (e.g. `“type”`, `“state”`, etc.)
+        value:
+          type: string
+          description: Value for this property of the component (e.g. `"primary"`)
+      example:
+        $ref: '#/components/examples/componentVariantProperty'
+    ScreenNoteStatusEnum:
+      title: Screen Note Status
+      type: string
+      enum:
+      - open
+      - resolved
+      description: Status of the note
+    ComponentVersion:
+      title: Component Version
+      type: object
+      required:
+      - id
       - source
       - width
       - height
       - density_scale
       - links
-      - image_url
-      - thumbnails
+      - layers
+      - assets
+      - created
       properties:
         id:
           type: string
           description: The unique id of the version
         creator:
           $ref: '#/components/schemas/User'
-        commit:
-          $ref: '#/components/schemas/VersionCommit'
         image_url:
           type: string
           format: url
@@ -2764,209 +2913,46 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Link'
+        grid:
+          $ref: '#/components/schemas/Grid'
+        layers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Layer'
+          description: Layers of the component version
+        assets:
+          type: array
+          description: Assets of the component version
+          items:
+            $ref: '#/components/schemas/Asset'
         created:
           type: integer
           format: timestamp
-          description: The unix timestamp when the screen version was created
+          description: The unix timestamp when the component version was created
       example:
-        $ref: '#/components/examples/screenVersionSummary'
-    ScreenAnnotationNoteTypeEnum:
-      title: Note Types
-      type: string
-      enum:
-      - Behavior
-      - Requirement
-      - Animation
-      - Accessibility
-      - API
-      - Tracking
-      description: Type of the annotation note
-    ScreenAnnotationNoteType:
-      title: Screen Annotation Note Type
-      type: object
-      required:
-      - id
-      - name
-      - color
-      properties:
-        id:
-          type: string
-          description: The unique id of the annotation
-        name:
-          $ref: '#/components/schemas/ScreenAnnotationNoteTypeEnum'
-          description: Name of the note type
-        color:
-          $ref: '#/components/schemas/ScreenAnnotationColor'
-          description: Color of the note type
-    Reaction:
-      title: Reaction
-      type: object
-      required:
-      - id
-      - short_code
-      - users
-      properties:
-        id:
-          type: string
-          description: Unique id of the reaction
-        short_code:
-          type: string
-          description: Type of the reaction (e.g., thumbsup, eyes, etc.)
-        unicode:
-          type: string
-          description: Unicode representation of the reaction
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
-      example:
-        $ref: '#/components/examples/reaction'
-    ColorData:
-      title: Color Data
-      type: object
-      required:
-      - r
-      - g
-      - b
-      - a
-      properties:
-        source_id:
-          type: string
-          description: Color's identifier in the design tool
-        r:
-          type: integer
-          description: Red component of the color
-        g:
-          type: integer
-          description: Green component of the color
-        b:
-          type: integer
-          description: Blue component of the color
-        a:
-          type: number
-          description: Alpha component of the color
-      example:
-        $ref: '#/components/examples/colorData'
-    TextStyleData:
-      title: Text Style Data
-      type: object
-      required:
-      - postscript_name
-      - font_family
-      - font_size
-      - font_weight
-      - font_style
-      - font_stretch
-      properties:
-        postscript_name:
-          type: string
-          description: PostScript name of the text style, e.g. Roboto-Regular
-        font_family:
-          type: string
-          description: Font family of the text style, e.g. Roboto, Arial
-        font_size:
-          type: number
-          description: Font size of the text style
-        font_weight:
-          type: number
-          description: Font weight of the text style, e.g. 500, 700
-        font_style:
-          type: string
-          description: Font style of the text style, e.g. italic, oblique
-        font_stretch:
-          type: number
-          description: Font stretch form of the text style, e.g. 0.75, 1.00
-        line_height:
-          type: number
-          description: Minimum height of a line for the text style
-        letter_spacing:
-          type: number
-          description: Spacing between letters
-        text_align:
-          type: string
-          description: Horizontal alignment of the text style, left, right, center, or justify
-        color:
-          $ref: '#/components/schemas/ColorData'
-      example:
-        $ref: '#/components/examples/textStyleData'
-    LayerBorder:
-      title: Layer Border
-      type: object
-      properties:
-        position:
-          type: string
-          enum:
-          - center
-          - inside
-          - outside
-          description: Position of the border
-        thickness:
-          type: number
-          description: Thickness of the border
-        fill:
-          $ref: '#/components/schemas/LayerFill'
-      example:
-        $ref: '#/components/examples/layerBorder'
-    BoundingRectangle:
-      title: Bounding Rectangle
+        $ref: '#/components/examples/componentVersion'
+    SnapshotImage:
+      title: Snapshot Image
       type: object
       required:
       - width
       - height
-      - x
-      - y
-      - absolute
+      - original_url
+      - thumbnails
       properties:
         width:
-          type: integer
+          type: number
+          description: Width of the component image
         height:
-          type: integer
-        x:
           type: number
-        y:
-          type: number
-        absolute:
-          $ref: '#/components/schemas/LayerPosition'
-          description: Absolute position of the bounding rectangle
+          description: Height of the component image
+        thumbnails:
+          $ref: '#/components/schemas/Thumbnails'
+        original_url:
+          type: string
+          description: URL of the original image for the component (from the latest version)
       example:
-        $ref: '#/components/examples/boundingRectangle'
-    LinkDestination:
-      title: Link Destination
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-          enum:
-          - component
-          - previous
-          description: Type of the link (`component` or `previous`)
-      example:
-        $ref: '#/components/examples/linkDestination'
-    Thumbnails:
-      title: Thumbnails
-      description: Thumbnail image URLs in various sizes. The aspect ratio of the original image is preserved. If the width of original image is lower than the desired width then the original width is used.
-      type: object
-      required:
-      - small
-      - medium
-      - large
-      properties:
-        small:
-          type: string
-          description: URL of the thumbnail image with a width of at most 256 pixels
-        medium:
-          type: string
-          description: URL of the thumbnail image with a width of at most 512 pixels
-        large:
-          type: string
-          description: URL of the thumbnail image with a width of at most 1024 pixels
-      example:
-        $ref: '#/components/examples/thumbnails'
+        $ref: '#/components/examples/snapshotImage'
     CommentUpdateBody:
       title: Comment Update Body
       type: object
@@ -2976,59 +2962,6 @@ components:
           description: Content of the comment
       required:
       - content
-    ScreenNoteColorNameEnum:
-      title: Screen Note Color Name
-      type: string
-      enum:
-      - yellow
-      - orange
-      - peach
-      - green
-      - turquoise
-      - cornflower_blue
-      - deep_purple
-    ResourceSource:
-      title: Resource Source
-      type: object
-      description: Source details for resource. It has to be either `project` or `styleguide`.
-      properties:
-        project:
-          $ref: '#/components/schemas/ResourceProjectSource'
-        styleguide:
-          $ref: '#/components/schemas/ResourceStyleguideSource'
-      example:
-        $ref: '#/components/examples/resourceSourceForProject'
-      x-examples:
-        Project:
-          $ref: '#/components/examples/resourceSourceForProject'
-        Styleguide:
-          $ref: '#/components/examples/resourceSourceForStyleguide'
-    ScreenAnnotationUpdateBody:
-      title: Screen Annotation Update Body
-      type: object
-      properties:
-        content:
-          type: string
-          description: Content of the annotation
-        position:
-          $ref: '#/components/schemas/ScreenAnnotationPosition'
-        type:
-          type: string
-          description: The unique id of the annotation type
-    ScreenVariantGroupReference:
-      title: Screen Variant Group Reference
-      type: object
-      description: Variant group that contains the screen
-      required:
-      - id
-      - name
-      properties:
-        id:
-          type: string
-          description: Unique id of the screen variant
-        name:
-          type: string
-          description: Name of the screen variant
     BlendModeEnum:
       title: Blend Mode
       type: string
@@ -3067,13 +3000,6 @@ components:
       - hard-mix
       - subtract
       - divide
-    ScreenNoteStatusEnum:
-      title: Screen Note Status
-      type: string
-      enum:
-      - open
-      - resolved
-      description: Status of the note
     Component:
       title: Component
       type: object
@@ -3117,74 +3043,148 @@ components:
           description: Design data in the latest version of the component. This exists if the related endpoint parameter (`include_latest_version=true`) is provided in component endpoints.
       example:
         $ref: '#/components/examples/component'
-    ScreenVersion:
-      title: Screen Version
+    ScreenVariantGroup:
+      title: Screen Variant Group
       type: object
       required:
       - id
-      - created
-      - source
-      - width
-      - height
-      - density_scale
-      - links
-      - layers
-      - assets
+      - name
+      - variants
       properties:
         id:
           type: string
-          description: The unique id of the version
-        creator:
-          $ref: '#/components/schemas/User'
-        commit:
-          $ref: '#/components/schemas/VersionCommit'
-        image_url:
+          description: The unique id of the screen variant
+        name:
           type: string
-          format: url
-          description: URL of the image for the version
-        thumbnails:
-          $ref: '#/components/schemas/Thumbnails'
-        source:
-          allOf:
-          - $ref: '#/components/schemas/SourceEnum'
-          - description: Source application of the version
-        source_file_url:
+          description: The name of the screen variant
+        variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScreenVariantGroupValue'
+      example:
+        $ref: '#/components/examples/screenVariantGroup'
+    ScreenAnnotationNoteType:
+      title: Screen Annotation Note Type
+      type: object
+      required:
+      - id
+      - name
+      - color
+      properties:
+        id:
           type: string
-          format: url
-          description: Source file url of the version
+          description: The unique id of the annotation
+        name:
+          $ref: '#/components/schemas/ScreenAnnotationNoteTypeEnum'
+          description: Name of the note type
+        color:
+          $ref: '#/components/schemas/ScreenAnnotationColor'
+          description: Color of the note type
+    HotspotBoundingRectangle:
+      title: Hotspot Bounding Rectangle
+      type: object
+      required:
+      - width
+      - height
+      - x
+      - y
+      properties:
         width:
           type: integer
-          description: Width of the version
         height:
           type: integer
-          description: Height of the version
-        background_color:
-          $ref: '#/components/schemas/ColorData'
-        density_scale:
+        x:
           type: number
-          description: Pixel density
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-        grid:
-          $ref: '#/components/schemas/Grid'
-        layers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Layer'
-          description: Layers of the screen version
-        assets:
-          type: array
-          description: Assets of the screen version
-          items:
-            $ref: '#/components/schemas/Asset'
-        created:
-          type: integer
-          format: timestamp
-          description: The unix timestamp when the screen version was created
+        y:
+          type: number
       example:
-        $ref: '#/components/examples/screenVersion'
+        $ref: '#/components/examples/hotspotBoundingRectangle'
+    ScreenAnnotationCreateBody:
+      title: Screen Annotation Create Body
+      type: object
+      properties:
+        content:
+          type: string
+          description: Content of the annotation
+        position:
+          $ref: '#/components/schemas/ScreenAnnotationPosition'
+        type:
+          type: string
+          description: The unique id of the annotation type
+      required:
+      - content
+      - position
+    ScreenVersionCreateBody:
+      title: Screen Version Create Body
+      type: object
+      properties:
+        image:
+          type: string
+          format: binary
+          description: 'Binary data of the screen image.
+
+
+            The image has to be in JPEG or PNG format, and its size cannot exceed 5MB.
+
+            '
+          x-valid-types:
+          - jpeg
+          - png
+        commit_message:
+          type: string
+          description: Commit message for the screen version
+        commit_color:
+          type: string
+          enum:
+          - yellow
+          - orange
+          - peach
+          - green
+          - turquoise
+          description: Commit color for the screen version
+      required:
+      - image
+    LayerTextStyleRange:
+      title: Layer Text Style Range
+      type: object
+      properties:
+        location:
+          type: number
+          description: Start of the range
+        length:
+          type: number
+          description: Length of the range
+      example:
+        $ref: '#/components/examples/layerTextStyle'
+    LayerTextStyle:
+      title: Layer Text Style
+      type: object
+      properties:
+        range:
+          $ref: '#/components/schemas/LayerTextStyleRange'
+        style:
+          $ref: '#/components/schemas/TextStyleData'
+      example:
+        $ref: '#/components/examples/layerTextStyle'
+    VerticalGrid:
+      title: Vertical Grid
+      type: object
+      required:
+      - gutter_width
+      - column_width
+      - number_of_cols
+      - gutters_on_outside
+      properties:
+        gutter_width:
+          type: number
+        column_width:
+          type: number
+        number_of_cols:
+          type: number
+        gutters_on_outside:
+          type: boolean
+      example:
+        $ref: '#/components/examples/verticalGrid'
   securitySchemes:
     OAuth2:
       type: oauth2

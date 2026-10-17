@@ -80,210 +80,7 @@ paths:
         '422':
           $ref: '#/components/responses/styleguideArchived'
 components:
-  responses:
-    projectArchived:
-      description: Project archived response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project archived response:
-              value:
-                message: Project is archived
-    styleguideArchived:
-      description: Styleguide archived response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide archived response:
-              value:
-                message: Styleguide is archived
-    styleguideNotFound:
-      description: Styleguide not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Styleguide not found response:
-              value:
-                message: Styleguide not found
-    projectNotFound:
-      description: Project not found response
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-          examples:
-            Project not found response:
-              value:
-                message: Project not found
-  examples:
-    variableCollection:
-      summary: Variable Collection
-      value:
-        id: 6662b9998f1d57de4566e868
-        created: 1717746073
-        name: Fundamentals
-        source_id: 4ba9866092495c104742f0959edbaa8bfa35e483
-        modes:
-          $ref: '#/components/examples/variableMode'
-        groups:
-          $ref: '#/components/examples/variableGroup'
-    resourceProjectSource:
-      summary: Source Project
-      value:
-        id: 5db81e73e1e36ee19f138c1a
-        name: HAL 9000
-        platform: web
-        linked_styleguide:
-          id: 5db981be9df2b3e1bfa19ef2
-    resourceStyleguideSource:
-      summary: Source Styleguide
-      value:
-        id: 5db981be9df2b3e1bfa19ef2
-        name: Discovery 1
-        platform: web
-        parent:
-          id: 5db981be9df2b3e1bfa19ef2
-    variable:
-      summary: Variable
-      value:
-        id: 666062f07fe9b3197040013e
-        name: Black
-        source_id: d36cffd7c2da067c567ecc4ece9ad5fafff6ec7c
-        values:
-        - $ref: '#/components/examples/variableValue/value'
-    variableMode:
-      summary: Variable Mode
-      value:
-        id: 666062f07fe9b31970400138
-        name: Mode 1
-        mode_id: 4140
-    resourceSourceForProject:
-      summary: Source for Project
-      value:
-        project:
-          $ref: '#/components/examples/resourceProjectSource/value'
-    variableGroup:
-      summary: Variable Group
-      value:
-        id: 666062f07fe9b31970400139
-        name: default
-        variables:
-        - $ref: '#/components/examples/variable/value'
-    colorData:
-      summary: Color Data
-      value:
-        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
-        r: 143
-        g: 152
-        b: 5
-        a: 1
-    variableValue:
-      summary: Variable value
-      value:
-        mode_id: 666062f07fe9b31970400138
-        type: color
-        color:
-          r: 0
-          g: 0
-          b: 0
-          a: 1
-    resourceSourceForStyleguide:
-      summary: Source for Styleguide
-      value:
-        styleguide:
-          $ref: '#/components/examples/resourceStyleguideSource/value'
-    entityReference:
-      summary: Object Reference
-      value:
-        id: 5dbad85a76ea51c1f35b6f69
-    error:
-      summary: Error
-      value:
-        message: Project is not found
-  parameters:
-    offset:
-      name: offset
-      in: query
-      description: Pagination offset
-      required: false
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    styleguide_id:
-      name: styleguide_id
-      in: path
-      description: Styleguide id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
-    limit:
-      name: limit
-      in: query
-      description: Pagination limit
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 30
-    include_linked_styleguides:
-      name: include_linked_styleguides
-      in: query
-      description: Whether to include linked styleguides or not
-      required: false
-      schema:
-        type: boolean
-        default: false
-    project_id:
-      name: project_id
-      in: path
-      description: Project id
-      required: true
-      schema:
-        type: string
-        pattern: /^[0-9a-f]{24}$/i
   schemas:
-    ErrorResponse:
-      title: Error Response
-      type: object
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: A user readable descriptive message for the error
-        detail:
-          type: string
-          description: A detailed message describing the error
-        code:
-          type: string
-          description: The unique code for the error
-      example:
-        $ref: '#/components/examples/error'
-    ResourceSource:
-      title: Resource Source
-      type: object
-      description: Source details for resource. It has to be either `project` or `styleguide`.
-      properties:
-        project:
-          $ref: '#/components/schemas/ResourceProjectSource'
-        styleguide:
-          $ref: '#/components/schemas/ResourceStyleguideSource'
-      example:
-        $ref: '#/components/examples/resourceSourceForProject'
-      x-examples:
-        Project:
-          $ref: '#/components/examples/resourceSourceForProject'
-        Styleguide:
-          $ref: '#/components/examples/resourceSourceForStyleguide'
     ResourceProjectSource:
       title: Source Project
       type: object
@@ -312,6 +109,32 @@ components:
           description: Reference of the styleguide which the source project is linked to
       example:
         $ref: '#/components/examples/resourceProjectSource'
+    VariableGroup:
+      title: Variable Group
+      type: object
+      required:
+      - id
+      - name
+      - variables
+      properties:
+        id:
+          type: string
+          description: Identifier of the color
+        name:
+          type: string
+          description: Name of the color
+        description:
+          type: string
+          description: Description of the color
+        parent:
+          type: string
+          description: Parent group of the group
+        variables:
+          type: array
+          items:
+            $ref: '#/components/schemas/Variable'
+      example:
+        $ref: '#/components/examples/variableGroup'
     Variable:
       title: Variable
       type: object
@@ -339,6 +162,78 @@ components:
             $ref: '#/components/schemas/VariableValue'
       example:
         $ref: '#/components/examples/variable'
+    ColorData:
+      title: Color Data
+      type: object
+      required:
+      - r
+      - g
+      - b
+      - a
+      properties:
+        source_id:
+          type: string
+          description: Color's identifier in the design tool
+        r:
+          type: integer
+          description: Red component of the color
+        g:
+          type: integer
+          description: Green component of the color
+        b:
+          type: integer
+          description: Blue component of the color
+        a:
+          type: number
+          description: Alpha component of the color
+      example:
+        $ref: '#/components/examples/colorData'
+    VariableValue:
+      title: Variable value
+      type: object
+      required:
+      - mode_id
+      - type
+      - color
+      properties:
+        mode_id:
+          type: string
+          description: Mode id of the variable value
+        type:
+          $ref: '#/components/schemas/VariableValueTypeEnum'
+          description: Type of the variable value
+        color:
+          $ref: '#/components/schemas/ColorData'
+          description: Color value of the variable
+      example:
+        $ref: '#/components/examples/variableValue'
+    ResourceSource:
+      title: Resource Source
+      type: object
+      description: Source details for resource. It has to be either `project` or `styleguide`.
+      properties:
+        project:
+          $ref: '#/components/schemas/ResourceProjectSource'
+        styleguide:
+          $ref: '#/components/schemas/ResourceStyleguideSource'
+      example:
+        $ref: '#/components/examples/resourceSourceForProject'
+      x-examples:
+        Project:
+          $ref: '#/components/examples/resourceSourceForProject'
+        Styleguide:
+          $ref: '#/components/examples/resourceSourceForStyleguide'
+    EntityReference:
+      title: Object Reference
+      type: object
+      required:
+      - id
+      properties:
+        id:
+          type: string
+          description: Id of the entity
+      example:
+        $ref: '#/components/examples/entityReference'
     ResourceStyleguideSource:
       title: Source Styleguide
       type: object
@@ -368,43 +263,29 @@ components:
           description: Reference of the parent styleguide of the source styleguide
       example:
         $ref: '#/components/examples/resourceStyleguideSource'
-    VariableGroup:
-      title: Variable Group
+    ErrorResponse:
+      title: Error Response
       type: object
       required:
-      - id
-      - name
-      - variables
+      - message
       properties:
-        id:
+        message:
           type: string
-          description: Identifier of the color
-        name:
+          description: A user readable descriptive message for the error
+        detail:
           type: string
-          description: Name of the color
-        description:
+          description: A detailed message describing the error
+        code:
           type: string
-          description: Description of the color
-        parent:
-          type: string
-          description: Parent group of the group
-        variables:
-          type: array
-          items:
-            $ref: '#/components/schemas/Variable'
+          description: The unique code for the error
       example:
-        $ref: '#/components/examples/variableGroup'
-    EntityReference:
-      title: Object Reference
-      type: object
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          description: Id of the entity
-      example:
-        $ref: '#/components/examples/entityReference'
+        $ref: '#/components/examples/error'
+    VariableValueTypeEnum:
+      title: Source
+      type: string
+      description: Variable value types
+      enum:
+      - color
     VariableCollection:
       title: Variable Collection
       type: object
@@ -445,57 +326,6 @@ components:
           description: Source of the variable collection - either `project` or `styleguide`.
       example:
         $ref: '#/components/examples/variableCollection'
-    VariableValueTypeEnum:
-      title: Source
-      type: string
-      description: Variable value types
-      enum:
-      - color
-    VariableValue:
-      title: Variable value
-      type: object
-      required:
-      - mode_id
-      - type
-      - color
-      properties:
-        mode_id:
-          type: string
-          description: Mode id of the variable value
-        type:
-          $ref: '#/components/schemas/VariableValueTypeEnum'
-          description: Type of the variable value
-        color:
-          $ref: '#/components/schemas/ColorData'
-          description: Color value of the variable
-      example:
-        $ref: '#/components/examples/variableValue'
-    ColorData:
-      title: Color Data
-      type: object
-      required:
-      - r
-      - g
-      - b
-      - a
-      properties:
-        source_id:
-          type: string
-          description: Color's identifier in the design tool
-        r:
-          type: integer
-          description: Red component of the color
-        g:
-          type: integer
-          description: Green component of the color
-        b:
-          type: integer
-          description: Blue component of the color
-        a:
-          type: number
-          description: Alpha component of the color
-      example:
-        $ref: '#/components/examples/colorData'
     VariableMode:
       title: Variable Mode
       type: object
@@ -515,6 +345,176 @@ components:
           description: Mode's identifier in the design tool
       example:
         $ref: '#/components/examples/variableMode'
+  responses:
+    projectNotFound:
+      description: Project not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project not found response:
+              value:
+                message: Project not found
+    styleguideArchived:
+      description: Styleguide archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide archived response:
+              value:
+                message: Styleguide is archived
+    styleguideNotFound:
+      description: Styleguide not found response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Styleguide not found response:
+              value:
+                message: Styleguide not found
+    projectArchived:
+      description: Project archived response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            Project archived response:
+              value:
+                message: Project is archived
+  examples:
+    resourceSourceForProject:
+      summary: Source for Project
+      value:
+        project:
+          $ref: '#/components/examples/resourceProjectSource/value'
+    resourceStyleguideSource:
+      summary: Source Styleguide
+      value:
+        id: 5db981be9df2b3e1bfa19ef2
+        name: Discovery 1
+        platform: web
+        parent:
+          id: 5db981be9df2b3e1bfa19ef2
+    variableValue:
+      summary: Variable value
+      value:
+        mode_id: 666062f07fe9b31970400138
+        type: color
+        color:
+          r: 0
+          g: 0
+          b: 0
+          a: 1
+    variable:
+      summary: Variable
+      value:
+        id: 666062f07fe9b3197040013e
+        name: Black
+        source_id: d36cffd7c2da067c567ecc4ece9ad5fafff6ec7c
+        values:
+        - $ref: '#/components/examples/variableValue/value'
+    variableMode:
+      summary: Variable Mode
+      value:
+        id: 666062f07fe9b31970400138
+        name: Mode 1
+        mode_id: 4140
+    variableGroup:
+      summary: Variable Group
+      value:
+        id: 666062f07fe9b31970400139
+        name: default
+        variables:
+        - $ref: '#/components/examples/variable/value'
+    variableCollection:
+      summary: Variable Collection
+      value:
+        id: 6662b9998f1d57de4566e868
+        created: 1717746073
+        name: Fundamentals
+        source_id: 4ba9866092495c104742f0959edbaa8bfa35e483
+        modes:
+          $ref: '#/components/examples/variableMode'
+        groups:
+          $ref: '#/components/examples/variableGroup'
+    resourceProjectSource:
+      summary: Source Project
+      value:
+        id: 5db81e73e1e36ee19f138c1a
+        name: HAL 9000
+        platform: web
+        linked_styleguide:
+          id: 5db981be9df2b3e1bfa19ef2
+    colorData:
+      summary: Color Data
+      value:
+        source_id: 0BEBFEB3-A107-4D1D-A3B0-77D1FBD35F01
+        r: 143
+        g: 152
+        b: 5
+        a: 1
+    error:
+      summary: Error
+      value:
+        message: Project is not found
+    entityReference:
+      summary: Object Reference
+      value:
+        id: 5dbad85a76ea51c1f35b6f69
+    resourceSourceForStyleguide:
+      summary: Source for Styleguide
+      value:
+        styleguide:
+          $ref: '#/components/examples/resourceStyleguideSource/value'
+  parameters:
+    limit:
+      name: limit
+      in: query
+      description: Pagination limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 30
+    offset:
+      name: offset
+      in: query
+      description: Pagination offset
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    project_id:
+      name: project_id
+      in: path
+      description: Project id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
+    include_linked_styleguides:
+      name: include_linked_styleguides
+      in: query
+      description: Whether to include linked styleguides or not
+      required: false
+      schema:
+        type: boolean
+        default: false
+    styleguide_id:
+      name: styleguide_id
+      in: path
+      description: Styleguide id
+      required: true
+      schema:
+        type: string
+        pattern: /^[0-9a-f]{24}$/i
   securitySchemes:
     OAuth2:
       type: oauth2
